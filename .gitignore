@@ -1,0 +1,25 @@
+
+# Environment variables and secrets
+.env
+.env.*
+
+# Python virtual environments
+venv/
+.venv/
+mcp-env/
+
+# Test files and folders
+test/
+tests/
+test
+*.test.py
+
+# Older project version
+v0.1/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# macOS system files
+.DS_Store
