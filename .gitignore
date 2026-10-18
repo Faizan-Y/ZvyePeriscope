@@ -15,7 +15,9 @@ test
 *.test.py
 
 # Older project version
-v0.1/
+Reference/
+*
+
 
 # Python cache files
 __pycache__/
@@ -25,3 +27,4 @@ __pycache__/
 .DS_Store
 
 README.md
+

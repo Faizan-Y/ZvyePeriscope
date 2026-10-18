@@ -3,6 +3,8 @@
 Confirm the actual signatures in the local project before live sending.
 """
 from __future__ import annotations
+
+import os
 from typing import Any
 
 ALLOWED_LOG_STATUSES = {"QUEUED", "SENT", "DELIVERED", "READ", "FAILED"}
@@ -10,6 +12,18 @@ ALLOWED_LOG_STATUSES = {"QUEUED", "SENT", "DELIVERED", "READ", "FAILED"}
 
 def build_client():
     from Periskope import Periskope  # type: ignore[import-not-found]
+
+    # Fail fast in live mode instead of discovering a missing credential one
+    # failed send at a time. build_client is only called when not dry-run.
+    missing = [
+        name
+        for name in ("PERISKOPE_API_KEY", "PERISKOPE_PHONE")
+        if not (os.getenv(name) or "").strip()
+    ]
+    if missing:
+        raise RuntimeError(
+            "Live sending requires these environment variables: " + ", ".join(missing)
+        )
     return Periskope()
 
 

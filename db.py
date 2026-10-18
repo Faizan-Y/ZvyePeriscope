@@ -29,6 +29,32 @@ def fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
         return list(conn.execute(sql, params).fetchall())
 
 
+def fetch_attention_rows() -> list[dict[str, Any]]:
+    """Stale scheduler PENDING rows and recent FAILED rows, for the attention report.
+
+    Reads only existing message_logs columns; no schema change. A stale PENDING
+    row usually means the process died between logging and sending; a FAILED
+    row was attempted once and is not retried automatically.
+    """
+    sql = """
+        SELECT message_log_id, member_id, group_id, schedule_id, template_id,
+               status, error_message, scheduled_at, created_at
+        FROM message_logs
+        WHERE (
+                status = 'PENDING'
+                AND schedule_id IS NOT NULL
+                AND created_at < CURRENT_TIMESTAMP - INTERVAL '5 minutes'
+              )
+           OR (
+                status = 'FAILED'
+                AND created_at > CURRENT_TIMESTAMP - INTERVAL '24 hours'
+              )
+        ORDER BY created_at
+        LIMIT 50
+    """
+    return fetch_all(sql)
+
+
 def create_pending_log(candidate: dict[str, Any], content: str) -> int | None:
     """Create one log row per schedule + group + scheduled occurrence.
 

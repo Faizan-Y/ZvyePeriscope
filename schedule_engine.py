@@ -86,10 +86,20 @@ def due_occurrences(
     member: dict[str, Any],
     now_local: datetime,
     grace_minutes: int,
+    catchup_minutes: int = 0,
 ) -> list[datetime]:
-    """Find occurrences in the recent grace window and not later than now."""
+    """Find occurrences in the lookback window and not later than now.
+
+    The lookback is max(grace, catch-up). The grace window covers normal poll
+    jitter; the catch-up window (CATCHUP_MINUTES, default 24h in scheduler.py)
+    re-picks occurrences missed while the scheduler was down. Live sends are
+    deduplicated in message_logs, so occurrences that already went out are
+    skipped there. HOURLY schedules catch up only the most recent missed slot:
+    back-filling every missed hour would burst many hydration nudges at once.
+    """
     now = now_local.replace(second=0, microsecond=0)
-    earliest = now - timedelta(minutes=max(0, grace_minutes))
+    lookback = max(max(0, grace_minutes), max(0, catchup_minutes))
+    earliest = now - timedelta(minutes=lookback)
     result: list[datetime] = []
     day = earliest.date()
     while day <= now.date():
@@ -97,7 +107,10 @@ def due_occurrences(
             if earliest <= occurrence <= now:
                 result.append(occurrence)
         day += timedelta(days=1)
-    return sorted(set(result))
+    result = sorted(set(result))
+    if str(schedule.get("schedule_type", "DAILY")).upper() == "HOURLY":
+        return result[-1:]
+    return result
 
 
 def schedule_matches_member(schedule: dict[str, Any], member: dict[str, Any]) -> bool:
