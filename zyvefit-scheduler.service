@@ -1,0 +1,44 @@
+# Zyvefit outgoing scheduler - systemd unit for a Linux server (for example
+# a DigitalOcean droplet).
+#
+# Install:
+#   sudo cp zyvefit-scheduler.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now zyvefit-scheduler
+#
+# Adjust User=/Group= and the /opt/zyvefit paths to your deployment. The app
+# directory must contain scheduler.py, db.py, schedule_engine.py,
+# periskope_adapter.py, Periskope.py, tests/ and .env; the scheduler reads
+# .env from WorkingDirectory via python-dotenv, and writes its rotating log
+# to logs/scheduler.log next to scheduler.py.
+#
+# STOP_SENDS brake: create /opt/zyvefit/STOP_SENDS to halt live sends within
+# one poll; remove it to resume. Remove the file before a planned stop if
+# you do not want the restart catch-up pass to re-pick recent occurrences.
+
+[Unit]
+Description=Zyvefit WhatsApp outgoing scheduler
+After=network-online.target
+Wants=network-online.target
+# Uncomment only for a LOCAL PostgreSQL server (not needed for DigitalOcean
+# Managed PostgreSQL):
+#After=postgresql.service
+
+[Service]
+Type=simple
+User=zyvefit
+Group=zyvefit
+WorkingDirectory=/opt/zyvefit
+ExecStart=/opt/zyvefit/venv/bin/python scheduler.py --send
+Restart=always
+RestartSec=10
+# SIGINT lets the scheduler log its clean shutdown line.
+KillSignal=SIGINT
+TimeoutStopSec=30
+# journald captures stdout/stderr; the scheduler also rotates logs/scheduler.log.
+StandardOutput=journal
+StandardError=journal
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

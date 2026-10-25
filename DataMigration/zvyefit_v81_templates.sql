@@ -383,6 +383,13 @@ CREATE INDEX idx_message_logs_status
 CREATE INDEX idx_message_logs_created_at
     ON message_logs(created_at);
 
+-- One logical send per schedule + group + recipient + occurrence: hardens the
+-- scheduler's dedup key at the database level. NULLS NOT DISTINCT makes NULL
+-- recipient/time rows collide as well (PostgreSQL 15+).
+CREATE UNIQUE INDEX uq_message_logs_send
+    ON message_logs (schedule_id, group_id, member_id, scheduled_at)
+    NULLS NOT DISTINCT;
+
 
 -- INCOMING MESSAGES
 

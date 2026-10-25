@@ -16,7 +16,6 @@ test
 
 # Older project version
 Reference/
-*
 
 
 # Python cache files
@@ -27,4 +26,6 @@ __pycache__/
 .DS_Store
 
 README.md
+
+LIVE_SEND_SETUP.md
 

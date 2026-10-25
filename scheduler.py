@@ -1,7 +1,5 @@
-"""Outgoing scheduled-message scheduler using only the approved Zyvefit schema.
-
+"""
 Default mode is dry-run. Use --send only after checking the preview and the
-Periskope adapter against the local Periskope.py implementation.
 """
 from __future__ import annotations
 
@@ -17,6 +15,7 @@ from datetime import datetime
 from typing import Any
 from zoneinfo import ZoneInfo
 
+import requests
 from dotenv import load_dotenv
 
 from db import create_pending_log, fetch_all, fetch_attention_rows, get_database_url, update_log_after_send
@@ -29,6 +28,16 @@ logger = logging.getLogger(__name__)
 # Catch-up is a startup recovery pass: the first completed cycle re-picks
 # occurrences missed while the scheduler was down. See run_one_cycle.
 _catchup_pending = True
+
+# Occurrences already processed by this process run, keyed identically to the
+# message_logs dedup key (schedule + group + member + time). Later cycles skip
+# them without another database round-trip; the DB check stays authoritative
+# for restarts and concurrent processes. See run_one_cycle.
+_attempted_candidates: set[tuple[Any, ...]] = set()
+
+# Consecutive heartbeat ping failures, for state-change logging only. The
+# dead-man-switch service (HEARTBEAT_URL) alerts when pings stop arriving.
+_heartbeat_failures = 0
 
 SCHEDULES_SQL = """
     SELECT
@@ -86,11 +95,12 @@ def build_candidates(
     force_due_for_preview: bool = False,
     catchup_minutes: int = 0,
 ) -> list[dict[str, Any]]:
-    """Build one send per schedule + group + occurrence.
+    """Build one send per schedule + group + member + occurrence.
 
-    Because the approved schema has no delivery_mode/group_role columns, eligible
-    members mapped to the same group are combined into one message for the same
-    schedule occurrence. Every active group_members relationship is a destination.
+    Each member receives their own message in the destination group: a personal
+    greeting, their own @mention tag, and their own message_logs row. This keeps
+    per-member meal-plan guidance possible when a group holds multiple members
+    of the same tier. Every active group_members relationship is a destination.
     """
     destinations_by_member: dict[int, list[dict[str, Any]]] = defaultdict(list)
     for dest in destinations:
@@ -119,7 +129,7 @@ def build_candidates(
 
             for occurrence in occurrences:
                 for dest in member_destinations:
-                    key = (schedule["schedule_id"], dest["group_id"], occurrence)
+                    key = (schedule["schedule_id"], dest["group_id"], member["member_id"], occurrence)
                     if key not in grouped:
                         grouped[key] = {
                             "schedule": schedule,
@@ -136,8 +146,8 @@ def build_candidates(
     candidates = list(grouped.values())
     for candidate in candidates:
         candidate["members"].sort(key=lambda m: m["member_id"])
-        # message_logs.member_id is singular. Save the first eligible member as
-        # the representative member; the group/schedule/time identify the send.
+        # Each candidate holds exactly one member, so message_logs.member_id is
+        # always the actual recipient of this send.
         candidate["log_member_id"] = candidate["members"][0]["member_id"] if candidate["members"] else None
     candidates.sort(key=lambda c: (c["scheduled_at"], c["schedule"]["schedule_id"], c["group_id"]))
     return candidates
@@ -282,13 +292,15 @@ def kill_switch_tripped(directory: str | None = None) -> bool:
     """True when live sends must halt for this cycle.
 
     Halt conditions: SENDS_ENABLED=false in the environment, or a STOP_SENDS
-    file in the working directory (or `directory`). Checked every live cycle,
-    so sends stop within one poll without restarting the process. Dry runs are
-    unaffected.
+    file next to scheduler.py (or `directory`). Script-relative so the brake
+    works under systemd regardless of WorkingDirectory. Checked every live
+    cycle, so sends stop within one poll without restarting the process. Dry
+    runs are unaffected.
     """
     if os.getenv("SENDS_ENABLED", "true").strip().lower() in {"false", "0", "no", "off"}:
         return True
-    stop_path = os.path.join(directory or os.getcwd(), "STOP_SENDS")
+    base = directory or str(Path(__file__).resolve().parent)
+    stop_path = str(Path(base) / "STOP_SENDS")
     return os.path.exists(stop_path)
 
 
@@ -305,6 +317,46 @@ def resolve_send_cap(cli_max_sends: int | None = None) -> int:
     except ValueError:
         return 25
     return max(0, value)
+
+
+def send_heartbeat(url: str | None) -> bool | None:
+    """Ping the dead-man-switch once; never raises, never blocks long.
+
+    Returns None when no HEARTBEAT_URL is configured, True when the ping
+    succeeded, and False when it failed. The dead-man-switch service (for
+    example Healthchecks.io) alerts when pings stop arriving, which covers a
+    dead process, a crashed server, and a database outage between cycles.
+    """
+    if not (url or "").strip():
+        return None
+    try:
+        response = requests.get(url.strip(), timeout=5)
+        return 200 <= response.status_code < 300
+    except Exception:
+        return False
+
+
+def report_heartbeat() -> None:
+    """Ping the dead-man-switch once per completed cycle, if configured.
+
+    Failures are logged only on state changes (first failure, every 100th,
+    and recovery) so a broken URL cannot spam the log once per cycle.
+    """
+    global _heartbeat_failures
+    result = send_heartbeat(os.getenv("HEARTBEAT_URL"))
+    if result is None:
+        return
+    if result:
+        if _heartbeat_failures:
+            logger.info(f"heartbeat ping recovered after {_heartbeat_failures} failure(s)")
+        _heartbeat_failures = 0
+        return
+    _heartbeat_failures += 1
+    if _heartbeat_failures == 1 or _heartbeat_failures % 100 == 0:
+        logger.warning(
+            f"heartbeat ping failed ({_heartbeat_failures} consecutive failure(s)); "
+            "the dead-man-switch alerts when pings stop arriving"
+        )
 
 
 def report_needs_attention() -> None:
@@ -331,6 +383,22 @@ def report_needs_attention() -> None:
             f"scheduled_at={row['scheduled_at']} created_at={row['created_at']}"
             + (f" error={error}" if error else "")
         )
+
+
+def candidate_attempt_key(candidate: dict[str, Any]) -> tuple[Any, ...]:
+    """Stable identity of one send attempt: schedule + group + member + time.
+
+    Matches the message_logs dedup quadruple used by create_pending_log, so an
+    occurrence already processed in this process run is skipped without
+    another database round-trip. Restarts stay safe: the database check in
+    create_pending_log remains the authoritative guard.
+    """
+    return (
+        candidate["schedule"]["schedule_id"],
+        candidate["group_id"],
+        candidate["log_member_id"],
+        candidate["scheduled_at"],
+    )
 
 
 def run_one_cycle(
@@ -361,6 +429,11 @@ def run_one_cycle(
             if any(str(m.get("member_code") or "").casefold() == wanted for m in c["members"])
         ]
 
+    # Skip occurrences this process already handled (any outcome), so the grace
+    # window no longer re-attempts them every cycle. Cap-deferred and
+    # kill-switched candidates are not marked and retry on later cycles.
+    candidates = [c for c in candidates if candidate_attempt_key(c) not in _attempted_candidates]
+
     logger.info(
         f"\nCycle at {now.isoformat(timespec='seconds')}: "
         f"{len(schedules)} active schedules, {len(members)} active tier-assigned members, "
@@ -390,6 +463,9 @@ def run_one_cycle(
             )
             cap_deferred = True
             break
+        # Mark as attempted before processing: this occurrence is considered
+        # exactly once per process run; the DB check stays the real guard.
+        _attempted_candidates.add(candidate_attempt_key(candidate))
         if process_candidate(candidate, dry_run, client):
             if sends_left is not None:
                 sends_left -= 1
@@ -400,6 +476,9 @@ def run_one_cycle(
         # kill switch or the send cap deferring work, so recovery is never
         # dropped by a partial cycle.
         _catchup_pending = False
+    # A completed cycle (even one that deferred or halted sends) means the
+    # process and database are both alive: ping the dead-man-switch.
+    report_heartbeat()
     return len(candidates)
 
 
@@ -479,17 +558,30 @@ def main() -> int:
         )
         if not dry_run:
             logger.info(
-                "Kill switch: create a STOP_SENDS file here (or set SENDS_ENABLED=false) "
-                "to halt live sends within one poll."
+                "Kill switch: create a STOP_SENDS file next to scheduler.py "
+                "(or set SENDS_ENABLED=false) to halt live sends within one poll."
             )
+        cycle_failures = 0
         while True:
             try:
                 run_one_cycle(
                     dry_run, client, grace_minutes, args.schedule_id, args.member_code,
                     args.force_due_preview, catchup_minutes, send_cap,
                 )
+                if cycle_failures:
+                    logger.info(f"cycle recovered after {cycle_failures} failed cycle(s)")
+                    cycle_failures = 0
             except Exception as exc:
-                logger.error(f"[CYCLE ERROR] {type(exc).__name__}: {exc}")
+                cycle_failures += 1
+                # Log the first failure and then every 10th, so a database
+                # outage cannot spam the log once per poll; the heartbeat
+                # dead-man-switch is what alerts during a long outage.
+                if cycle_failures == 1 or cycle_failures % 10 == 0:
+                    logger.error(
+                        f"[CYCLE ERROR] {type(exc).__name__}: {exc} "
+                        f"({cycle_failures} consecutive failed cycle(s); "
+                        "logging every 10th until recovered)"
+                    )
             if args.once:
                 return 0
             time_module.sleep(poll_seconds)

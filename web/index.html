@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f4">
+  <meta name="description" content="Zyvefit nutritionist workspace for media, templates, and member communications.">
+  <title>Zyvefit Studio — Nutritionist Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H7l-3.5 2v-5A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8 11h8M8 8h5"/></symbol>
+    <symbol id="i-library" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5Z"/><path d="M4 5.5v16M8 7h8M8 11h8"/></symbol>
+    <symbol id="i-template" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></symbol>
+    <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M8 14h3M8 17h6"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m-4 4 4-4 4 4"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></symbol>
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M13 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10Z"/><path d="M13 3v7h7M8 14h8M8 17h6"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="m21 15-5-5L5 20"/></symbol>
+    <symbol id="i-audio" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="m16 10 5-3v10l-5-3z"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.1 0l2.1-2.1a5 5 0 0 0-7.1-7.1l-1.2 1.2"/><path d="M14 11a5 5 0 0 0-7.1 0l-2.1 2.1a5 5 0 0 0 7.1 7.1l1.2-1.2"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5h.01"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M5 7l1 14h12l1-14M9 7V4h6v3"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="m15 5 4 4M4 20l4-.8L19.2 8a2.8 2.8 0 0 0-4-4L4 15.2 4 20Z"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8Z"/><path d="m19 15 .8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8Z"/></symbol>
+  </svg>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Workspace navigation">
+      <a class="brand" href="#overview" aria-label="Zyvefit Studio overview" data-go="overview">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="assets/zyvefit-logo.png" alt="">
+        </span>
+        <span class="brand-copy"><strong>zyvefit</strong><small>NUTRITION STUDIO</small></span>
+      </a>
+      <div class="workspace-picker">
+        <span class="workspace-mark">Z</span>
+        <span class="workspace-copy"><strong>Zyvefit Nutrition</strong><small>Workspace</small></span>
+        <svg class="icon tiny"><use href="#i-chevron"/></svg>
+      </div>
+      <div class="nav-heading">WORKSPACE</div>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-item active" data-page="overview"><svg class="icon"><use href="#i-grid"/></svg><span>Overview</span></button>
+        <button class="nav-item" data-page="media"><svg class="icon"><use href="#i-library"/></svg><span>Media library</span><span class="nav-count" id="navMediaCount">0</span></button>
+        <button class="nav-item" data-page="templates"><svg class="icon"><use href="#i-template"/></svg><span>Templates</span><span class="nav-count" id="navTemplateCount">0</span></button>
+        <button class="nav-item" data-page="database"><svg class="icon"><use href="#i-database"/></svg><span>Database records</span></button>
+        <button class="nav-item" data-page="compose"><svg class="icon"><use href="#i-message"/></svg><span>Compose message</span></button>
+        <button class="nav-item" data-page="outbox"><svg class="icon"><use href="#i-calendar"/></svg><span>Outbox & schedule</span><span class="nav-count" id="navOutboxCount">0</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sidebar-help">
+          <div class="help-symbol"><svg class="icon"><use href="#i-info"/></svg></div>
+          <strong>Before you send</strong>
+          <p>Double-check the audience, content, and delivery time.</p>
+          <button class="text-link" id="openGuide">Read the quick guide <svg class="icon tiny"><use href="#i-arrow-up-right"/></svg></button>
+        </div>
+        <div class="profile-row">
+          <div class="profile-avatar" aria-hidden="true">NZ</div>
+          <div class="profile-copy"><strong>Nutrition team</strong><small>Local workspace</small></div>
+          <span class="online-dot" title="Local console"></span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Open navigation"><span></span><span></span><span></span></button>
+        <div class="breadcrumbs"><span>Workspace</span><span class="breadcrumb-slash">/</span><strong id="breadcrumbCurrent">Overview</strong></div>
+        <div class="topbar-actions">
+          <span class="demo-pill" id="connectionStatus" title="Application status"><span class="demo-dot"></span> CONNECTING TO DATABASE</span>
+          <button class="topbar-help" id="topHelp"><svg class="icon"><use href="#i-info"/></svg><span>How it works</span></button>
+          <div class="top-avatar" aria-hidden="true">NZ</div>
+        </div>
+      </header>
+
+      <div class="content-wrap">
+        <section class="page active-page" id="page-overview" aria-labelledby="overviewTitle">
+          <div class="page-heading heading-row">
+            <div><div class="eyebrow" id="todayLabel">YOUR WORKSPACE</div><h1 id="overviewTitle">Make every message count<span class="heading-period">.</span></h1><p class="page-subtitle">Prepare helpful, consistent communication for every Zyvefit member.</p></div>
+            <button class="button button-primary" data-go="compose"><svg class="icon"><use href="#i-plus"/></svg> Create a message</button>
+          </div>
+          <div class="demo-banner" role="status">
+            <span class="banner-icon"><svg class="icon"><use href="#i-info"/></svg></span>
+            <div class="banner-copy"><strong id="connectionBannerTitle">Connecting to the local backend</strong><p id="connectionBannerText">Checking the database connection…</p></div>
+            <button class="banner-link" id="bannerDetails">What does this mean?</button>
+          </div>
+
+          <div class="stats-grid" aria-label="Workspace summary">
+            <article class="stat-card"><div class="stat-label-row"><span class="stat-icon icon-sage"><svg class="icon"><use href="#i-library"/></svg></span><span class="stat-context">Library</span></div><div class="stat-number" id="statAssets">0</div><div class="stat-name">Media assets</div><div class="stat-foot">Files and hosted links</div></article>
+            <article class="stat-card"><div class="stat-label-row"><span class="stat-icon icon-lilac"><svg class="icon"><use href="#i-template"/></svg></span><span class="stat-context">Reusable</span></div><div class="stat-number" id="statTemplates">0</div><div class="stat-name">Message templates</div><div class="stat-foot">Ready to personalise</div></article>
+            <article class="stat-card"><div class="stat-label-row"><span class="stat-icon icon-peach"><svg class="icon"><use href="#i-calendar"/></svg></span><span class="stat-context">Planning</span></div><div class="stat-number" id="statScheduled">0</div><div class="stat-name">Planned messages</div><div class="stat-foot">Drafts and schedule previews</div></article>
+            <article class="stat-card"><div class="stat-label-row"><span class="stat-icon icon-blue"><svg class="icon"><use href="#i-check"/></svg></span><span class="stat-context">Connection</span></div><div class="stat-number stat-word" id="statWhatsapp">Checking…</div><div class="stat-name">WhatsApp delivery</div><div class="stat-foot">Allowlisted manual sends</div></article>
+          </div>
+
+          <div class="overview-grid">
+            <section class="surface workflow-surface">
+              <div class="surface-heading"><div><span class="section-kicker">THREE SIMPLE WORKFLOWS</span><h2>What would you like to do?</h2><p>Everything starts with the content you want to share.</p></div></div>
+              <div class="workflow-list">
+                <button class="workflow-row" data-go="media"><span class="workflow-number">01</span><span class="workflow-icon icon-sage"><svg class="icon"><use href="#i-upload"/></svg></span><span class="workflow-copy"><strong>Add media to your library</strong><small>Upload a file or register a hosted URL. Set whether it's shared, tier-specific, or member-specific.</small><span class="workflow-cta">Open media library <svg class="icon tiny"><use href="#i-arrow-up-right"/></svg></span></span><span class="workflow-arrow"><svg class="icon"><use href="#i-arrow-up-right"/></svg></span></button>
+                <button class="workflow-row" data-go="templates"><span class="workflow-number">02</span><span class="workflow-icon icon-lilac"><svg class="icon"><use href="#i-template"/></svg></span><span class="workflow-copy"><strong>Create a reusable template</strong><small>Save approved copy, a message type, and an optional media attachment.</small><span class="workflow-cta">Manage templates <svg class="icon tiny"><use href="#i-arrow-up-right"/></svg></span></span><span class="workflow-arrow"><svg class="icon"><use href="#i-arrow-up-right"/></svg></span></button>
+                <button class="workflow-row" data-go="compose"><span class="workflow-number">03</span><span class="workflow-icon icon-peach"><svg class="icon"><use href="#i-send"/></svg></span><span class="workflow-copy"><strong>Send now or plan for later</strong><small>Choose the audience, review the message preview, and add a draft or scheduled item.</small><span class="workflow-cta">Open message composer <svg class="icon tiny"><use href="#i-arrow-up-right"/></svg></span></span><span class="workflow-arrow"><svg class="icon"><use href="#i-arrow-up-right"/></svg></span></button>
+              </div>
+            </section>
+            <section class="surface upcoming-surface">
+              <div class="surface-heading surface-heading-inline"><div><span class="section-kicker">YOUR PLAN</span><h2>Coming up</h2><p>Scheduled items are local previews. Automated sends run through the scheduler.</p></div><button class="text-link" data-go="outbox">View outbox <svg class="icon tiny"><use href="#i-arrow-up-right"/></svg></button></div>
+              <div id="overviewUpcoming" class="upcoming-list"></div>
+              <div class="empty-inline" id="overviewUpcomingEmpty"><span class="empty-inline-icon"><svg class="icon"><use href="#i-calendar"/></svg></span><strong>No messages planned yet</strong><p>Create a draft or scheduled message and it will appear here.</p><button class="button button-secondary button-small" data-go="compose">Plan a message</button></div>
+            </section>
+          </div>
+          <section class="surface recent-surface">
+            <div class="surface-heading surface-heading-inline"><div><span class="section-kicker">RECENTLY ADDED</span><h2>Your media library</h2><p>Assets loaded from your database-backed media library when connected.</p></div><button class="text-link" data-go="media">Browse media <svg class="icon tiny"><use href="#i-arrow-up-right"/></svg></button></div>
+            <div class="recent-assets" id="overviewAssets"></div>
+            <div class="empty-inline empty-inline-horizontal" id="overviewAssetsEmpty"><span class="empty-inline-icon"><svg class="icon"><use href="#i-library"/></svg></span><div><strong>Your library starts here</strong><p>Add a file preview or link to hosted media to get started.</p></div><button class="button button-secondary button-small" data-go="media">Add media</button></div>
+          </section>
+        </section>
+
+        <section class="page" id="page-database" aria-labelledby="databaseTitle">
+          <div class="page-heading heading-row">
+            <div><div class="eyebrow">POSTGRESQL · READ-ONLY VIEW</div><h1 id="databaseTitle">Database records</h1><p class="page-subtitle">Inspect the actual rows returned by your local PostgreSQL database. This page never edits database records.</p></div>
+            <button class="button button-primary" id="refreshDbRecords"><svg class="icon"><use href="#i-clock"/></svg> Refresh database</button>
+          </div>
+          <div class="demo-banner db-banner" role="status"><span class="banner-icon"><svg class="icon"><use href="#i-database"/></svg></span><div class="banner-copy"><strong id="dbPageStatus">Checking database records…</strong><p id="dbPageDetails">Loading actual table data from the local backend.</p></div></div>
+          <div class="stats-grid db-summary-grid" id="dbSummaryCards" aria-label="Database record summary"></div>
+          <section class="surface db-browser-surface">
+            <div class="surface-heading surface-heading-inline db-browser-heading"><div><span class="section-kicker">TABLE INSPECTOR</span><h2 id="dbSelectedTableTitle">Choose a table</h2><p id="dbSelectedTableInfo">Counts and up to 100 rows are shown per table.</p></div><div class="db-table-picker"><label for="dbTableSelect">Database table</label><select id="dbTableSelect"><option value="tiers">Tiers</option></select></div></div>
+            <div class="db-records-meta" id="dbRecordsMeta">Waiting for database connection…</div>
+            <div class="db-table-wrap" id="dbTableWrap"><table class="db-data-table"><thead id="dbTableHead"></thead><tbody id="dbTableBody"></tbody></table></div>
+            <div class="db-empty-state" id="dbEmptyState" hidden><span class="empty-state-icon"><svg class="icon"><use href="#i-database"/></svg></span><strong id="dbEmptyTitle">No rows to display</strong><p id="dbEmptyMessage">Select a database table to inspect its rows.</p></div>
+            <p class="db-readonly-note"><svg class="icon"><use href="#i-shield"/></svg><span>Read-only viewer. It omits member phone numbers, WhatsApp chat IDs, and server file paths. Up to 100 rows per table are displayed. No WhatsApp messages are sent.</span></p>
+          </section>
+        </section>
+
+        <section class="page" id="page-media" aria-labelledby="mediaTitle">
+          <div class="page-heading heading-row">
+            <div><div class="eyebrow">CONTENT LIBRARY</div><h1 id="mediaTitle">Media library</h1><p class="page-subtitle">Keep approved PDFs, images, audio, and videos in one place.</p></div>
+            <div class="heading-actions"><button class="button button-secondary" id="addHostedUrl"><svg class="icon"><use href="#i-link"/></svg> Add a hosted URL</button><button class="button button-primary" id="uploadTopBtn"><svg class="icon"><use href="#i-upload"/></svg> Upload files</button></div>
+          </div>
+          <div class="subtle-note"><svg class="icon"><use href="#i-info"/></svg><span><strong>Storage:</strong> uploaded files are saved on this machine and registered in PostgreSQL with a template. Live WhatsApp sends use allowlisted recipients only.</span></div>
+          <div class="media-toolbar surface">
+            <div class="search-field"><svg class="icon"><use href="#i-search"/></svg><input id="mediaSearch" type="search" placeholder="Search by name or filename" aria-label="Search media"></div>
+            <div class="toolbar-selects"><label class="sr-only" for="mediaTypeFilter">Type</label><select id="mediaTypeFilter"><option value="all">All file types</option><option>Image</option><option>Audio</option><option>Video</option><option>PDF</option><option>Document</option><option>Location</option></select><label class="sr-only" for="mediaScopeFilter">Audience scope</label><select id="mediaScopeFilter"><option value="all">All audiences</option><option>Shared</option><option>Foundation</option><option>Pro</option><option>Max</option><option>Ultra</option><option>Member-specific</option></select><button class="button button-quiet button-small" id="clearMediaFilters">Clear filters</button></div>
+          </div>
+          <div class="dropzone" id="dropzone" role="group" aria-label="File upload area">
+            <input id="fileInput" type="file" multiple accept=".png,.jpg,.jpeg,.webp,.gif,.mp3,.wav,.m4a,.aac,.ogg,.opus,.mp4,.mov,.webm,.m4v,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv" hidden>
+            <span class="dropzone-icon"><svg class="icon"><use href="#i-upload"/></svg></span><div><strong>Drop files here, or <span>browse your device</span></strong><p>Images, PDFs, documents, audio and video · 25 MB per file</p></div><button type="button" class="button button-secondary button-small" id="chooseFilesBtn">Choose files</button>
+          </div>
+          <div class="library-heading"><div><h2>All media <span class="count-pill" id="mediaResultCount">0</span></h2><p>Use audience scope to keep member-specific material from being reused accidentally.</p></div><div class="view-label"><span class="view-dot"></span> Browser preview</div></div>
+          <div class="media-grid" id="mediaGrid"></div>
+          <div class="empty-state" id="mediaEmpty" hidden><span class="empty-state-icon"><svg class="icon"><use href="#i-search"/></svg></span><h3>No media found</h3><p>Try a different search, clear the filters, or add an asset.</p><button class="button button-secondary" id="mediaEmptyAction">Add media</button></div>
+        </section>
+
+        <section class="page" id="page-templates" aria-labelledby="templatesTitle">
+          <div class="page-heading heading-row">
+            <div><div class="eyebrow">APPROVED CONTENT</div><h1 id="templatesTitle">Message templates</h1><p class="page-subtitle">Reusable copy helps the whole nutrition team communicate consistently.</p></div>
+            <button class="button button-primary" id="createTemplateBtn"><svg class="icon"><use href="#i-plus"/></svg> New template</button>
+          </div>
+          <div class="template-info-strip"><span class="template-info-icon"><svg class="icon"><use href="#i-sparkle"/></svg></span><div><strong>Personalise with supported placeholders</strong><p>Examples: <code>{{first_name}}</code> and <code>{{member_code}}</code>. The backend replaces supported placeholders before sending.</p></div></div>
+          <div class="media-toolbar surface">
+            <div class="search-field"><svg class="icon"><use href="#i-search"/></svg><input id="templateSearch" type="search" placeholder="Search templates by name or content" aria-label="Search templates"></div>
+            <div class="toolbar-selects"><label class="sr-only" for="templateTierFilter">Audience scope</label><select id="templateTierFilter"><option value="all">All scopes</option><option>Shared</option><option>Foundation</option><option>Pro</option><option>Max</option><option>Ultra</option><option>Member-specific</option></select><label class="sr-only" for="templateTypeFilter">Message type</label><select id="templateTypeFilter"><option value="all">All message types</option><option>Text</option><option>Image</option><option>Audio</option><option>Video</option><option>Document</option><option>Location</option></select><button class="button button-quiet button-small" id="clearTemplateFilters">Clear filters</button></div>
+          </div>
+          <div class="template-summary-row"><h2>All templates <span class="count-pill" id="templateResultCount">0</span></h2><span class="small-muted">Templates loaded from the connected database when available</span></div>
+          <div class="template-grid" id="templateGrid"></div>
+          <div class="empty-state" id="templateEmpty" hidden><span class="empty-state-icon"><svg class="icon"><use href="#i-template"/></svg></span><h3>No templates found</h3><p>Create a template or adjust your filters.</p><button class="button button-secondary" id="templateEmptyAction">Create a template</button></div>
+        </section>
+
+        <section class="page" id="page-compose" aria-labelledby="composeTitle">
+          <div class="page-heading heading-row">
+            <div><div class="eyebrow">MESSAGE WORKFLOW</div><h1 id="composeTitle">Compose a message</h1><p class="page-subtitle">Choose who should receive it, prepare the content, then pick a delivery plan.</p></div>
+            <span class="step-summary"><span class="step-summary-dot"></span> Drafting workspace</span>
+          </div>
+          <div class="compose-layout">
+            <form class="compose-form" id="composerForm" novalidate>
+              <section class="surface compose-section">
+                <div class="compose-section-heading"><span class="step-bubble">1</span><div><h2>Choose your audience</h2><p>Make sure the selected scope matches the content.</p></div></div>
+                <div class="audience-tabs" id="audienceTabs" role="group" aria-label="Audience type">
+                  <button type="button" class="audience-tab selected" data-audience="tier"><span class="audience-tab-icon">T</span><span><strong>A tier</strong><small>Broad audience</small></span></button>
+                  <button type="button" class="audience-tab" data-audience="member"><span class="audience-tab-icon">M</span><span><strong>One member</strong><small>Personal follow-up</small></span></button>
+                  <button type="button" class="audience-tab" data-audience="group"><span class="audience-tab-icon">G</span><span><strong>A group</strong><small>WhatsApp group</small></span></button>
+                </div>
+                <div class="field-grid audience-fields" id="tierFields">
+                  <div class="field"><label for="audienceTier">Tier <span class="required-mark">*</span></label><select id="audienceTier" required><option>Foundation</option><option>Pro</option><option>Max</option><option>Ultra</option></select><small>Loaded from the tiers table.</small></div>
+                  <div class="field"><label for="audiencePhase">Phase <span class="optional-label">Optional</span></label><select id="audiencePhase"><option value="all">All phases</option><option value="P1">P1</option><option value="P2">P2</option><option value="P3">P3</option></select><small>Can map to <code>members.phase_id</code>.</small></div>
+                </div>
+                <div class="field audience-fields" id="memberFields" hidden><label for="audienceMember">Member <span class="required-mark">*</span></label><select id="audienceMember"><option value="">Choose a member</option></select><small>Loaded from the members table.</small></div>
+                <div class="field audience-fields" id="groupFields" hidden><label for="audienceGroup">WhatsApp group <span class="required-mark">*</span></label><select id="audienceGroup"><option value="">Choose a group</option></select><small>Uses <code>whatsapp_groups</code> in the connected backend.</small></div>
+                <div class="audience-reassurance"><svg class="icon"><use href="#i-info"/></svg><span id="audienceHint">Tier messages may reach every eligible member in the selected tier. Review content before continuing.</span></div>
+              </section>
+
+              <section class="surface compose-section">
+                <div class="compose-section-heading"><span class="step-bubble">2</span><div><h2>Prepare the content</h2><p>Start from a template or write a one-off message.</p></div></div>
+                <div class="field"><label for="messageTitle">Internal message name <span class="optional-label">Optional</span></label><input type="text" id="messageTitle" maxlength="120" placeholder="e.g. Weekly meal plan reminder"><small>Only used to identify this item in the outbox.</small></div>
+                <div class="field"><label for="templateSelect">Start from a template <span class="optional-label">Optional</span></label><div class="select-with-action"><select id="templateSelect"><option value="">Write from scratch</option></select><button type="button" class="button button-secondary button-small" id="manageTemplatesFromComposer">Manage templates</button></div></div>
+                <div class="field"><label for="messageBody">Message text <span class="optional-label">Optional with media</span></label><textarea id="messageBody" rows="6" maxlength="4096" placeholder="Write a clear, supportive message…"></textarea><div class="field-footer"><span class="field-help">Keep it helpful, concise, and appropriate for the selected audience.</span><span class="char-count" id="charCount">0 / 4096</span></div></div>
+                <div class="token-row" aria-label="Insert placeholders"><span>Insert token</span><button type="button" class="token-button" data-token="{{first_name}}">First name</button><button type="button" class="token-button" data-token="{{member_code}}">Member code</button></div>
+                <div class="attachment-box">
+                  <div class="attachment-symbol"><svg class="icon"><use href="#i-library"/></svg></div><div class="attachment-copy"><strong id="attachedMediaTitle">No media attached</strong><small id="attachedMediaDescription">Attach one item from your library, or add a hosted URL in Media library.</small><span id="attachedMediaWarning" class="inline-warning" hidden></span></div><button type="button" class="button button-secondary button-small" id="attachMediaBtn">Choose media</button><button type="button" class="icon-button-small" id="removeMediaBtn" aria-label="Remove attached media" hidden><svg class="icon"><use href="#i-close"/></svg></button>
+                </div>
+              </section>
+
+              <section class="surface compose-section">
+                <div class="compose-section-heading"><span class="step-bubble">3</span><div><h2>Choose delivery</h2><p>Confirmed sends go to one allowlisted member or group via Periskope. Drafts and previews stay in this browser.</p></div></div>
+                <div class="delivery-options" id="deliveryOptions">
+                  <label class="delivery-card selected"><input type="radio" name="delivery" value="now" checked><span class="delivery-radio"></span><span class="delivery-icon"><svg class="icon"><use href="#i-send"/></svg></span><span class="delivery-copy"><strong>Send now</strong><small>Confirmed send to the selected recipient</small></span></label>
+                  <label class="delivery-card"><input type="radio" name="delivery" value="schedule"><span class="delivery-radio"></span><span class="delivery-icon"><svg class="icon"><use href="#i-clock"/></svg></span><span class="delivery-copy"><strong>Schedule</strong><small>Choose a future date and time</small></span></label>
+                  <label class="delivery-card"><input type="radio" name="delivery" value="draft"><span class="delivery-radio"></span><span class="delivery-icon"><svg class="icon"><use href="#i-file"/></svg></span><span class="delivery-copy"><strong>Save as draft</strong><small>Finish reviewing it later</small></span></label>
+                </div>
+                <div class="field-grid schedule-fields" id="scheduleFields" hidden>
+                  <div class="field"><label for="scheduleDate">Date <span class="required-mark">*</span></label><input type="date" id="scheduleDate"><small>Use a future date.</small></div>
+                  <div class="field"><label for="scheduleTime">Time <span class="required-mark">*</span></label><input type="time" id="scheduleTime" value="19:00"><small>Timezone: Asia/Kolkata (IST).</small></div>
+                </div>
+                <div class="compose-footer"><button type="button" class="button button-quiet" id="resetComposer">Clear form</button><button type="submit" class="button button-primary" id="submitComposer"><svg class="icon"><use href="#i-send"/></svg><span>Add to preview queue</span></button></div>
+                <p class="form-footnote"><svg class="icon"><use href="#i-shield"/></svg>Audience permissions, media access, scope checks, and duplicate-send protection are enforced by the backend.</p>
+              </section>
+            </form>
+
+            <aside class="preview-column">
+              <div class="preview-sticky">
+                <div class="preview-topline"><span class="live-preview-dot"></span><span>LIVE PREVIEW</span><span class="preview-demo-label">NOT SENT</span></div>
+                <div class="phone-frame">
+                  <div class="phone-header"><div class="phone-back">‹</div><div class="phone-avatar">Z</div><div class="phone-contact"><strong id="previewGroupName">Zyvefit · Foundation</strong><small>Preview conversation</small></div><span class="phone-menu">•••</span></div>
+                  <div class="chat-background"><div class="chat-date-pill">TODAY</div><div class="chat-message"><div class="chat-message-content" id="previewText">Your message preview will appear here as you type.</div><div class="preview-media-card" id="previewMediaCard" hidden><span class="preview-media-icon" id="previewMediaIcon"><svg class="icon"><use href="#i-file"/></svg></span><span class="preview-media-copy"><strong id="previewMediaName">Attachment</strong><small id="previewMediaMeta">Media attachment</small></span></div><div class="chat-time">Now <span class="preview-tick">✓✓</span></div></div></div>
+                  <div class="phone-input-mock"><span>Type a message</span><span class="phone-send"><svg class="icon"><use href="#i-send"/></svg></span></div>
+                </div>
+                <div class="preview-checklist"><strong><svg class="icon"><use href="#i-check"/></svg> Before adding to outbox</strong><div><span class="checkmark" id="checkAudience">•</span><span id="checkAudienceText">Choose the intended audience</span></div><div><span class="checkmark" id="checkContent">•</span><span id="checkContentText">Add text or attach media</span></div><div><span class="checkmark" id="checkDelivery">•</span><span id="checkDeliveryText">Choose a delivery plan</span></div></div>
+                <div class="preview-footnote"><svg class="icon"><use href="#i-info"/></svg><span>Template tokens are shown as written. The backend must replace placeholders and validate the final message.</span></div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="page" id="page-outbox" aria-labelledby="outboxTitle">
+          <div class="page-heading heading-row"><div><div class="eyebrow">MESSAGE CONTROL</div><h1 id="outboxTitle">Outbox & schedule</h1><p class="page-subtitle">Drafts and schedule previews are stored in this browser. Confirmed sends are logged in message_logs.</p></div><button class="button button-primary" data-go="compose"><svg class="icon"><use href="#i-plus"/></svg> New message</button></div>
+          <div class="outbox-stats"><div class="outbox-stat"><span>All items</span><strong id="outboxAllCount">0</strong></div><div class="outbox-stat"><span>Drafts</span><strong id="outboxDraftCount">0</strong></div><div class="outbox-stat"><span>Scheduled</span><strong id="outboxScheduledCount">0</strong></div><div class="outbox-stat"><span>Queue previews</span><strong id="outboxQueueCount">0</strong></div></div>
+          <div class="media-toolbar surface">
+            <div class="search-field"><svg class="icon"><use href="#i-search"/></svg><input id="outboxSearch" type="search" placeholder="Search by message name or audience" aria-label="Search outbox"></div>
+            <div class="toolbar-selects"><label class="sr-only" for="outboxStatusFilter">Status</label><select id="outboxStatusFilter"><option value="all">All statuses</option><option value="Draft">Draft</option><option value="Scheduled preview">Scheduled preview</option><option value="Queue preview">Queue preview</option><option value="Cancelled">Cancelled</option></select><button class="button button-quiet button-small" id="clearOutboxFilters">Clear filters</button></div>
+          </div>
+          <div class="outbox-list" id="outboxList"></div>
+          <div class="empty-state" id="outboxEmpty" hidden><span class="empty-state-icon"><svg class="icon"><use href="#i-calendar"/></svg></span><h3>Nothing in your outbox</h3><p>Draft a message, create a queue preview, or choose a future delivery time.</p><button class="button button-secondary">Create a message</button></div>
+        </section>
+      </div>
+      <footer class="app-footer"><span>ZYVEFIT STUDIO</span><span id="appFooterStatus">Connecting to the local backend…</span></footer>
+    </main>
+  </div>
+
+  <dialog class="app-dialog" id="appDialog" aria-labelledby="dialogTitle">
+    <div class="dialog-header"><div><div class="eyebrow" id="dialogEyebrow">WORKSPACE</div><h2 id="dialogTitle">Dialog title</h2></div><button class="icon-button" id="closeDialog" aria-label="Close dialog"><svg class="icon"><use href="#i-close"/></svg></button></div>
+    <div class="dialog-body" id="dialogBody"></div>
+    <div class="dialog-footer" id="dialogFooter"></div>
+  </dialog>
+  <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="false"></div>
+  <script src="app.js" defer></script>
+</body>
+</html>

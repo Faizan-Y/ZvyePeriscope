@@ -1,0 +1,1034 @@
+2026-10-18 06:44:51 | INFO     | __main__ | Zyvefit scheduler starting | mode=DRY RUN
+2026-10-18 06:44:51 | INFO     | __main__ | Timezone=Asia/Kolkata | poll=60s | grace=5m | catchup=60m | max_live_sends_per_cycle=25
+2026-10-18 06:44:51 | INFO     | __main__ | 
+Cycle at 2026-10-18T06:44:51+05:30: 38 active schedules, 3 active tier-assigned members, 2 candidate(s) [catch-up pass].
+2026-10-18 06:44:51 | INFO     | __main__ | [DRY RUN] 2026-10-18 06:44:00 | schedule=5 | task=WEIGHT_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_WAKE_UP_SCALE_READING
+2026-10-18 06:44:51 | INFO     | __main__ |   rendered message: Good morning, Faizan! 🌅 Sending you a warm, gentle start to your day. Let's take a loving check-in with your body—whenever you are ready, please share a quick photo of your scale's screen right here. We are right here with you!
+
+@919674671233
+2026-10-18 06:44:51 | INFO     | __main__ | [DRY RUN] 2026-10-18 06:44:00 | schedule=5 | task=WEIGHT_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_WAKE_UP_SCALE_READING
+2026-10-18 06:44:51 | INFO     | __main__ |   rendered message: Good morning, Faizan! 🌅 Sending you a warm, gentle start to your day. Let's take a loving check-in with your body—whenever you are ready, please share a quick photo of your scale's screen right here. We are right here with you!
+
+@919674671233
+2026-10-18 07:00:09 | INFO     | Periskope | Periskope initialized
+2026-10-18 07:00:09 | INFO     | __main__ | Zyvefit scheduler starting | mode=LIVE SEND
+2026-10-18 07:00:09 | INFO     | __main__ | Timezone=Asia/Kolkata | poll=60s | grace=5m | catchup=60m | max_live_sends_per_cycle=25
+2026-10-18 07:00:09 | INFO     | __main__ | Kill switch: create a STOP_SENDS file here (or set SENDS_ENABLED=false) to halt live sends within one poll.
+2026-10-18 07:00:09 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:00:09+05:30: 38 active schedules, 3 active tier-assigned members, 5 candidate(s) [catch-up pass].
+2026-10-18 07:00:09 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=5 | task=WEIGHT_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_WAKE_UP_SCALE_READING
+2026-10-18 07:00:10 | INFO     | __main__ | [PROVIDER QUEUED] log_id=128 periskope_message_id=3EB00A7430788D0544EB11
+2026-10-18 07:00:10 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=5 | task=WEIGHT_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_WAKE_UP_SCALE_READING
+2026-10-18 07:00:11 | INFO     | __main__ | [PROVIDER QUEUED] log_id=129 periskope_message_id=3EB0CFAD7E9DD29728F094
+2026-10-18 07:00:11 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=24 | task=WEIGHT_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_WAKE_UP_SCALE_READING
+2026-10-18 07:00:11 | INFO     | __main__ | [PROVIDER QUEUED] log_id=130 periskope_message_id=3EB0CD3C8EFEB14798C1A2
+2026-10-18 07:00:11 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=24 | task=WEIGHT_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_WAKE_UP_SCALE_READING
+2026-10-18 07:00:11 | INFO     | __main__ | [PROVIDER QUEUED] log_id=131 periskope_message_id=3EB005B0704E67FFCE8AF8
+2026-10-18 07:00:11 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=29 | task=WEIGHT_REMINDER | tier=Ultra | members=Ahad (TEST_AHAD) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=ULTRA_WAKE_UP_SCALE_READING
+2026-10-18 07:00:12 | INFO     | __main__ | [PROVIDER QUEUED] log_id=132 periskope_message_id=3EB072BC6CC85A2455C4E2
+2026-10-18 07:01:12 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:01:12+05:30: 38 active schedules, 3 active tier-assigned members, 5 candidate(s).
+2026-10-18 07:01:12 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=5 | task=WEIGHT_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_WAKE_UP_SCALE_READING
+2026-10-18 07:01:12 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=5 group=1 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:01:12 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=5 | task=WEIGHT_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_WAKE_UP_SCALE_READING
+2026-10-18 07:01:12 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=5 group=2 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:01:12 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=24 | task=WEIGHT_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_WAKE_UP_SCALE_READING
+2026-10-18 07:01:12 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=24 group=1 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:01:12 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=24 | task=WEIGHT_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_WAKE_UP_SCALE_READING
+2026-10-18 07:01:12 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=24 group=2 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:01:12 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=29 | task=WEIGHT_REMINDER | tier=Ultra | members=Ahad (TEST_AHAD) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=ULTRA_WAKE_UP_SCALE_READING
+2026-10-18 07:01:12 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=29 group=1 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:02:12 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:02:12+05:30: 38 active schedules, 3 active tier-assigned members, 5 candidate(s).
+2026-10-18 07:02:12 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=5 | task=WEIGHT_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_WAKE_UP_SCALE_READING
+2026-10-18 07:02:12 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=5 group=1 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:02:12 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=5 | task=WEIGHT_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_WAKE_UP_SCALE_READING
+2026-10-18 07:02:12 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=5 group=2 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:02:12 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=24 | task=WEIGHT_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_WAKE_UP_SCALE_READING
+2026-10-18 07:02:12 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=24 group=1 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:02:12 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=24 | task=WEIGHT_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_WAKE_UP_SCALE_READING
+2026-10-18 07:02:12 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=24 group=2 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:02:12 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=29 | task=WEIGHT_REMINDER | tier=Ultra | members=Ahad (TEST_AHAD) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=ULTRA_WAKE_UP_SCALE_READING
+2026-10-18 07:02:12 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=29 group=1 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:03:13 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:03:13+05:30: 38 active schedules, 3 active tier-assigned members, 5 candidate(s).
+2026-10-18 07:03:13 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=5 | task=WEIGHT_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_WAKE_UP_SCALE_READING
+2026-10-18 07:03:13 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=5 group=1 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:03:13 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=5 | task=WEIGHT_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_WAKE_UP_SCALE_READING
+2026-10-18 07:03:13 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=5 group=2 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:03:13 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=24 | task=WEIGHT_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_WAKE_UP_SCALE_READING
+2026-10-18 07:03:13 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=24 group=1 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:03:13 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=24 | task=WEIGHT_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_WAKE_UP_SCALE_READING
+2026-10-18 07:03:13 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=24 group=2 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:03:13 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=29 | task=WEIGHT_REMINDER | tier=Ultra | members=Ahad (TEST_AHAD) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=ULTRA_WAKE_UP_SCALE_READING
+2026-10-18 07:03:13 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=29 group=1 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:04:13 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:04:13+05:30: 38 active schedules, 3 active tier-assigned members, 5 candidate(s).
+2026-10-18 07:04:13 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=5 | task=WEIGHT_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_WAKE_UP_SCALE_READING
+2026-10-18 07:04:13 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=5 group=1 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:04:13 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=5 | task=WEIGHT_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_WAKE_UP_SCALE_READING
+2026-10-18 07:04:13 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=5 group=2 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:04:13 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=24 | task=WEIGHT_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_WAKE_UP_SCALE_READING
+2026-10-18 07:04:13 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=24 group=1 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:04:13 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=24 | task=WEIGHT_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_WAKE_UP_SCALE_READING
+2026-10-18 07:04:13 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=24 group=2 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:04:13 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=29 | task=WEIGHT_REMINDER | tier=Ultra | members=Ahad (TEST_AHAD) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=ULTRA_WAKE_UP_SCALE_READING
+2026-10-18 07:04:13 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=29 group=1 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:05:13 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:05:13+05:30: 38 active schedules, 3 active tier-assigned members, 5 candidate(s).
+2026-10-18 07:05:13 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=5 | task=WEIGHT_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_WAKE_UP_SCALE_READING
+2026-10-18 07:05:13 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=5 group=1 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:05:13 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=5 | task=WEIGHT_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_WAKE_UP_SCALE_READING
+2026-10-18 07:05:13 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=5 group=2 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:05:13 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=24 | task=WEIGHT_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_WAKE_UP_SCALE_READING
+2026-10-18 07:05:13 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=24 group=1 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:05:13 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=24 | task=WEIGHT_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_WAKE_UP_SCALE_READING
+2026-10-18 07:05:13 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=24 group=2 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:05:13 | INFO     | __main__ | [LIVE] 2026-10-18 07:00:00 | schedule=29 | task=WEIGHT_REMINDER | tier=Ultra | members=Ahad (TEST_AHAD) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=ULTRA_WAKE_UP_SCALE_READING
+2026-10-18 07:05:13 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=29 group=1 scheduled_at=2026-10-18 07:00:00
+2026-10-18 07:06:13 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:06:13+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:07:13 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:07:13+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:08:14 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:08:14+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:09:14 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:09:14+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:10:14 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:10:14+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:11:14 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:11:14+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:12:14 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:12:14+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:13:14 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:13:14+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:14:14 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:14:14+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:15:15 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:15:15+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:16:15 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:16:15+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:17:15 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:17:15+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:18:15 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:18:15+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:19:15 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:19:15+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:20:15 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:20:15+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:21:15 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:21:15+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:22:15 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:22:15+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:23:15 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:23:15+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:24:16 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:24:16+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:25:16 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:25:16+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:26:16 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:26:16+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:27:16 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:27:16+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:28:16 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:28:16+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:29:16 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:29:16+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 07:30:16 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:30:16+05:30: 38 active schedules, 3 active tier-assigned members, 4 candidate(s).
+2026-10-18 07:30:16 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=16 | task=FASTED_ACTIVITY | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_ACTIVITY_CUE_BRANCH_A
+2026-10-18 07:30:17 | INFO     | __main__ | [PROVIDER QUEUED] log_id=133 periskope_message_id=3EB0F6F6DFDEF04EFC7C34
+2026-10-18 07:30:17 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=16 | task=FASTED_ACTIVITY | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_ACTIVITY_CUE_BRANCH_A
+2026-10-18 07:30:17 | INFO     | __main__ | [PROVIDER QUEUED] log_id=134 periskope_message_id=3EB00B6460AD139DE60E53
+2026-10-18 07:30:17 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=32 | task=WORKOUT_NUDGE | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_WORKOUT_NUDGE_MUSIC
+2026-10-18 07:30:18 | INFO     | __main__ | [PROVIDER QUEUED] log_id=135 periskope_message_id=3EB0B1D21976EC7BBE7830
+2026-10-18 07:30:18 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=32 | task=WORKOUT_NUDGE | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_WORKOUT_NUDGE_MUSIC
+2026-10-18 07:30:18 | INFO     | __main__ | [PROVIDER QUEUED] log_id=136 periskope_message_id=3EB0386231AE70FD1E7D16
+2026-10-18 07:31:18 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:31:18+05:30: 38 active schedules, 3 active tier-assigned members, 4 candidate(s).
+2026-10-18 07:31:18 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=16 | task=FASTED_ACTIVITY | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_ACTIVITY_CUE_BRANCH_A
+2026-10-18 07:31:18 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=16 group=1 scheduled_at=2026-10-18 07:30:00
+2026-10-18 07:31:18 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=16 | task=FASTED_ACTIVITY | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_ACTIVITY_CUE_BRANCH_A
+2026-10-18 07:31:18 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=16 group=2 scheduled_at=2026-10-18 07:30:00
+2026-10-18 07:31:18 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=32 | task=WORKOUT_NUDGE | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_WORKOUT_NUDGE_MUSIC
+2026-10-18 07:31:18 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=32 group=1 scheduled_at=2026-10-18 07:30:00
+2026-10-18 07:31:18 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=32 | task=WORKOUT_NUDGE | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_WORKOUT_NUDGE_MUSIC
+2026-10-18 07:31:18 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=32 group=2 scheduled_at=2026-10-18 07:30:00
+2026-10-18 07:32:18 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:32:18+05:30: 38 active schedules, 3 active tier-assigned members, 4 candidate(s).
+2026-10-18 07:32:18 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=16 | task=FASTED_ACTIVITY | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_ACTIVITY_CUE_BRANCH_A
+2026-10-18 07:32:18 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=16 group=1 scheduled_at=2026-10-18 07:30:00
+2026-10-18 07:32:18 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=16 | task=FASTED_ACTIVITY | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_ACTIVITY_CUE_BRANCH_A
+2026-10-18 07:32:18 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=16 group=2 scheduled_at=2026-10-18 07:30:00
+2026-10-18 07:32:18 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=32 | task=WORKOUT_NUDGE | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_WORKOUT_NUDGE_MUSIC
+2026-10-18 07:32:18 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=32 group=1 scheduled_at=2026-10-18 07:30:00
+2026-10-18 07:32:18 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=32 | task=WORKOUT_NUDGE | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_WORKOUT_NUDGE_MUSIC
+2026-10-18 07:32:18 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=32 group=2 scheduled_at=2026-10-18 07:30:00
+2026-10-18 07:33:19 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:33:19+05:30: 38 active schedules, 3 active tier-assigned members, 4 candidate(s).
+2026-10-18 07:33:19 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=16 | task=FASTED_ACTIVITY | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_ACTIVITY_CUE_BRANCH_A
+2026-10-18 07:33:19 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=16 group=1 scheduled_at=2026-10-18 07:30:00
+2026-10-18 07:33:19 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=16 | task=FASTED_ACTIVITY | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_ACTIVITY_CUE_BRANCH_A
+2026-10-18 07:33:19 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=16 group=2 scheduled_at=2026-10-18 07:30:00
+2026-10-18 07:33:19 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=32 | task=WORKOUT_NUDGE | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_WORKOUT_NUDGE_MUSIC
+2026-10-18 07:33:19 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=32 group=1 scheduled_at=2026-10-18 07:30:00
+2026-10-18 07:33:19 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=32 | task=WORKOUT_NUDGE | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_WORKOUT_NUDGE_MUSIC
+2026-10-18 07:33:19 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=32 group=2 scheduled_at=2026-10-18 07:30:00
+2026-10-18 07:34:19 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:34:19+05:30: 38 active schedules, 3 active tier-assigned members, 4 candidate(s).
+2026-10-18 07:34:19 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=16 | task=FASTED_ACTIVITY | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_ACTIVITY_CUE_BRANCH_A
+2026-10-18 07:34:19 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=16 group=1 scheduled_at=2026-10-18 07:30:00
+2026-10-18 07:34:19 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=16 | task=FASTED_ACTIVITY | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_ACTIVITY_CUE_BRANCH_A
+2026-10-18 07:34:19 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=16 group=2 scheduled_at=2026-10-18 07:30:00
+2026-10-18 07:34:19 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=32 | task=WORKOUT_NUDGE | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_WORKOUT_NUDGE_MUSIC
+2026-10-18 07:34:19 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=32 group=1 scheduled_at=2026-10-18 07:30:00
+2026-10-18 07:34:19 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=32 | task=WORKOUT_NUDGE | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_WORKOUT_NUDGE_MUSIC
+2026-10-18 07:34:19 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=32 group=2 scheduled_at=2026-10-18 07:30:00
+2026-10-18 07:35:19 | INFO     | __main__ | 
+Cycle at 2026-10-18T07:35:19+05:30: 38 active schedules, 3 active tier-assigned members, 4 candidate(s).
+2026-10-18 07:35:19 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=16 | task=FASTED_ACTIVITY | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_ACTIVITY_CUE_BRANCH_A
+2026-10-18 07:35:19 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=16 group=1 scheduled_at=2026-10-18 07:30:00
+2026-10-18 07:35:19 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=16 | task=FASTED_ACTIVITY | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_ACTIVITY_CUE_BRANCH_A
+2026-10-18 07:35:19 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=16 group=2 scheduled_at=2026-10-18 07:30:00
+2026-10-18 07:35:19 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=32 | task=WORKOUT_NUDGE | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_WORKOUT_NUDGE_MUSIC
+2026-10-18 07:35:19 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=32 group=1 scheduled_at=2026-10-18 07:30:00
+2026-10-18 07:35:19 | INFO     | __main__ | [LIVE] 2026-10-18 07:30:00 | schedule=32 | task=WORKOUT_NUDGE | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_WORKOUT_NUDGE_MUSIC
+2026-10-18 07:35:19 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=32 group=2 scheduled_at=2026-10-18 07:30:00
+2026-10-18 11:09:20 | INFO     | Periskope | Periskope initialized
+2026-10-18 11:09:20 | INFO     | __main__ | Zyvefit scheduler starting | mode=LIVE SEND
+2026-10-18 11:09:20 | INFO     | __main__ | Timezone=Asia/Kolkata | poll=60s | grace=5m | catchup=60m | max_live_sends_per_cycle=25
+2026-10-18 11:09:20 | INFO     | __main__ | Kill switch: create a STOP_SENDS file here (or set SENDS_ENABLED=false) to halt live sends within one poll.
+2026-10-18 11:09:20 | INFO     | __main__ | 
+Cycle at 2026-10-18T11:09:20+05:30: 38 active schedules, 3 active tier-assigned members, 5 candidate(s) [catch-up pass].
+2026-10-18 11:09:20 | INFO     | __main__ | [LIVE] 2026-10-18 11:00:00 | schedule=6 | task=HYDRATION_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_HOURLY_OSMOTIC_HYDRATION_CHECK
+2026-10-18 11:09:20 | INFO     | __main__ | [PROVIDER QUEUED] log_id=137 periskope_message_id=3EB07A5F22F08A0ADACB08
+2026-10-18 11:09:20 | INFO     | __main__ | [LIVE] 2026-10-18 11:00:00 | schedule=6 | task=HYDRATION_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_HOURLY_OSMOTIC_HYDRATION_CHECK
+2026-10-18 11:09:21 | INFO     | __main__ | [PROVIDER QUEUED] log_id=138 periskope_message_id=3EB0368343B03474B84310
+2026-10-18 11:09:21 | INFO     | __main__ | [LIVE] 2026-10-18 11:00:00 | schedule=11 | task=HYDRATION_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_HOURLY_HYDRATION_HABIT_LOOP
+2026-10-18 11:09:21 | INFO     | __main__ | [PROVIDER QUEUED] log_id=139 periskope_message_id=3EB00BA92E878AA6DEF988
+2026-10-18 11:09:21 | INFO     | __main__ | [LIVE] 2026-10-18 11:00:00 | schedule=11 | task=HYDRATION_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_HOURLY_HYDRATION_HABIT_LOOP
+2026-10-18 11:09:21 | INFO     | __main__ | [PROVIDER QUEUED] log_id=140 periskope_message_id=3EB0ADA8900E26213C7AE5
+2026-10-18 11:09:21 | INFO     | __main__ | [LIVE] 2026-10-18 11:00:00 | schedule=12 | task=HYDRATION_REMINDER | tier=Ultra | members=Ahad (TEST_AHAD) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=ULTRA_HOURLY_CONCIERGE_HYDRATION_SYNC
+2026-10-18 11:09:22 | INFO     | __main__ | [PROVIDER QUEUED] log_id=141 periskope_message_id=3EB060D114C6BC3A5B06D9
+2026-10-18 11:10:22 | INFO     | __main__ | 
+Cycle at 2026-10-18T11:10:22+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 11:11:22 | INFO     | __main__ | 
+Cycle at 2026-10-18T11:11:22+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 11:12:22 | INFO     | __main__ | 
+Cycle at 2026-10-18T11:12:22+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 11:13:22 | INFO     | __main__ | 
+Cycle at 2026-10-18T11:13:22+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 11:14:22 | INFO     | __main__ | 
+Cycle at 2026-10-18T11:14:22+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 11:15:23 | INFO     | __main__ | 
+Cycle at 2026-10-18T11:15:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 11:16:23 | INFO     | __main__ | 
+Cycle at 2026-10-18T11:16:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-18 11:17:23 | INFO     | __main__ | 
+Cycle at 2026-10-18T11:17:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 18:08:59 | INFO     | Periskope | Periskope initialized
+2026-10-20 18:08:59 | INFO     | __main__ | Zyvefit scheduler starting | mode=LIVE SEND
+2026-10-20 18:08:59 | INFO     | __main__ | Timezone=Asia/Kolkata | poll=60s | grace=5m | catchup=60m | max_live_sends_per_cycle=25
+2026-10-20 18:08:59 | INFO     | __main__ | Kill switch: create a STOP_SENDS file next to scheduler.py (or set SENDS_ENABLED=false) to halt live sends within one poll.
+2026-10-20 18:08:59 | INFO     | __main__ | 
+Cycle at 2026-10-20T18:08:59+05:30: 38 active schedules, 3 active tier-assigned members, 5 candidate(s) [catch-up pass].
+2026-10-20 18:08:59 | INFO     | __main__ | [LIVE] 2026-10-20 18:00:00 | schedule=6 | task=HYDRATION_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_HOURLY_OSMOTIC_HYDRATION_CHECK
+2026-10-20 18:08:59 | INFO     | __main__ | [PROVIDER QUEUED] log_id=142 periskope_message_id=3EB0676861C63E0740F4BD
+2026-10-20 18:08:59 | INFO     | __main__ | [LIVE] 2026-10-20 18:00:00 | schedule=6 | task=HYDRATION_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_HOURLY_OSMOTIC_HYDRATION_CHECK
+2026-10-20 18:09:00 | INFO     | __main__ | [PROVIDER QUEUED] log_id=143 periskope_message_id=3EB01764E841473311C957
+2026-10-20 18:09:00 | INFO     | __main__ | [LIVE] 2026-10-20 18:00:00 | schedule=11 | task=HYDRATION_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_HOURLY_HYDRATION_HABIT_LOOP
+2026-10-20 18:09:00 | INFO     | __main__ | [PROVIDER QUEUED] log_id=144 periskope_message_id=3EB0024EE04E651E739997
+2026-10-20 18:09:00 | INFO     | __main__ | [LIVE] 2026-10-20 18:00:00 | schedule=11 | task=HYDRATION_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_HOURLY_HYDRATION_HABIT_LOOP
+2026-10-20 18:09:00 | INFO     | __main__ | [PROVIDER QUEUED] log_id=145 periskope_message_id=3EB0B98EF1DE2EBFDD1A97
+2026-10-20 18:09:00 | INFO     | __main__ | [LIVE] 2026-10-20 18:00:00 | schedule=12 | task=HYDRATION_REMINDER | tier=Ultra | members=Ahad (TEST_AHAD) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=ULTRA_HOURLY_CONCIERGE_HYDRATION_SYNC
+2026-10-20 18:09:00 | INFO     | __main__ | [PROVIDER QUEUED] log_id=146 periskope_message_id=3EB0694D2508C547369BFF
+2026-10-20 18:10:01 | INFO     | __main__ | 
+Cycle at 2026-10-20T18:10:01+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 18:11:01 | INFO     | __main__ | 
+Cycle at 2026-10-20T18:11:01+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 18:12:01 | INFO     | __main__ | 
+Cycle at 2026-10-20T18:12:01+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 18:13:01 | INFO     | __main__ | 
+Cycle at 2026-10-20T18:13:01+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:38:29 | INFO     | Periskope | Periskope initialized
+2026-10-20 19:38:29 | INFO     | __main__ | Zyvefit scheduler starting | mode=LIVE SEND
+2026-10-20 19:38:29 | INFO     | __main__ | Timezone=Asia/Kolkata | poll=60s | grace=5m | catchup=60m | max_live_sends_per_cycle=25
+2026-10-20 19:38:29 | INFO     | __main__ | Kill switch: create a STOP_SENDS file next to scheduler.py (or set SENDS_ENABLED=false) to halt live sends within one poll.
+2026-10-20 19:38:29 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:38:29+05:30: 38 active schedules, 3 active tier-assigned members, 11 candidate(s) [catch-up pass].
+2026-10-20 19:38:29 | INFO     | __main__ | [LIVE] 2026-10-20 19:00:00 | schedule=6 | task=HYDRATION_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_HOURLY_OSMOTIC_HYDRATION_CHECK
+2026-10-20 19:38:29 | INFO     | __main__ | [PROVIDER QUEUED] log_id=147 periskope_message_id=3EB0952330F280DD897AF5
+2026-10-20 19:38:29 | INFO     | __main__ | [LIVE] 2026-10-20 19:00:00 | schedule=6 | task=HYDRATION_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_HOURLY_OSMOTIC_HYDRATION_CHECK
+2026-10-20 19:38:30 | INFO     | __main__ | [PROVIDER QUEUED] log_id=148 periskope_message_id=3EB0F6489C69F91213900F
+2026-10-20 19:38:30 | INFO     | __main__ | [LIVE] 2026-10-20 19:00:00 | schedule=9 | task=PREP_NUDGE | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_NEXT_DAY_PREP_NUDGE
+2026-10-20 19:38:30 | INFO     | __main__ | [PROVIDER QUEUED] log_id=149 periskope_message_id=3EB08193A7A358CAA07014
+2026-10-20 19:38:30 | INFO     | __main__ | [LIVE] 2026-10-20 19:00:00 | schedule=9 | task=PREP_NUDGE | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_NEXT_DAY_PREP_NUDGE
+2026-10-20 19:38:30 | INFO     | __main__ | [PROVIDER QUEUED] log_id=150 periskope_message_id=3EB092C73C33C20EEE035E
+2026-10-20 19:38:30 | INFO     | __main__ | [LIVE] 2026-10-20 19:00:00 | schedule=11 | task=HYDRATION_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_HOURLY_HYDRATION_HABIT_LOOP
+2026-10-20 19:38:31 | INFO     | __main__ | [PROVIDER QUEUED] log_id=151 periskope_message_id=3EB00B0696590C843D1760
+2026-10-20 19:38:31 | INFO     | __main__ | [LIVE] 2026-10-20 19:00:00 | schedule=11 | task=HYDRATION_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_HOURLY_HYDRATION_HABIT_LOOP
+2026-10-20 19:38:31 | INFO     | __main__ | [PROVIDER QUEUED] log_id=152 periskope_message_id=3EB0D3025358894326AFB5
+2026-10-20 19:38:31 | INFO     | __main__ | [LIVE] 2026-10-20 19:00:00 | schedule=12 | task=HYDRATION_REMINDER | tier=Ultra | members=Ahad (TEST_AHAD) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=ULTRA_HOURLY_CONCIERGE_HYDRATION_SYNC
+2026-10-20 19:38:31 | INFO     | __main__ | [PROVIDER QUEUED] log_id=153 periskope_message_id=3EB01171F5132BB8393607
+2026-10-20 19:38:31 | INFO     | __main__ | [LIVE] 2026-10-20 19:00:00 | schedule=20 | task=PREP_NUDGE | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_PREP_ACTIVE_SWAP_NUDGE
+2026-10-20 19:38:31 | INFO     | __main__ | [PROVIDER QUEUED] log_id=154 periskope_message_id=3EB08E10C9A6E9AC5EBD3E
+2026-10-20 19:38:31 | INFO     | __main__ | [LIVE] 2026-10-20 19:00:00 | schedule=20 | task=PREP_NUDGE | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_PREP_ACTIVE_SWAP_NUDGE
+2026-10-20 19:38:32 | INFO     | __main__ | [PROVIDER QUEUED] log_id=155 periskope_message_id=3EB03107422970CD586A69
+2026-10-20 19:38:32 | INFO     | __main__ | [LIVE] 2026-10-20 19:00:00 | schedule=26 | task=PREP_STRATEGY_CARD | tier=Ultra | members=Ahad (TEST_AHAD) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=ULTRA_NEXT_DAY_PREP_STRATEGY_CARD
+2026-10-20 19:38:32 | INFO     | __main__ | [PROVIDER QUEUED] log_id=156 periskope_message_id=3EB01B6C7F5D8A818BB690
+2026-10-20 19:38:32 | ERROR    | __main__ | [CONFIG ERROR] Template has unresolved placeholders: {{spouse_name}} | schedule=38
+2026-10-20 19:39:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:39:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:40:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:40:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:41:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:41:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:42:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:42:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:43:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:43:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:44:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:44:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:45:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:45:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:46:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:46:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:47:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:47:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:48:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:48:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:49:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:49:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:50:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:50:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:51:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:51:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:52:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:52:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:53:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:53:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:54:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:54:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:55:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:55:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:56:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:56:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:57:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:57:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:58:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:58:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 19:59:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T19:59:32+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 20:00:32 | INFO     | __main__ | 
+Cycle at 2026-10-20T20:00:32+05:30: 38 active schedules, 3 active tier-assigned members, 5 candidate(s).
+2026-10-20 20:00:32 | INFO     | __main__ | [LIVE] 2026-10-20 20:00:00 | schedule=6 | task=HYDRATION_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_HOURLY_OSMOTIC_HYDRATION_CHECK
+2026-10-20 20:00:33 | INFO     | __main__ | [PROVIDER QUEUED] log_id=157 periskope_message_id=3EB063A112C70A6612DBF3
+2026-10-20 20:00:33 | INFO     | __main__ | [LIVE] 2026-10-20 20:00:00 | schedule=6 | task=HYDRATION_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_HOURLY_OSMOTIC_HYDRATION_CHECK
+2026-10-20 20:00:34 | INFO     | __main__ | [PROVIDER QUEUED] log_id=158 periskope_message_id=3EB0774E34DB9766DA0A4B
+2026-10-20 20:00:34 | INFO     | __main__ | [LIVE] 2026-10-20 20:00:00 | schedule=11 | task=HYDRATION_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_HOURLY_HYDRATION_HABIT_LOOP
+2026-10-20 20:00:34 | INFO     | __main__ | [PROVIDER QUEUED] log_id=159 periskope_message_id=3EB01FB0B8D76C98F97F94
+2026-10-20 20:00:34 | INFO     | __main__ | [LIVE] 2026-10-20 20:00:00 | schedule=11 | task=HYDRATION_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_HOURLY_HYDRATION_HABIT_LOOP
+2026-10-20 20:00:35 | INFO     | __main__ | [PROVIDER QUEUED] log_id=160 periskope_message_id=3EB0AFB406CD9293170359
+2026-10-20 20:00:35 | INFO     | __main__ | [LIVE] 2026-10-20 20:00:00 | schedule=12 | task=HYDRATION_REMINDER | tier=Ultra | members=Ahad (TEST_AHAD) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=ULTRA_HOURLY_CONCIERGE_HYDRATION_SYNC
+2026-10-20 20:00:35 | INFO     | __main__ | [PROVIDER QUEUED] log_id=161 periskope_message_id=3EB01E44B5A4E0B5DE7E1B
+2026-10-20 20:01:35 | INFO     | __main__ | 
+Cycle at 2026-10-20T20:01:35+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 20:02:35 | INFO     | __main__ | 
+Cycle at 2026-10-20T20:02:35+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 20:03:35 | INFO     | __main__ | 
+Cycle at 2026-10-20T20:03:35+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 20:04:35 | INFO     | __main__ | 
+Cycle at 2026-10-20T20:04:35+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 20:05:35 | INFO     | __main__ | 
+Cycle at 2026-10-20T20:05:35+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 20:06:35 | INFO     | __main__ | 
+Cycle at 2026-10-20T20:06:35+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 20:07:35 | INFO     | __main__ | 
+Cycle at 2026-10-20T20:07:35+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 20:08:35 | INFO     | __main__ | 
+Cycle at 2026-10-20T20:08:35+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 20:14:10 | INFO     | __main__ | 
+Cycle at 2026-10-20T20:14:10+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 20:32:29 | INFO     | __main__ | 
+Cycle at 2026-10-20T20:32:29+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 21:56:28 | INFO     | __main__ | 
+Cycle at 2026-10-20T21:56:28+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 22:26:05 | INFO     | __main__ | 
+Cycle at 2026-10-20T22:26:05+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 22:42:30 | INFO     | __main__ | 
+Cycle at 2026-10-20T22:42:30+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 22:58:38 | INFO     | __main__ | 
+Cycle at 2026-10-20T22:58:38+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 23:22:29 | INFO     | __main__ | 
+Cycle at 2026-10-20T23:22:29+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 23:31:06 | INFO     | __main__ | 
+Cycle at 2026-10-20T23:31:06+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 23:32:06 | INFO     | __main__ | 
+Cycle at 2026-10-20T23:32:06+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 23:43:31 | INFO     | __main__ | 
+Cycle at 2026-10-20T23:43:31+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-20 23:49:46 | INFO     | __main__ | 
+Cycle at 2026-10-20T23:49:46+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 00:02:03 | INFO     | __main__ | 
+Cycle at 2026-10-21T00:02:03+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 00:28:20 | INFO     | __main__ | 
+Cycle at 2026-10-21T00:28:20+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 00:43:04 | INFO     | __main__ | 
+Cycle at 2026-10-21T00:43:04+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 01:46:55 | INFO     | __main__ | 
+Cycle at 2026-10-21T01:46:55+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 03:04:08 | INFO     | __main__ | 
+Cycle at 2026-10-21T03:04:08+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 04:17:17 | INFO     | __main__ | 
+Cycle at 2026-10-21T04:17:17+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 05:34:37 | INFO     | __main__ | 
+Cycle at 2026-10-21T05:34:37+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 07:07:17 | INFO     | __main__ | 
+Cycle at 2026-10-21T07:07:17+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 08:20:16 | INFO     | __main__ | 
+Cycle at 2026-10-21T08:20:16+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 09:21:15 | INFO     | __main__ | 
+Cycle at 2026-10-21T09:21:15+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 11:58:33 | INFO     | __main__ | 
+Cycle at 2026-10-21T11:58:33+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 14:17:49 | INFO     | __main__ | 
+Cycle at 2026-10-21T14:17:49+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 16:01:09 | INFO     | __main__ | 
+Cycle at 2026-10-21T16:01:09+05:30: 38 active schedules, 3 active tier-assigned members, 5 candidate(s).
+2026-10-21 16:01:09 | INFO     | __main__ | [LIVE] 2026-10-21 16:00:00 | schedule=6 | task=HYDRATION_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_HOURLY_OSMOTIC_HYDRATION_CHECK
+2026-10-21 16:01:10 | INFO     | __main__ | [PROVIDER QUEUED] log_id=162 periskope_message_id=3EB08D56BA4F52A1DD98CF
+2026-10-21 16:01:10 | INFO     | __main__ | [LIVE] 2026-10-21 16:00:00 | schedule=6 | task=HYDRATION_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_HOURLY_OSMOTIC_HYDRATION_CHECK
+2026-10-21 16:01:10 | INFO     | __main__ | [PROVIDER QUEUED] log_id=163 periskope_message_id=3EB025979DE8F03957663D
+2026-10-21 16:01:10 | INFO     | __main__ | [LIVE] 2026-10-21 16:00:00 | schedule=11 | task=HYDRATION_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_HOURLY_HYDRATION_HABIT_LOOP
+2026-10-21 16:01:11 | INFO     | __main__ | [PROVIDER QUEUED] log_id=164 periskope_message_id=3EB06C205404686E145904
+2026-10-21 16:01:11 | INFO     | __main__ | [LIVE] 2026-10-21 16:00:00 | schedule=11 | task=HYDRATION_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_HOURLY_HYDRATION_HABIT_LOOP
+2026-10-21 16:01:11 | INFO     | __main__ | [PROVIDER QUEUED] log_id=165 periskope_message_id=3EB0BB99C7EB71FDFE4FF0
+2026-10-21 16:01:11 | INFO     | __main__ | [LIVE] 2026-10-21 16:00:00 | schedule=12 | task=HYDRATION_REMINDER | tier=Ultra | members=Ahad (TEST_AHAD) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=ULTRA_HOURLY_CONCIERGE_HYDRATION_SYNC
+2026-10-21 16:01:11 | INFO     | __main__ | [PROVIDER QUEUED] log_id=166 periskope_message_id=3EB0B760D6449C867B1197
+2026-10-21 18:30:19 | INFO     | __main__ | 
+Cycle at 2026-10-21T18:30:19+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:35:50 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:35:50+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:36:50 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:36:50+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:37:50 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:37:50+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:38:50 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:38:50+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:39:53 | INFO     | Periskope | Periskope initialized
+2026-10-21 19:39:53 | INFO     | __main__ | Zyvefit scheduler starting | mode=LIVE SEND
+2026-10-21 19:39:53 | INFO     | __main__ | Timezone=Asia/Kolkata | poll=60s | grace=5m | catchup=60m | max_live_sends_per_cycle=25
+2026-10-21 19:39:53 | INFO     | __main__ | Kill switch: create a STOP_SENDS file next to scheduler.py (or set SENDS_ENABLED=false) to halt live sends within one poll.
+2026-10-21 19:39:53 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:39:53+05:30: 38 active schedules, 3 active tier-assigned members, 11 candidate(s) [catch-up pass].
+2026-10-21 19:39:53 | INFO     | __main__ | [LIVE] 2026-10-21 19:00:00 | schedule=6 | task=HYDRATION_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_HOURLY_OSMOTIC_HYDRATION_CHECK
+2026-10-21 19:39:53 | INFO     | __main__ | [PROVIDER QUEUED] log_id=167 periskope_message_id=3EB0D86FAFF85271AE0FD1
+2026-10-21 19:39:53 | INFO     | __main__ | [LIVE] 2026-10-21 19:00:00 | schedule=6 | task=HYDRATION_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_HOURLY_OSMOTIC_HYDRATION_CHECK
+2026-10-21 19:39:53 | INFO     | __main__ | [PROVIDER QUEUED] log_id=168 periskope_message_id=3EB0A263620642EDFF8FEB
+2026-10-21 19:39:53 | INFO     | __main__ | [LIVE] 2026-10-21 19:00:00 | schedule=9 | task=PREP_NUDGE | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_NEXT_DAY_PREP_NUDGE
+2026-10-21 19:39:54 | INFO     | __main__ | [PROVIDER QUEUED] log_id=169 periskope_message_id=3EB0F6C02EDB05DCC8F7DF
+2026-10-21 19:39:54 | INFO     | __main__ | [LIVE] 2026-10-21 19:00:00 | schedule=9 | task=PREP_NUDGE | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_NEXT_DAY_PREP_NUDGE
+2026-10-21 19:39:54 | INFO     | __main__ | [PROVIDER QUEUED] log_id=170 periskope_message_id=3EB0860FE7551A61BE7FF6
+2026-10-21 19:39:54 | INFO     | __main__ | [LIVE] 2026-10-21 19:00:00 | schedule=11 | task=HYDRATION_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_HOURLY_HYDRATION_HABIT_LOOP
+2026-10-21 19:39:54 | INFO     | __main__ | [PROVIDER QUEUED] log_id=171 periskope_message_id=3EB03515FC5A04C5718A55
+2026-10-21 19:39:54 | INFO     | __main__ | [LIVE] 2026-10-21 19:00:00 | schedule=11 | task=HYDRATION_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_HOURLY_HYDRATION_HABIT_LOOP
+2026-10-21 19:39:55 | INFO     | __main__ | [PROVIDER QUEUED] log_id=172 periskope_message_id=3EB077CF7A99D2C32C063D
+2026-10-21 19:39:55 | INFO     | __main__ | [LIVE] 2026-10-21 19:00:00 | schedule=12 | task=HYDRATION_REMINDER | tier=Ultra | members=Ahad (TEST_AHAD) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=ULTRA_HOURLY_CONCIERGE_HYDRATION_SYNC
+2026-10-21 19:39:55 | INFO     | __main__ | [PROVIDER QUEUED] log_id=173 periskope_message_id=3EB0B1AE09E2CF3CB18E41
+2026-10-21 19:39:55 | INFO     | __main__ | [LIVE] 2026-10-21 19:00:00 | schedule=20 | task=PREP_NUDGE | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_PREP_ACTIVE_SWAP_NUDGE
+2026-10-21 19:39:55 | INFO     | __main__ | [PROVIDER QUEUED] log_id=174 periskope_message_id=3EB02C79E356795A53F323
+2026-10-21 19:39:55 | INFO     | __main__ | [LIVE] 2026-10-21 19:00:00 | schedule=20 | task=PREP_NUDGE | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_PREP_ACTIVE_SWAP_NUDGE
+2026-10-21 19:39:56 | INFO     | __main__ | [PROVIDER QUEUED] log_id=175 periskope_message_id=3EB05962C9D5B2083D5ECF
+2026-10-21 19:39:56 | INFO     | __main__ | [LIVE] 2026-10-21 19:00:00 | schedule=26 | task=PREP_STRATEGY_CARD | tier=Ultra | members=Ahad (TEST_AHAD) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=ULTRA_NEXT_DAY_PREP_STRATEGY_CARD
+2026-10-21 19:39:56 | INFO     | __main__ | [PROVIDER QUEUED] log_id=176 periskope_message_id=3EB0849FE3933B7352EE22
+2026-10-21 19:39:56 | ERROR    | __main__ | [CONFIG ERROR] Template has unresolved placeholders: {{spouse_name}} | schedule=38
+2026-10-21 19:40:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:40:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:41:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:41:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:42:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:42:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:43:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:43:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:44:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:44:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:45:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:45:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:46:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:46:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:47:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:47:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:48:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:48:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:49:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:49:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:50:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:50:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:51:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:51:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:52:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:52:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:53:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:53:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:54:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:54:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:55:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:55:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:56:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:56:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:57:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:57:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:58:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:58:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 19:59:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T19:59:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:00:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:00:56+05:30: 38 active schedules, 3 active tier-assigned members, 5 candidate(s).
+2026-10-21 20:00:56 | INFO     | __main__ | [LIVE] 2026-10-21 20:00:00 | schedule=6 | task=HYDRATION_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_HOURLY_OSMOTIC_HYDRATION_CHECK
+2026-10-21 20:00:57 | INFO     | __main__ | [PROVIDER QUEUED] log_id=177 periskope_message_id=3EB0FB19AC01A6EDEF3B49
+2026-10-21 20:00:57 | INFO     | __main__ | [LIVE] 2026-10-21 20:00:00 | schedule=6 | task=HYDRATION_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_HOURLY_OSMOTIC_HYDRATION_CHECK
+2026-10-21 20:00:58 | INFO     | __main__ | [PROVIDER QUEUED] log_id=178 periskope_message_id=3EB098D0FC59436B9EC5E5
+2026-10-21 20:00:58 | INFO     | __main__ | [LIVE] 2026-10-21 20:00:00 | schedule=11 | task=HYDRATION_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_HOURLY_HYDRATION_HABIT_LOOP
+2026-10-21 20:00:58 | INFO     | __main__ | [PROVIDER QUEUED] log_id=179 periskope_message_id=3EB045B1FB836A16E6B43E
+2026-10-21 20:00:58 | INFO     | __main__ | [LIVE] 2026-10-21 20:00:00 | schedule=11 | task=HYDRATION_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_HOURLY_HYDRATION_HABIT_LOOP
+2026-10-21 20:00:58 | INFO     | __main__ | [PROVIDER QUEUED] log_id=180 periskope_message_id=3EB0CC71A334D1862E74F5
+2026-10-21 20:00:58 | INFO     | __main__ | [LIVE] 2026-10-21 20:00:00 | schedule=12 | task=HYDRATION_REMINDER | tier=Ultra | members=Ahad (TEST_AHAD) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=ULTRA_HOURLY_CONCIERGE_HYDRATION_SYNC
+2026-10-21 20:00:59 | INFO     | __main__ | [PROVIDER QUEUED] log_id=181 periskope_message_id=3EB0E4D9102FD733FB3236
+2026-10-21 20:01:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:01:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:02:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:02:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:03:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:03:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:04:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:04:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:05:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:05:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:06:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:06:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:07:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:07:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:08:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:08:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:09:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:09:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:10:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:10:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:11:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:11:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:12:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:12:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:13:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:13:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:14:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:14:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:15:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:15:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:16:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:16:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:17:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:17:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:18:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:18:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:19:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:19:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:20:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:20:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:21:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:21:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:22:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:22:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:23:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:23:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:24:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:24:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:25:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:25:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:26:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:26:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:27:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:27:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:28:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:28:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:29:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:29:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:30:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:30:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:31:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:31:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:32:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:32:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:33:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:33:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:34:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:34:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:35:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:35:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:36:59 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:36:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:38:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:38:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:39:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:39:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:40:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:40:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:41:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:41:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:42:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:42:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:43:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:43:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:44:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:44:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:45:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:45:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:46:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:46:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:47:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:47:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:48:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:48:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:49:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:49:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:50:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:50:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:51:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:51:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:52:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:52:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:53:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:53:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:54:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:54:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:55:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:55:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:56:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:56:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:57:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:57:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:58:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:58:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 20:59:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T20:59:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:00:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:00:00+05:30: 38 active schedules, 3 active tier-assigned members, 5 candidate(s).
+2026-10-21 21:00:00 | INFO     | __main__ | [LIVE] 2026-10-21 21:00:00 | schedule=10 | task=SLEEP_WIND_DOWN | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_EVENING_SLEEP_WIND_DOWN
+2026-10-21 21:00:01 | INFO     | __main__ | [PROVIDER QUEUED] log_id=182 periskope_message_id=3EB0FBEC04F4F977C2EB2F
+2026-10-21 21:00:01 | INFO     | __main__ | [LIVE] 2026-10-21 21:00:00 | schedule=10 | task=SLEEP_WIND_DOWN | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_EVENING_SLEEP_WIND_DOWN
+2026-10-21 21:00:01 | INFO     | __main__ | [PROVIDER QUEUED] log_id=183 periskope_message_id=3EB056FF577C953C2C87CF
+2026-10-21 21:00:01 | INFO     | __main__ | [LIVE] 2026-10-21 21:00:00 | schedule=19 | task=HABIT_AUDIT | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_DAILY_HABIT_AUDIT_CHECK_IN
+2026-10-21 21:00:01 | INFO     | __main__ | [PROVIDER QUEUED] log_id=184 periskope_message_id=3EB0DB91F9D85A17DD6730
+2026-10-21 21:00:01 | INFO     | __main__ | [LIVE] 2026-10-21 21:00:00 | schedule=19 | task=HABIT_AUDIT | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_DAILY_HABIT_AUDIT_CHECK_IN
+2026-10-21 21:00:02 | INFO     | __main__ | [PROVIDER QUEUED] log_id=185 periskope_message_id=3EB0ADC5895387E6FB59A6
+2026-10-21 21:00:02 | ERROR    | __main__ | [CONFIG ERROR] Template has unresolved placeholders: {{neural_audio_link}} | schedule=35
+2026-10-21 21:01:02 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:01:02+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:02:02 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:02:02+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:03:02 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:03:02+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:04:02 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:04:02+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:05:02 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:05:02+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:06:02 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:06:02+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:07:02 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:07:02+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:08:02 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:08:02+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:09:02 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:09:02+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:10:02 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:10:02+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:11:02 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:11:02+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:12:02 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:12:02+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:13:02 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:13:02+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:13:56 | INFO     | Periskope | Periskope initialized
+2026-10-21 21:13:56 | INFO     | __main__ | Zyvefit scheduler starting | mode=LIVE SEND
+2026-10-21 21:13:56 | INFO     | __main__ | Timezone=Asia/Kolkata | poll=60s | grace=5m | catchup=60m | max_live_sends_per_cycle=25
+2026-10-21 21:13:56 | INFO     | __main__ | Kill switch: create a STOP_SENDS file next to scheduler.py (or set SENDS_ENABLED=false) to halt live sends within one poll.
+2026-10-21 21:13:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:13:56+05:30: 38 active schedules, 3 active tier-assigned members, 5 candidate(s) [catch-up pass].
+2026-10-21 21:13:56 | INFO     | __main__ | [LIVE] 2026-10-21 21:00:00 | schedule=10 | task=SLEEP_WIND_DOWN | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_EVENING_SLEEP_WIND_DOWN
+2026-10-21 21:13:56 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=10 group=1 scheduled_at=2026-10-21 21:00:00
+2026-10-21 21:13:56 | INFO     | __main__ | [LIVE] 2026-10-21 21:00:00 | schedule=10 | task=SLEEP_WIND_DOWN | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_EVENING_SLEEP_WIND_DOWN
+2026-10-21 21:13:56 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=10 group=2 scheduled_at=2026-10-21 21:00:00
+2026-10-21 21:13:56 | INFO     | __main__ | [LIVE] 2026-10-21 21:00:00 | schedule=19 | task=HABIT_AUDIT | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_DAILY_HABIT_AUDIT_CHECK_IN
+2026-10-21 21:13:56 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=19 group=1 scheduled_at=2026-10-21 21:00:00
+2026-10-21 21:13:56 | INFO     | __main__ | [LIVE] 2026-10-21 21:00:00 | schedule=19 | task=HABIT_AUDIT | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_DAILY_HABIT_AUDIT_CHECK_IN
+2026-10-21 21:13:56 | INFO     | __main__ | [DUPLICATE SKIPPED] schedule=19 group=2 scheduled_at=2026-10-21 21:00:00
+2026-10-21 21:13:56 | ERROR    | __main__ | [CONFIG ERROR] Template has unresolved placeholders: {{neural_audio_link}} | schedule=35
+2026-10-21 21:14:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:14:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:15:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:15:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:16:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:16:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:17:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:17:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:18:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:18:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:19:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:19:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:20:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:20:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:21:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:21:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:22:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:22:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:23:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:23:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:24:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:24:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:25:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:25:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:26:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:26:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:27:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:27:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:28:56 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:28:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:29:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:29:56+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:30:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:30:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:31:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:31:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:32:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:32:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:33:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:33:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:34:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:34:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:35:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:35:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:36:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:36:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:37:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:37:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:38:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:38:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:39:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:39:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:40:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:40:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:41:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:41:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:42:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:42:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:43:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:43:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:44:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:44:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:45:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:45:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:46:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:46:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:47:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:47:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:48:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:48:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:49:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:49:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:50:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:50:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:51:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:51:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:52:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:52:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:53:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:53:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:54:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:54:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:55:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:55:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:56:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:56:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:57:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:57:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:58:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:58:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 21:59:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T21:59:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 22:00:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T22:00:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 22:01:57 | INFO     | __main__ | 
+Cycle at 2026-10-21T22:01:57+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 22:03:00 | INFO     | __main__ | 
+Cycle at 2026-10-21T22:03:00+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 22:04:39 | INFO     | __main__ | 
+Cycle at 2026-10-21T22:04:39+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 22:19:11 | INFO     | __main__ | 
+Cycle at 2026-10-21T22:19:11+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 22:20:11 | INFO     | __main__ | 
+Cycle at 2026-10-21T22:20:11+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 22:21:11 | INFO     | __main__ | 
+Cycle at 2026-10-21T22:21:11+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 22:22:11 | INFO     | __main__ | 
+Cycle at 2026-10-21T22:22:11+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 22:23:11 | INFO     | __main__ | 
+Cycle at 2026-10-21T22:23:11+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 22:24:11 | INFO     | __main__ | 
+Cycle at 2026-10-21T22:24:11+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-21 22:25:11 | INFO     | __main__ | 
+Cycle at 2026-10-21T22:25:11+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:05:22 | INFO     | __main__ | Zyvefit scheduler starting | mode=DRY RUN
+2026-10-24 22:05:22 | INFO     | __main__ | Timezone=Asia/Kolkata | poll=60s | grace=5m | catchup=60m | max_live_sends_per_cycle=25
+2026-10-24 22:05:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:05:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s) [catch-up pass].
+2026-10-24 22:06:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:06:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:07:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:07:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:08:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:08:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:09:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:09:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:10:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:10:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:11:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:11:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:12:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:12:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:13:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:13:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:14:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:14:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:15:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:15:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:16:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:16:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:17:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:17:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:18:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:18:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:19:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:19:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:20:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:20:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:21:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:21:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:22:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:22:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:23:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:23:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:24:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:24:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:25:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:25:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:26:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:26:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:27:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:27:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:28:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:28:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:29:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:29:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:30:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:30:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:31:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:31:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:32:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:32:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:33:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:33:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:34:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:34:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:35:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:35:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:36:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:36:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:37:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:37:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:38:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:38:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:39:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:39:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:40:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:40:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:41:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:41:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:42:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:42:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:43:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:43:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:44:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:44:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:45:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:45:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:46:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:46:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:47:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:47:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:48:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:48:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:49:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:49:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:50:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:50:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:51:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:51:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:52:23 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:52:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:53:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:53:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:54:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:54:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:55:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:55:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:56:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:56:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:57:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:57:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:58:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:58:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 22:59:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T22:59:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:00:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:00:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:01:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:01:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:02:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:02:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:03:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:03:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:04:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:04:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:05:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:05:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:06:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:06:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:07:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:07:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:08:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:08:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:09:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:09:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:10:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:10:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:11:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:11:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:12:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:12:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:13:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:13:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:14:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:14:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:15:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:15:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:16:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:16:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:17:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:17:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:18:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:18:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:19:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:19:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:20:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:20:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:21:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:21:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:22:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:22:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:23:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:23:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:24:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:24:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:25:24 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:25:24+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-24 23:40:59 | INFO     | __main__ | 
+Cycle at 2026-10-24T23:40:59+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 01:27:22 | INFO     | __main__ | 
+Cycle at 2026-10-25T01:27:22+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 02:39:19 | INFO     | __main__ | 
+Cycle at 2026-10-25T02:39:19+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 04:04:40 | INFO     | __main__ | 
+Cycle at 2026-10-25T04:04:40+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 05:31:23 | INFO     | __main__ | 
+Cycle at 2026-10-25T05:31:23+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 07:21:25 | INFO     | __main__ | 
+Cycle at 2026-10-25T07:21:25+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 09:21:42 | INFO     | __main__ | 
+Cycle at 2026-10-25T09:21:42+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:20:40 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:20:40+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:21:40 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:21:40+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:22:40 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:22:40+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:23:40 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:23:40+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:24:40 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:24:40+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:25:26 | INFO     | __main__ | Scheduler stopped.
+2026-10-25 10:25:40 | INFO     | __main__ | Zyvefit scheduler starting | mode=DRY RUN
+2026-10-25 10:25:40 | INFO     | __main__ | Timezone=Asia/Kolkata | poll=60s | grace=5m | catchup=60m | max_live_sends_per_cycle=25
+2026-10-25 10:25:40 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:25:40+05:30: 38 active schedules, 3 active tier-assigned members, 5 candidate(s) [catch-up pass].
+2026-10-25 10:25:40 | INFO     | __main__ | [DRY RUN] 2026-10-25 10:00:00 | schedule=6 | task=HYDRATION_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_HOURLY_OSMOTIC_HYDRATION_CHECK
+2026-10-25 10:25:40 | INFO     | __main__ |   rendered message: Hourly Osmotic Hydration Check, Faizan! 💧 Time for your hourly glass (~250ml) to keep your cellular enzymes active and mental focus sharp. Sip and thrive!
+
+@919674671233
+2026-10-25 10:25:40 | INFO     | __main__ | [DRY RUN] 2026-10-25 10:00:00 | schedule=6 | task=HYDRATION_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_HOURLY_OSMOTIC_HYDRATION_CHECK
+2026-10-25 10:25:40 | INFO     | __main__ |   rendered message: Hourly Osmotic Hydration Check, Faizan! 💧 Time for your hourly glass (~250ml) to keep your cellular enzymes active and mental focus sharp. Sip and thrive!
+
+@919674671233
+2026-10-25 10:25:40 | INFO     | __main__ | [DRY RUN] 2026-10-25 10:00:00 | schedule=11 | task=HYDRATION_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_HOURLY_HYDRATION_HABIT_LOOP
+2026-10-25 10:25:40 | INFO     | __main__ |   rendered message: Hourly Sip Check-in, Zyve! 🥤 A gentle splash of water this hour keeps your mind clear and your habit streak rolling. Keep your water bottle close!
+2026-10-25 10:25:40 | INFO     | __main__ | [DRY RUN] 2026-10-25 10:00:00 | schedule=11 | task=HYDRATION_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_HOURLY_HYDRATION_HABIT_LOOP
+2026-10-25 10:25:40 | INFO     | __main__ |   rendered message: Hourly Sip Check-in, Zyve! 🥤 A gentle splash of water this hour keeps your mind clear and your habit streak rolling. Keep your water bottle close!
+2026-10-25 10:25:40 | INFO     | __main__ | [DRY RUN] 2026-10-25 10:00:00 | schedule=12 | task=HYDRATION_REMINDER | tier=Ultra | members=Ahad (TEST_AHAD) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=ULTRA_HOURLY_CONCIERGE_HYDRATION_SYNC
+2026-10-25 10:25:40 | INFO     | __main__ |   rendered message: Hourly Concierge Hydration Sync, Ahad! 👑 Your hourly mineral-enhanced hydration check. Take a refreshing sip from your desk flask to maintain peak cellular vitality and executive focus!
+
+@918948937671
+2026-10-25 10:26:40 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:26:40+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:27:40 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:27:40+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:27:51 | INFO     | __main__ | Scheduler stopped.
+2026-10-25 10:28:29 | INFO     | Periskope | Periskope initialized
+2026-10-25 10:28:29 | INFO     | __main__ | Zyvefit scheduler starting | mode=LIVE SEND
+2026-10-25 10:28:29 | INFO     | __main__ | Timezone=Asia/Kolkata | poll=60s | grace=5m | catchup=60m | max_live_sends_per_cycle=25
+2026-10-25 10:28:29 | INFO     | __main__ | Kill switch: create a STOP_SENDS file next to scheduler.py (or set SENDS_ENABLED=false) to halt live sends within one poll.
+2026-10-25 10:28:29 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:28:29+05:30: 38 active schedules, 3 active tier-assigned members, 5 candidate(s) [catch-up pass].
+2026-10-25 10:28:29 | INFO     | __main__ | [LIVE] 2026-10-25 10:00:00 | schedule=6 | task=HYDRATION_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=PRO_HOURLY_OSMOTIC_HYDRATION_CHECK
+2026-10-25 10:28:30 | INFO     | __main__ | [PROVIDER QUEUED] log_id=187 periskope_message_id=3EB0ADA84DB354B15CC209
+2026-10-25 10:28:30 | INFO     | __main__ | [LIVE] 2026-10-25 10:00:00 | schedule=6 | task=HYDRATION_REMINDER | tier=Pro | members=Faizan (TEST_FAIZAN) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=PRO_HOURLY_OSMOTIC_HYDRATION_CHECK
+2026-10-25 10:28:30 | INFO     | __main__ | [PROVIDER QUEUED] log_id=188 periskope_message_id=3EB0781D63B5AAFC7BF4B4
+2026-10-25 10:28:30 | INFO     | __main__ | [LIVE] 2026-10-25 10:00:00 | schedule=11 | task=HYDRATION_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=MAX_HOURLY_HYDRATION_HABIT_LOOP
+2026-10-25 10:28:30 | INFO     | __main__ | [PROVIDER QUEUED] log_id=189 periskope_message_id=3EB09D167D7A07179A7DE9
+2026-10-25 10:28:30 | INFO     | __main__ | [LIVE] 2026-10-25 10:00:00 | schedule=11 | task=HYDRATION_REMINDER | tier=Max | members=Zyve Test User (TEST_ZYVE_USER) | group=Multi Membership holder test | chat_id=120363431222993492@g.us | template=MAX_HOURLY_HYDRATION_HABIT_LOOP
+2026-10-25 10:28:30 | INFO     | __main__ | [PROVIDER QUEUED] log_id=190 periskope_message_id=3EB0880B74536B26CF4382
+2026-10-25 10:28:30 | INFO     | __main__ | [LIVE] 2026-10-25 10:00:00 | schedule=12 | task=HYDRATION_REMINDER | tier=Ultra | members=Ahad (TEST_AHAD) | group=Dev Test Group 01 | chat_id=120363412042215031@g.us | template=ULTRA_HOURLY_CONCIERGE_HYDRATION_SYNC
+2026-10-25 10:28:31 | INFO     | __main__ | [PROVIDER QUEUED] log_id=191 periskope_message_id=3EB066C2C0AFFA788E24E0
+2026-10-25 10:29:31 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:29:31+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:30:31 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:30:31+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:31:31 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:31:31+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:32:31 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:32:31+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:33:31 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:33:31+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:34:31 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:34:31+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:35:31 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:35:31+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:36:31 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:36:31+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:37:31 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:37:31+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:38:31 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:38:31+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:39:31 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:39:31+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:40:31 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:40:31+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
+2026-10-25 10:41:31 | INFO     | __main__ | 
+Cycle at 2026-10-25T10:41:31+05:30: 38 active schedules, 3 active tier-assigned members, 0 candidate(s).
