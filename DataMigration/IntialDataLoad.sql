@@ -93,7 +93,7 @@ VALUES
     ('FOUNDATION_WAKE_UP_SCALE_READING', 'Wake-up & Scale Reading', 'TEXT', 'Good morning, {{first_name}}! 🌅 Sending you a warm, gentle start to your day. Let''s take a loving check-in with your body—whenever you are ready, please share a quick photo of your scale''s screen right here. We are right here with you!', NULL, 'en'),
     ('FOUNDATION_MONTHLY_MEAL_PLAN_ROADMAP_DELIVERY', 'Monthly Meal Plan Roadmap Delivery', 'DOCUMENT', 'Here is your monthly nourishing meal roadmap, {{first_name}}! 🍲 Designed to give you clear, gentle structure for the month ahead while honoring your personal lifestyle pace. Whenever you''re ready, dive in and let this fuel your wellbeing!', NULL, 'en'),
     ('FOUNDATION_NOURISHING_LUNCH_GUIDE', 'Nourishing Lunch Guide', 'TEXT', 'Here is your nourishing lunch recommendation, {{first_name}}! 🍲 Balanced gently to keep your energy steady today. Enjoy your meal!', NULL, 'en'),
-    ('FOUNDATION_WEEKLY_GROCERY_STOCK_UP', 'Weekly Grocery Stock-up', 'TEXT', 'Happy Saturday, {{first_name}}! 🛒 If you are planning a market trip today, here are some fresh, nourishing greens we recommend stocking up on: spinach, cucumber, bell peppers, and zucchini. Let us know if you need any other ideas!', NULL, 'en'),
+    ('FOUNDATION_WEEKLY_GROCERY_STOCK_UP', 'Weekly Grocery Stock-up', 'TEXT', E'Happy Saturday, {{First Name}}!\n If you are heading out for groceries today, make sure to stock up on your fresh vegetables and plan essentials for the week ahead. Having a well-stocked kitchen is your best safety net for staying consistent!', NULL, 'en'),
     ('FOUNDATION_WEEKLY_BODY_PARAMETER_FEEDBACK', 'Weekly Body Parameter Feedback', 'TEXT', 'Hi {{first_name}}! 🌸 As we wrap up the week, let''s take a warm moment to appreciate your body''s journey. Your scale trends show gentle, beautiful progress in your body parameters. We are so incredibly proud of your consistency. Thank you for trusting us with your health—it is 100% our passion to support you!', NULL, 'en'),
     ('FOUNDATION_RENEWAL_VALUE_NUDGE', 'Renewal Value Nudge', 'TEXT', 'Hello, {{first_name}}! 🌟 We are so honored to support your health. Just a gentle, caring note that your auto-renewal is coming up on {{renewal_date}}. We are so excited to keep walking this path of wellness with you!', NULL, 'en'),
     ('FOUNDATION_PLAN_EXPIRY_ALERT', 'Plan Expiry Alert', 'TEXT', 'Hi {{first_name}}, just a gentle, warm heads-up! ⏰ Your current plan path comes to a close tomorrow. To keep your daily meal guides flowing smoothly, you can easily renew here: {{direct_payment_link}}.', NULL, 'en'),
@@ -107,9 +107,9 @@ VALUES
     ('PRO_REFINED_MEAL_PLAN_DELIVERY', 'Refined Meal Plan Delivery', 'DOCUMENT', 'Here is your refined metabolic meal plan, {{first_name}}! 🎯 Updated with your requested adjustments while keeping your precision macro balance intact. Let''s keep your momentum going strong!', NULL, 'en'),
     ('PRO_NOURISHING_LUNCH_GUIDE', 'Nourishing Lunch Guide', 'TEXT', 'Time to refuel, {{first_name}}! 🥗 Your precise metabolic lunch is ready: **150g Grilled Chicken + 100g Jasmine Rice + 80g Asparagus**. Let this structural balance fuel your afternoon with steady focus and care!', NULL, 'en'),
     ('PRO_CLINICAL_SUPPLEMENT_REMINDER', 'Clinical Supplement Reminder', 'TEXT', 'A quick supplement reminder, {{first_name}}! 💊 Let''s support your thyroid and lipid profiles today: **1x Omega-3 + 1x Vitamin D3+K2**. Take a loving moment for yourself!', NULL, 'en'),
-    ('PRO_NEXT_DAY_PREP_NUDGE', 'Next-Day Prep Nudge', 'TEXT', 'Nurturing tomorrow, {{first_name}}! 🔪 Prepping tonight makes tomorrow effortless and peaceful: **🥩 150g raw chicken/paneer, 🥦 100g broccoli & 50g carrots, 🍚 80g raw rice**. Set yourself up for absolute peace of mind tomorrow!', NULL, 'en'),
-    ('PRO_EVENING_SLEEP_WIND_DOWN', 'Evening Sleep Wind-down', 'TEXT', 'Time to rest, {{first_name}}. 💤 To support your body''s overnight healing and morning fasting glucose, let''s gently power down screens in 15 minutes. Wishing you peaceful dreams!', NULL, 'en'),
-    ('PRO_WEEKLY_GROCERY_STOCK_UP', 'Weekly Grocery Stock-up', 'TEXT', 'Bio-Fuel Prep Nudge, {{first_name}}! 🥦 To ensure your body has everything it needs for metabolic optimization next week, here is your precision grocery basket: **500g Asparagus, 1kg Spinach, 400g Broccoli, 500g Bell Peppers, 300g Cucumber**.', NULL, 'en'),
+    ('PRO_NEXT_DAY_PREP_NUDGE', 'Next-Day Prep Nudge', 'TEXT', E'Set up for a peaceful tomorrow, {{First Name}}! \n Taking 10–15 minutes tonight to prep your scheduled meals and ingredients will make tomorrow completely effortless. Check your active meal plan and set yourself up for a smooth, nourishing day ahead!', NULL, 'en'),
+    ('PRO_EVENING_SLEEP_WIND_DOWN', 'Evening Sleep Wind-down', 'TEXT', E'Time to rest and recharge, {{First Name}}! \n To support overnight recovery and metabolic balance, let''s power down screens and wind down for the night. Wishing you deep, peaceful sleep!', NULL, 'en'),
+    ('PRO_WEEKLY_GROCERY_STOCK_UP', 'Weekly Grocery Stock-up', 'TEXT', E'Happy Saturday, {{First Name}}! \n If you are heading out for groceries today, make sure to stock up on your fresh vegetables and plan essentials for the week ahead. Having a well-stocked kitchen is your best safety net for staying consistent!', NULL, 'en'),
     ('PRO_WEEKLY_BODY_PARAMETER_FEEDBACK', 'Weekly Body Parameter Feedback', 'TEXT', 'Hello {{first_name}}! 🌸 Your end-of-week body parameter feedback is ready. Your clinical data shows steady metabolic alignment and lovely composition trends. Your dedication is inspiring, and we are honored to protect your health with precision!', NULL, 'en'),
     ('PRO_COACH_AUDIT_UPDATES', 'Coach Audit & Updates', 'TEXT', 'Hi {{first_name}}! 📈 Your 3-day metabolic update is ready. Your weight trend shows lovely glycemic stability, and water compliance hit 88%. Your coach has refined your targets to keep you thriving!', NULL, 'en'),
     ('PRO_1_1_COACHING_CHECK_IN', '1:1 Coaching Check-in', 'TEXT', 'Let''s connect, {{first_name}}! 🔬 It''s time for our fortnightly deep dive. Let''s schedule a 1:1 voice or video chat to celebrate your progress and adjust your plans: {{calendar_link}}', NULL, 'en'),
@@ -128,10 +128,13 @@ Let''s kick-start your day with some joyful movement! Put on your favorite music
 🎧 *YOUR WORKOUT PLAYLIST*
 
 🎵 *Spotify:*
-https://open.spotify.com/track/4cVgfaHzVDu3srYfJEP0AN?si=4e0884f1263d44dc
+https://open.spotify.com
 
 ▶️ *YouTube Music:*
-https://music.youtube.com/watch?v=Of_28tkrIHU&si=LTAo5QzOILo49dw8
+https://music.youtube.com
+
+🍎 Apple Music:
+https://music.apple.com
 
 ✅ *Workout complete?*
 
@@ -146,9 +149,9 @@ Remember, consistency beats perfection. One small step at a time—you''ve got t
     ('MAX_REFINED_MEAL_PLAN_DELIVERY', 'Refined Meal Plan Delivery', 'DOCUMENT', 'Your updated weekly meal plan is ready, {{first_name}}! ✨ Tailored around your fresh preferences so healthy eating feels completely peaceful and flexible. Take a look and let us know how it feels!', NULL, 'en'),
     ('MAX_NOURISHING_LUNCH_GUIDE', 'Nourishing Lunch Guide', 'TEXT', 'Nourishing lunch time, {{first_name}}! 🍽️ Here is your planned meal: **150g Grilled Chicken + 100g Jasmine Rice + Veggies**. If you don''t have this or need a warm swap, let us know—we can adjust together!', NULL, 'en'),
     ('MAX_MICRONUTRIENT_REMINDER', 'Micronutrient Reminder', 'TEXT', 'A friendly supplement check-in, {{first_name}}! 💊 Let''s keep your energy high and body strong: **1x Multivitamin + 1x Magnesium**. Take a quick moment for yourself!', NULL, 'en'),
-    ('MAX_PREP_ACTIVE_SWAP_NUDGE', 'Prep & Active Swap Nudge', 'TEXT', 'Set up for a peaceful tomorrow, {{first_name}}! 🥗 Spend 10 minutes tonight prepping: **150g Salmon + 120g Sweet Potato**. Missing something? No stress—just tell us what''s in your fridge and we''ll swap it!', NULL, 'en'),
-    ('MAX_DAILY_HABIT_AUDIT_CHECK_IN', 'Daily Habit Audit Check-in', 'TEXT', 'Sweet dreams, {{first_name}}! 🧘 Let''s close out our day with a gentle, non-judgmental check-in. How did today feel with your food and movement? We love celebrating every win, big or small!', NULL, 'en'),
-    ('MAX_GROCERY_STOCK_UP', 'Grocery Stock-up', 'TEXT', 'Weekly Kitchen Prep, {{first_name}}! 🥬 Let''s build your consistency safety net. Stocking your vegetables on Saturday means you have zero excuses during a busy week. Here is your customized vegetable shopping list: **600g Broccoli, 500g Zucchini, 400g Mushrooms, 1kg Spinach, 500g Tomatoes**.', NULL, 'en'),
+    ('MAX_PREP_ACTIVE_SWAP_NUDGE', 'Prep & Active Swap Nudge', 'TEXT', E'Set up for a peaceful tomorrow, {{First Name}}! /n Taking 10–15 minutes tonight to prep your scheduled meals and ingredients will make tomorrow completely effortless. Check your active meal plan and set yourself up for a smooth, nourishing day ahead!', NULL, 'en'),
+    ('MAX_DAILY_HABIT_AUDIT_CHECK_IN','Daily Habit Audit Check-in','TEXT', E'Time to rest and recharge, {{First Name}}! \n To support overnight recovery and metabolic balance, let''s power down screens and wind down for the night. Wishing you deep, peaceful sleep!', NULL, 'en'),
+    ('MAX_GROCERY_STOCK_UP', 'Grocery Stock-up', 'TEXT', E'Happy Saturday, {{First Name}}! \n If you are heading out for groceries today, make sure to stock up on your fresh vegetables and plan essentials for the week ahead. Having a well-stocked kitchen is your best safety net for staying consistent!', NULL, 'en'),
     ('MAX_WEEKLY_BODY_PARAMETER_FEEDBACK', 'Weekly Body Parameter Feedback', 'TEXT', 'Happy Saturday, {{first_name}}! ✨ Your weekly body parameter review is ready. Your consistency score is amazing, and your body composition is aligning beautifully with your habit loops. You are doing fantastic, and we love celebrating every step of your progress!', NULL, 'en'),
     ('MAX_COACH_AUDIT_UPDATES', 'Coach Audit & Updates', 'TEXT', 'Hi {{first_name}}! 📈 Your 3-day log review is ready. Your consistency is amazing, and we love seeing your habit streak grow. Your coach has updated your targets to fit your busy week!', NULL, 'en'),
     ('MAX_1_1_COACHING_VOICE_SESSION', '1:1 Coaching Voice Session', 'TEXT', 'Time for our weekly check-in, {{first_name}}! 🗓️ Let''s look at your habit loops, scale patterns, and make sure your program flows beautifully with your busy life. Book your call here: {{calendar_link}}', NULL, 'en'),
@@ -168,8 +171,8 @@ Remember, consistency beats perfection. One small step at a time—you''ve got t
     ('ULTRA_REFINED_MEAL_PLAN_DELIVERY', 'Refined Meal Plan Delivery', 'DOCUMENT', 'Your refined executive meal plan is complete, {{first_name}}! 🥂 Your new selections are seamlessly updated, and your preparation cards have been auto-synced with your home kitchen. Enjoy your tailored dining with total peace of mind!', NULL, 'en'),
     ('ULTRA_NOURISHING_LUNCH_GUIDE', 'Nourishing Lunch Guide', 'TEXT', 'Your home-cooked metabolic lunch is ready, {{first_name}}! 🥗 Balanced perfectly to keep you focused and energized all afternoon. Enjoy your peaceful, restful lunch break!', NULL, 'en'),
     ('ULTRA_CLINICAL_SUPPLEMENT_REMINDER', 'Clinical Supplement Reminder', 'TEXT', 'A gentle protocol reminder, {{first_name}}! 👑 Let''s execute your mid-day biological support: **1x CoQ10 + 1x Thyroid Support** pre-sorted in Tray B of your kit. We hope you''re having an amazing day!', NULL, 'en'),
-    ('ULTRA_NEXT_DAY_PREP_STRATEGY_CARD', 'Next-Day Prep & Strategy Card', 'TEXT', 'Good evening, {{first_name}}! 🥂 Let''s set up tomorrow for absolute ease. Your scheduled menu is **200g Tiger Prawns + 100g Wild Rice**. We''ve already sent your preparation card to your kitchen chef. Let us know if your plans have changed or if you need any adjustments!', NULL, 'en'),
-    ('ULTRA_EVENING_SLEEP_WIND_DOWN', 'Evening Sleep Wind-down', 'TEXT', 'Wishing you a restful night, {{first_name}}. 👑 Your sleep optimization pack (**Magnesium L-Threonate + Apigenin**) is ready in Tray C. Take a moment to unwind with your custom 3-minute neural wind-down track: {{neural_audio_link}}. Sleep deeply!', NULL, 'en'),
+    ('ULTRA_NEXT_DAY_PREP_STRATEGY_CARD','Next-Day Prep & Strategy Card', 'TEXT', E'Set up for a peaceful tomorrow, {{First Name}}! \n Taking 10–15 minutes tonight to prep your scheduled meals and ingredients will make tomorrow completely effortless. Check your active meal plan and set yourself up for a smooth, nourishing day ahead!', NULL, 'en'),
+    ('ULTRA_EVENING_SLEEP_WIND_DOWN', 'Evening Sleep Wind-down', 'TEXT', E'Time to rest and recharge, {{First Name}}! \n To support overnight recovery and metabolic balance, let''s power down screens and wind down for the night. Wishing you deep, peaceful sleep!', NULL, 'en'),
     ('ULTRA_ON_THE_MOVE_TRAVEL_SWAP', 'On-the-Move Travel Swap', 'TEXT', 'We''ve got you covered completely, {{first_name}}! ✈️ Your coach and concierge have adjusted your meal plan based on your travel. Within 5 minutes, we have pre-screened your hotel/restaurant options. Enjoy your trip with peace of mind!', NULL, 'en'),
     ('ULTRA_CONCIERGE_HEALTH_SUMMARY', 'Concierge Health Summary', 'TEXT', 'Hello {{first_name}}! 📈 Your 3-day concierge health summary is ready. Your overnight HRV is excellent, and your body composition trend is progressing beautifully. Your coach is keeping everything optimized for you!', NULL, 'en'),
     ('ULTRA_1_1_STRATEGIC_REVIEW', '1:1 Strategic Review', 'TEXT', 'Let''s review our week, {{first_name}}! 🗓️ Let''s connect for your weekly 1:1 strategic review to audit your biomarkers and customize your logistics for the week ahead: {{calendar_link}}', NULL, 'en'),
@@ -201,14 +204,14 @@ WITH desired (
     VALUES
     -- Foundation
     ('Foundation', 'P1', NULL::integer, 'WEIGHT_REMINDER', 'FOUNDATION_WAKE_UP_SCALE_READING', 'DAILY', TIME '07:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
-    ('Foundation', 'P1', NULL::integer, 'LUNCH_GUIDE', 'FOUNDATION_NOURISHING_LUNCH_GUIDE', 'DAILY', TIME '12:30:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
+    ('Foundation', 'P1', NULL::integer, 'LUNCH_GUIDE', 'FOUNDATION_NOURISHING_LUNCH_GUIDE', 'DAILY', TIME '12:30:00', NULL::time, NULL::time, NULL::integer, NULL::integer, FALSE),
     ('Foundation', 'P1', NULL::integer, 'GREENS_NUDGE', 'FOUNDATION_WEEKLY_GROCERY_STOCK_UP', 'WEEKLY', TIME '10:00:00', NULL::time, NULL::time, NULL::integer, 6, TRUE),
-    ('Foundation', 'P1', NULL::integer, 'PARAMETER_DIGEST', 'FOUNDATION_WEEKLY_BODY_PARAMETER_FEEDBACK', 'WEEKLY', TIME '17:00:00', NULL::time, NULL::time, NULL::integer, 6, TRUE),
+    ('Foundation', 'P1', NULL::integer, 'PARAMETER_DIGEST', 'FOUNDATION_WEEKLY_BODY_PARAMETER_FEEDBACK', 'WEEKLY', TIME '17:00:00', NULL::time, NULL::time, NULL::integer, 6, FALSE),
     -- Pro
     ('Pro', 'P1', NULL::integer, 'WEIGHT_REMINDER', 'PRO_WAKE_UP_SCALE_READING', 'DAILY', TIME '07:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
     ('Pro', 'P1', NULL::integer, 'HYDRATION_REMINDER', 'PRO_HOURLY_OSMOTIC_HYDRATION_CHECK', 'HOURLY', NULL::time, TIME '08:00:00', TIME '20:00:00', 60, NULL::integer, TRUE),
-    ('Pro', 'P1', NULL::integer, 'BREAKFAST_REMINDER', 'PRO_BREAKFAST_CUE_BRANCH_B', 'DAILY', TIME '08:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
-    ('Pro', 'P1', NULL::integer, 'LUNCH_GUIDE', 'PRO_NOURISHING_LUNCH_GUIDE', 'DAILY', TIME '13:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
+    ('Pro', 'P1', NULL::integer, 'BREAKFAST_REMINDER', 'PRO_BREAKFAST_CUE_BRANCH_B', 'DAILY', TIME '08:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, FALSE),
+    ('Pro', 'P1', NULL::integer, 'LUNCH_GUIDE', 'PRO_NOURISHING_LUNCH_GUIDE', 'DAILY', TIME '13:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, FALSE),
     ('Pro', 'P1', NULL::integer, 'PREP_NUDGE', 'PRO_NEXT_DAY_PREP_NUDGE', 'DAILY', TIME '19:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
     ('Pro', 'P1', NULL::integer, 'SLEEP_WIND_DOWN', 'PRO_EVENING_SLEEP_WIND_DOWN', 'DAILY', TIME '21:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
     -- Max
@@ -216,37 +219,37 @@ WITH desired (
     -- Ultra
     ('Ultra', 'P1', NULL::integer, 'HYDRATION_REMINDER', 'ULTRA_HOURLY_CONCIERGE_HYDRATION_SYNC', 'HOURLY', NULL::time, TIME '08:00:00', TIME '20:00:00', 60, NULL::integer, TRUE),
     -- Pro
-    ('Pro', 'P1', NULL::integer, 'PARAMETER_DIGEST', 'PRO_WEEKLY_BODY_PARAMETER_FEEDBACK', 'WEEKLY', TIME '17:00:00', NULL::time, NULL::time, NULL::integer, 6, TRUE),
+    ('Pro', 'P1', NULL::integer, 'PARAMETER_DIGEST', 'PRO_WEEKLY_BODY_PARAMETER_FEEDBACK', 'WEEKLY', TIME '17:00:00', NULL::time, NULL::time, NULL::integer, 6, FALSE),
     ('Pro', 'P1', NULL::integer, 'GROCERY_STOCK_UP', 'PRO_WEEKLY_GROCERY_STOCK_UP', 'WEEKLY', TIME '10:00:00', NULL::time, NULL::time, NULL::integer, 6, TRUE),
-    ('Pro', 'P1', NULL::integer, 'SUPPLEMENT_REMINDER', 'PRO_CLINICAL_SUPPLEMENT_REMINDER', 'DAILY', TIME '14:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
-    ('Pro', 'P1', NULL::integer, 'FASTED_ACTIVITY', 'PRO_ACTIVITY_CUE_BRANCH_A', 'DAILY', TIME '07:30:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
+    ('Pro', 'P1', NULL::integer, 'SUPPLEMENT_REMINDER', 'PRO_CLINICAL_SUPPLEMENT_REMINDER', 'DAILY', TIME '14:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, FALSE),
+    ('Pro', 'P1', NULL::integer, 'FASTED_ACTIVITY', 'PRO_ACTIVITY_CUE_BRANCH_A', 'DAILY', TIME '07:30:00', NULL::time, NULL::time, NULL::integer, NULL::integer, FALSE),
     -- Max
-    ('Max', 'P1', NULL::integer, 'PARAMETER_DIGEST', 'MAX_WEEKLY_BODY_PARAMETER_FEEDBACK', 'WEEKLY', TIME '17:00:00', NULL::time, NULL::time, NULL::integer, 6, TRUE),
+    ('Max', 'P1', NULL::integer, 'PARAMETER_DIGEST', 'MAX_WEEKLY_BODY_PARAMETER_FEEDBACK', 'WEEKLY', TIME '17:00:00', NULL::time, NULL::time, NULL::integer, 6, FALSE),
     ('Max', 'P1', NULL::integer, 'GROCERY_STOCK_UP', 'MAX_GROCERY_STOCK_UP', 'WEEKLY', TIME '10:00:00', NULL::time, NULL::time, NULL::integer, 6, TRUE),
     ('Max', 'P1', NULL::integer, 'HABIT_AUDIT', 'MAX_DAILY_HABIT_AUDIT_CHECK_IN', 'DAILY', TIME '21:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
     ('Max', 'P1', NULL::integer, 'PREP_NUDGE', 'MAX_PREP_ACTIVE_SWAP_NUDGE', 'DAILY', TIME '19:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
-    ('Max', 'P1', NULL::integer, 'SUPPLEMENT_REMINDER', 'MAX_MICRONUTRIENT_REMINDER', 'DAILY', TIME '14:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
-    ('Max', 'P1', NULL::integer, 'LUNCH_GUIDE', 'MAX_NOURISHING_LUNCH_GUIDE', 'DAILY', TIME '13:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
-    ('Max', 'P1', NULL::integer, 'BREAKFAST_REMINDER', 'MAX_BREAKFAST_CUE_SWAPS', 'DAILY', TIME '08:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
+    ('Max', 'P1', NULL::integer, 'SUPPLEMENT_REMINDER', 'MAX_MICRONUTRIENT_REMINDER', 'DAILY', TIME '14:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, FALSE),
+    ('Max', 'P1', NULL::integer, 'LUNCH_GUIDE', 'MAX_NOURISHING_LUNCH_GUIDE', 'DAILY', TIME '13:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, FALSE),
+    ('Max', 'P1', NULL::integer, 'BREAKFAST_REMINDER', 'MAX_BREAKFAST_CUE_SWAPS', 'DAILY', TIME '08:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, FALSE),
     ('Max', 'P1', NULL::integer, 'WEIGHT_REMINDER', 'MAX_WAKE_UP_SCALE_READING', 'DAILY', TIME '07:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
     -- Ultra
-    ('Ultra', 'P1', NULL::integer, 'PARAMETER_DIGEST', 'ULTRA_WEEKLY_BODY_PARAMETER_FEEDBACK', 'WEEKLY', TIME '17:00:00', NULL::time, NULL::time, NULL::integer, 6, TRUE),
-    ('Ultra', 'P1', NULL::integer, 'PREP_STRATEGY_CARD', 'ULTRA_NEXT_DAY_PREP_STRATEGY_CARD', 'DAILY', TIME '19:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
-    ('Ultra', 'P1', NULL::integer, 'SUPPLEMENT_REMINDER', 'ULTRA_CLINICAL_SUPPLEMENT_REMINDER', 'DAILY', TIME '14:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
-    ('Ultra', 'P1', NULL::integer, 'LUNCH_GUIDE', 'ULTRA_NOURISHING_LUNCH_GUIDE', 'DAILY', TIME '13:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
+    ('Ultra', 'P1', NULL::integer, 'PARAMETER_DIGEST', 'ULTRA_WEEKLY_BODY_PARAMETER_FEEDBACK', 'WEEKLY', TIME '17:00:00', NULL::time, NULL::time, NULL::integer, 6, FALSE),
+    ('Ultra', 'P1', NULL::integer, 'PREP_STRATEGY_CARD', 'ULTRA_NEXT_DAY_PREP_STRATEGY_CARD', 'DAILY', TIME '19:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, FALSE),
+    ('Ultra', 'P1', NULL::integer, 'SUPPLEMENT_REMINDER', 'ULTRA_CLINICAL_SUPPLEMENT_REMINDER', 'DAILY', TIME '14:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, FALSE),
+    ('Ultra', 'P1', NULL::integer, 'LUNCH_GUIDE', 'ULTRA_NOURISHING_LUNCH_GUIDE', 'DAILY', TIME '13:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, FALSE),
     ('Ultra', 'P1', NULL::integer, 'WEIGHT_REMINDER', 'ULTRA_WAKE_UP_SCALE_READING', 'DAILY', TIME '07:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
     -- Pro
-    ('Pro', 'P1', 1, 'FORTNIGHTLY_MEAL_PLAN', 'PRO_FORTNIGHTLY_METABOLIC_MEAL_PLAN_DELIVERY', 'FORTNIGHTLY', TIME '09:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
+    ('Pro', 'P1', 1, 'FORTNIGHTLY_MEAL_PLAN', 'PRO_FORTNIGHTLY_METABOLIC_MEAL_PLAN_DELIVERY', 'FORTNIGHTLY', TIME '09:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, FALSE),
     -- Max
-    ('Max', 'P1', NULL::integer, 'WEEKLY_MEAL_PLAN', 'MAX_WEEKLY_CUSTOM_MEAL_PLAN_DELIVERY', 'WEEKLY', TIME '18:00:00', NULL::time, NULL::time, NULL::integer, 0, TRUE),
+    ('Max', 'P1', NULL::integer, 'WEEKLY_MEAL_PLAN', 'MAX_WEEKLY_CUSTOM_MEAL_PLAN_DELIVERY', 'WEEKLY', TIME '18:00:00', NULL::time, NULL::time, NULL::integer, 0, FALSE),
     ('Max', 'P1', NULL::integer, 'WORKOUT_NUDGE', 'MAX_WORKOUT_NUDGE_MUSIC', 'DAILY', TIME '07:30:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
     -- Ultra
-    ('Ultra', 'P1', NULL::integer, 'MAID_LUNCH_DELIVERY', 'ULTRA_HOME_MAID_LUNCH_DELIVERY', 'DAILY', TIME '13:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
+    ('Ultra', 'P1', NULL::integer, 'MAID_LUNCH_DELIVERY', 'ULTRA_HOME_MAID_LUNCH_DELIVERY', 'DAILY', TIME '13:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, FALSE),
     ('Ultra', 'P1', NULL::integer, 'GROCERY_STOCK_UP', 'ULTRA_WEEKLY_SHOPPING_BASKET', 'WEEKLY', TIME '10:00:00', NULL::time, NULL::time, NULL::integer, 6, TRUE),
     ('Ultra', 'P1', NULL::integer, 'SLEEP_WIND_DOWN', 'ULTRA_EVENING_SLEEP_WIND_DOWN', 'DAILY', TIME '21:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
-    ('Ultra', 'P1', NULL::integer, 'WEEKLY_MEAL_PLAN', 'ULTRA_WEEKLY_EXECUTIVE_CONCIERGE_MEAL_PLAN_DELIVERY', 'WEEKLY', TIME '18:00:00', NULL::time, NULL::time, NULL::integer, 0, TRUE),
-    ('Ultra', 'P1', NULL::integer, 'MAID_PREP_VERIFICATION', 'ULTRA_MAID_PREP_VERIFICATION', 'DAILY', TIME '08:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE),
-    ('Ultra', 'P1', NULL::integer, 'MAID_PREP_CARD', 'ULTRA_MAID_PREP_CARD_DELIVERY', 'DAILY', TIME '19:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, TRUE)
+    ('Ultra', 'P1', NULL::integer, 'WEEKLY_MEAL_PLAN', 'ULTRA_WEEKLY_EXECUTIVE_CONCIERGE_MEAL_PLAN_DELIVERY', 'WEEKLY', TIME '18:00:00', NULL::time, NULL::time, NULL::integer, 0, FALSE),
+    ('Ultra', 'P1', NULL::integer, 'MAID_PREP_VERIFICATION', 'ULTRA_MAID_PREP_VERIFICATION', 'DAILY', TIME '08:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, FALSE),
+    ('Ultra', 'P1', NULL::integer, 'MAID_PREP_CARD', 'ULTRA_MAID_PREP_CARD_DELIVERY', 'DAILY', TIME '19:00:00', NULL::time, NULL::time, NULL::integer, NULL::integer, FALSE)
 )
 INSERT INTO message_schedules (
     tier_id, phase_id, day_offset, task_type, template_id, schedule_type,
@@ -417,3 +420,15 @@ FROM members m
 LEFT JOIN tiers t ON t.tier_id = m.tier_id
 LEFT JOIN phases p ON p.phase_id = m.phase_id
 ORDER BY m.member_code;
+
+BEGIN;
+
+ALTER TABLE public.phases
+    ALTER COLUMN start_day DROP NOT NULL,
+    ALTER COLUMN end_day DROP NOT NULL;
+
+UPDATE public.phases
+SET start_day = NULL,
+    end_day = NULL;
+
+COMMIT;

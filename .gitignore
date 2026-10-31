@@ -29,3 +29,6 @@ README.md
 
 LIVE_SEND_SETUP.md
 
+logs/
+*.log
+

@@ -7,7 +7,7 @@
 BEGIN;
 
 CREATE TABLE IF NOT EXISTS public.media_assets (
-    media_asset_id BI GSERIAL PRIMARY KEY,
+    media_asset_id BIGSERIAL PRIMARY KEY,
     display_name VARCHAR(140) NOT NULL,
     original_filename VARCHAR(255) NOT NULL,
     mime_type VARCHAR(150) NOT NULL,
