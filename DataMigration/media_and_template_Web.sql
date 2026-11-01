@@ -6,6 +6,18 @@
 
 BEGIN;
 
+-- Portal authentication only; contains password hashes, never plaintext passwords.
+-- Run init_auth.py separately to provision the initial administrator interactively.
+-- This migration targets public; init_auth.py uses DATABASE_SCHEMA if configured.
+CREATE TABLE IF NOT EXISTS public.auth_users (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    username TEXT NOT NULL UNIQUE,
+    password_hash TEXT NOT NULL,
+    role TEXT NOT NULL,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS public.media_assets (
     media_asset_id BIGSERIAL PRIMARY KEY,
     display_name VARCHAR(140) NOT NULL,

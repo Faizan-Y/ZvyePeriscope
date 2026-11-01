@@ -16,11 +16,14 @@ import psycopg
 from psycopg import errors, sql
 from psycopg.rows import dict_row
 from dotenv import load_dotenv
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.encoders import jsonable_encoder
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
+from starlette.concurrency import run_in_threadpool
+
+import auth
 
 ROOT = Path(__file__).resolve().parent
 WEB_DIR = ROOT / "web"
@@ -50,6 +53,41 @@ if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", DATABASE_SCHEMA):
     raise RuntimeError("DATABASE_SCHEMA must be a simple PostgreSQL schema identifier, such as public")
 
 app = FastAPI(title="Zyvefit Nutritionist Console API", version="0.1.0", docs_url="/api/docs", redoc_url=None)
+app.middleware("http")(auth.auth_gate)
+
+
+@app.get("/login", include_in_schema=False)
+def login_page(request: Request):
+    if auth.sessions.get(request.cookies.get(auth.COOKIE_NAME)):
+        return RedirectResponse("/", status_code=303)
+    return FileResponse(WEB_DIR / "login.html")
+
+
+@app.post("/login", include_in_schema=False)
+async def login(request: Request, username: str = Form(...), password: str = Form(...)):
+    if not auth.login_limiter.allow():
+        return HTMLResponse("Too many sign-in attempts. Please try again later.", status_code=429, headers={"Cache-Control": "no-store", "Retry-After": str(auth.LOGIN_WINDOW_SECONDS)})
+    if len(username) > 128 or len(password) > 1024:
+        return RedirectResponse("/login?error=1", status_code=303, headers={"Cache-Control": "no-store"})
+    try:
+        user = await run_in_threadpool(auth.authenticate, DATABASE_URL, DATABASE_SCHEMA, username.strip(), password)
+    except (psycopg.Error, RuntimeError):
+        return HTMLResponse("Sign-in is temporarily unavailable. Please contact the administrator.", status_code=503, headers={"Cache-Control": "no-store"})
+    if not user:
+        return RedirectResponse("/login?error=1", status_code=303, headers={"Cache-Control": "no-store"})
+    auth.sessions.revoke(request.cookies.get(auth.COOKIE_NAME))
+    token = auth.sessions.create(user["id"], user["role"])
+    response = RedirectResponse("/", status_code=303, headers={"Cache-Control": "no-store"})
+    auth.set_session_cookie(response, token)
+    return response
+
+
+@app.post("/logout", include_in_schema=False)
+def logout(request: Request) -> RedirectResponse:
+    auth.sessions.revoke(request.cookies.get(auth.COOKIE_NAME))
+    response = RedirectResponse("/login", status_code=303, headers={"Cache-Control": "no-store"})
+    auth.clear_session_cookie(response)
+    return response
 
 # Values accepted by the current Zyvefit templates table.
 TYPE_TO_DB = {

@@ -2,10 +2,14 @@
 from __future__ import annotations
 
 import os
+from datetime import datetime, timezone
 from typing import Any
 
 import psycopg
 from psycopg.rows import dict_row
+
+
+UTC = timezone.utc
 
 
 def get_database_url() -> str:
@@ -18,8 +22,8 @@ def get_database_url() -> str:
 def connect_database(*, dict_rows: bool = False):
     row_factory = dict_row if dict_rows else None
     conn = psycopg.connect(get_database_url(), row_factory=row_factory)
-    timezone = os.getenv("APP_TIMEZONE", "Asia/Kolkata")
-    conn.execute("SELECT set_config('TimeZone', %s, false)", (timezone,))
+    timezone_name = os.getenv("APP_TIMEZONE", "Asia/Kolkata")
+    conn.execute("SELECT set_config('TimeZone', %s, false)", (timezone_name,))
     conn.commit()
     return conn
 
@@ -36,8 +40,8 @@ _shared_connection = None
 
 def _open_shared_connection():
     connection = psycopg.connect(get_database_url(), row_factory=dict_row)
-    timezone = os.getenv("APP_TIMEZONE", "Asia/Kolkata")
-    connection.execute("SELECT set_config('TimeZone', %s, false)", (timezone,))
+    timezone_name = os.getenv("APP_TIMEZONE", "Asia/Kolkata")
+    connection.execute("SELECT set_config('TimeZone', %s, false)", (timezone_name,))
     connection.commit()
     return connection
 
@@ -119,23 +123,37 @@ def fetch_attention_rows() -> list[dict[str, Any]]:
     return fetch_all(sql)
 
 
-def create_pending_log(candidate: dict[str, Any], content: str) -> int | None:
-    """Create one log row per schedule + group + recipient + occurrence.
+def _scheduled_at_utc_naive(value: Any) -> datetime:
+    """Convert an aware instant to UTC represented as a naive timestamp.
 
-    No idempotency column exists in the approved schema. A PostgreSQL advisory
-    transaction lock plus the existing (schedule_id, group_id, member_id,
-    scheduled_at) fields prevents duplicate logical sends - one row per
-    recipient - from concurrent scheduler workers. The uq_message_logs_send
-    unique index enforces the same key at the database level. All work runs
-    in one transaction on the shared pooled connection.
+    The approved `message_logs.scheduled_at` column is TIMESTAMP WITHOUT TIME
+    ZONE. We retain that schema and define its values as UTC by convention.
+    Requiring an aware input prevents accidental storage of member-local time.
+    """
+    if not isinstance(value, datetime):
+        raise TypeError("candidate scheduled_at must be a datetime")
+    if value.tzinfo is None or value.utcoffset() is None:
+        raise ValueError("candidate scheduled_at must be timezone-aware")
+    return value.astimezone(UTC).replace(tzinfo=None)
+
+
+def create_pending_log(candidate: dict[str, Any], content: str) -> int | None:
+    """Create one log row per schedule + group + recipient + UTC occurrence.
+
+    `scheduled_at` is stored as a naive UTC timestamp because the existing
+    approved column is TIMESTAMP WITHOUT TIME ZONE. The scheduler must supply
+    an aware UTC instant. A PostgreSQL advisory transaction lock plus the
+    existing (schedule_id, group_id, member_id, scheduled_at) fields prevents
+    duplicate logical sends from concurrent scheduler workers. The existing
+    unique index enforces the same key at the database level.
     """
     schedule_id = candidate["schedule"]["schedule_id"]
     group_id = candidate["group_id"]
     member_id = candidate.get("log_member_id")
-    scheduled_at = candidate["scheduled_at"]
+    scheduled_at_utc = _scheduled_at_utc_naive(candidate["scheduled_at"])
     lock_key = (
         f"zyvefit-send:{schedule_id}:{group_id}:{member_id}:"
-        f"{scheduled_at.isoformat(timespec='minutes')}"
+        f"{scheduled_at_utc.isoformat(timespec='minutes')}Z"
     )
 
     def operation(conn):
@@ -152,7 +170,7 @@ def create_pending_log(candidate: dict[str, Any], content: str) -> int | None:
             ORDER BY message_log_id
             LIMIT 1
             """,
-            (schedule_id, group_id, member_id, scheduled_at),
+            (schedule_id, group_id, member_id, scheduled_at_utc),
         ).fetchone()
         if existing:
             return None
@@ -181,7 +199,7 @@ def create_pending_log(candidate: dict[str, Any], content: str) -> int | None:
                 candidate["schedule"]["message_type"],
                 content,
                 candidate["schedule"].get("media_url"),
-                scheduled_at,
+                scheduled_at_utc,
             ),
         ).fetchone()
         return row["message_log_id"] if row else None
@@ -218,10 +236,10 @@ def update_log_after_send(
             END
         WHERE message_log_id = %s
     """
+
     def operation(conn):
         conn.execute(
-            sql,
-            (status, _string_or_none(provider_message_id), error_message, status, message_log_id),
+            sql, (status, _string_or_none(provider_message_id), error_message, status, message_log_id)
         )
 
     run_with_retry(operation)

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f4">
+  <title>Sign in — Zyvefit Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/login.css">
+</head>
+<body>
+  <main class="login-card">
+    <div class="login-brand">
+      <img src="/assets/zyvefit-logo.png" alt="">
+      <span><strong>zyvefit</strong><small>NUTRITION STUDIO</small></span>
+    </div>
+    <p class="login-eyebrow">YOUR WORKSPACE</p>
+    <h1>Welcome back<span>.</span></h1>
+    <p class="login-intro">Sign in to your Zyvefit nutrition workspace.</p>
+    <p class="login-error" role="alert" hidden>Unable to sign in. Check your credentials and try again.</p>
+    <form action="/login" method="post">
+      <label for="username">Username</label>
+      <input id="username" name="username" type="text" maxlength="128" autocomplete="username" required autofocus>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" maxlength="1024" autocomplete="current-password" required>
+      <button type="submit">Sign in</button>
+    </form>
+    <p class="login-footnote">Your workspace is protected.</p>
+  </main>
+  <script>if (new URLSearchParams(location.search).has('error')) document.querySelector('.login-error').hidden = false;</script>
+</body>
+</html>

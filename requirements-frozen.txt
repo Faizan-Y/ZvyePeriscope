@@ -10,3 +10,4 @@ charset-normalizer==3.5.2
 idna==3.20
 typing_extensions==4.16.0
 urllib3==2.8.0
+argon2-cffi>=23.1,<26

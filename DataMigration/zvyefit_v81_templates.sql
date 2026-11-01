@@ -412,3 +412,6 @@ CREATE INDEX idx_incoming_messages_received_at
 -- WHERE schedule_id IS NOT NULL
 --   AND group_id IS NOT NULL
 --   AND scheduled_at IS NOT NULL;
+
+ALTER TABLE members
+ADD COLUMN timezone VARCHAR(64) DEFAULT 'Asia/Kolkata';

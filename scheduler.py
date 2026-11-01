@@ -1,5 +1,5 @@
 """
-Default mode is dry-run. Use --send only after checking the preview and the
+Default mode is dry-run. Use --send only after checking the preview.
 """
 from __future__ import annotations
 
@@ -11,9 +11,9 @@ import re
 import sys
 import time as time_module
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any
-from zoneinfo import ZoneInfo
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 import requests
 from dotenv import load_dotenv
@@ -30,8 +30,8 @@ logger = logging.getLogger(__name__)
 _catchup_pending = True
 
 # Occurrences already processed by this process run, keyed identically to the
-# message_logs dedup key (schedule + group + member + time). Later cycles skip
-# them without another database round-trip; the DB check stays authoritative
+# message_logs dedup key (schedule + group + member + UTC time). Later cycles
+# skip them without another database round-trip; the DB check stays authoritative
 # for restarts and concurrent processes. See run_one_cycle.
 _attempted_candidates: set[tuple[Any, ...]] = set()
 
@@ -90,34 +90,67 @@ def build_candidates(
     schedules: list[dict[str, Any]],
     members: list[dict[str, Any]],
     destinations: list[dict[str, Any]],
-    now_local: datetime,
+    now_utc: datetime,
     grace_minutes: int,
     force_due_for_preview: bool = False,
     catchup_minutes: int = 0,
 ) -> list[dict[str, Any]]:
-    """Build one send per schedule + group + member + occurrence.
+    """Build one send per schedule + group + member + UTC occurrence.
 
-    Each member receives their own message in the destination group: a personal
-    greeting, their own @mention tag, and their own message_logs row. This keeps
-    per-member meal-plan guidance possible when a group holds multiple members
-    of the same tier. Every active group_members relationship is a destination.
+    Each member receives their own message in each active destination group.
+    Schedule calculations use the member's saved IANA timezone. Returned
+    occurrences are UTC-aware instants, making the candidate identity and DB
+    deduplication independent of the member's local timezone.
     """
+    if now_utc.tzinfo is None or now_utc.utcoffset() is None:
+        raise ValueError("now_utc must be timezone-aware")
+    now_utc = now_utc.astimezone(timezone.utc).replace(second=0, microsecond=0)
+
     destinations_by_member: dict[int, list[dict[str, Any]]] = defaultdict(list)
     for dest in destinations:
         destinations_by_member[dest["member_id"]].append(dest)
+
+    # Resolve each member's timezone once per cycle. Invalid or missing values
+    # are skipped explicitly rather than falling back to APP_TIMEZONE.
+    timezones_by_member: dict[int, ZoneInfo] = {}
+    for member in members:
+        member_id = member["member_id"]
+        timezone_name = member.get("timezone")
+        if not isinstance(timezone_name, str) or not timezone_name.strip():
+            logger.warning(
+                f"[INVALID MEMBER TIMEZONE] member={member.get('member_code') or member_id}; "
+                "timezone is missing; member skipped"
+            )
+            continue
+        try:
+            timezones_by_member[member_id] = ZoneInfo(timezone_name.strip())
+        except (ZoneInfoNotFoundError, ValueError):
+            logger.warning(
+                f"[INVALID MEMBER TIMEZONE] member={member.get('member_code') or member_id} "
+                f"timezone={timezone_name!r}; member skipped"
+            )
 
     grouped: dict[tuple[Any, ...], dict[str, Any]] = {}
     for schedule in schedules:
         for member in members:
             if not schedule_matches_member(schedule, member):
                 continue
+
+            member_timezone = timezones_by_member.get(member["member_id"])
+            if member_timezone is None:
+                continue
+            member_now_local = now_utc.astimezone(member_timezone)
+
             occurrences = (
-                [now_local.replace(second=0, microsecond=0)]
+                [member_now_local.astimezone(timezone.utc)]
                 if force_due_for_preview
-                else due_occurrences(schedule, member, now_local, grace_minutes, catchup_minutes)
+                else due_occurrences(
+                    schedule, member, member_now_local, grace_minutes, catchup_minutes
+                )
             )
             if not occurrences:
                 continue
+
             member_destinations = destinations_by_member.get(member["member_id"], [])
             if not member_destinations:
                 logger.warning(
@@ -128,12 +161,16 @@ def build_candidates(
                 continue
 
             for occurrence in occurrences:
+                occurrence_utc = occurrence.astimezone(timezone.utc)
                 for dest in member_destinations:
-                    key = (schedule["schedule_id"], dest["group_id"], member["member_id"], occurrence)
+                    key = (
+                        schedule["schedule_id"], dest["group_id"],
+                        member["member_id"], occurrence_utc,
+                    )
                     if key not in grouped:
                         grouped[key] = {
                             "schedule": schedule,
-                            "scheduled_at": occurrence,
+                            "scheduled_at": occurrence_utc,
                             "group_id": dest["group_id"],
                             "group_name": dest["group_name"],
                             "chat_id": dest["periskope_chat_id"],
@@ -220,7 +257,7 @@ def process_candidate(candidate: dict[str, Any], dry_run: bool, client: Any | No
         return False
 
     # The @mention footer pings the intended members even when the group is
-    # muted; members without a phone_number get no footer (message unchanged).
+    # muted; members without a phone_number get no footer.
     content += mention_footer(candidate["members"])
 
     message_type = str(schedule.get("message_type", "TEXT")).upper()
@@ -237,8 +274,8 @@ def process_candidate(candidate: dict[str, Any], dry_run: bool, client: Any | No
         for m in candidate["members"]
     )
     logger.info(
-        f"[{'DRY RUN' if dry_run else 'LIVE'}] {candidate['scheduled_at']} "
-        f"| schedule={schedule['schedule_id']} | task={schedule['task_type']} "
+        f"[{'DRY RUN' if dry_run else 'LIVE'}] {candidate['scheduled_at'].isoformat(timespec='minutes')} "
+        f"UTC | schedule={schedule['schedule_id']} | task={schedule['task_type']} "
         f"| tier={schedule['tier_name']} | members={member_labels} "
         f"| group={candidate['group_name']} | chat_id={candidate['chat_id']} "
         f"| template={schedule['template_code']}"
@@ -256,7 +293,7 @@ def process_candidate(candidate: dict[str, Any], dry_run: bool, client: Any | No
     if log_id is None:
         logger.info(
             f"[DUPLICATE SKIPPED] schedule={schedule['schedule_id']} "
-            f"group={candidate['group_id']} scheduled_at={candidate['scheduled_at']}"
+            f"group={candidate['group_id']} scheduled_at={candidate['scheduled_at'].isoformat()} UTC"
         )
         return False
 
@@ -323,9 +360,7 @@ def send_heartbeat(url: str | None) -> bool | None:
     """Ping the dead-man-switch once; never raises, never blocks long.
 
     Returns None when no HEARTBEAT_URL is configured, True when the ping
-    succeeded, and False when it failed. The dead-man-switch service (for
-    example Healthchecks.io) alerts when pings stop arriving, which covers a
-    dead process, a crashed server, and a database outage between cycles.
+    succeeded, and False when the ping failed.
     """
     if not (url or "").strip():
         return None
@@ -363,7 +398,7 @@ def report_needs_attention() -> None:
     """Print stale PENDING and recent FAILED sends so nothing fails silently.
 
     Failed sends are not retried automatically (the provider may have accepted
-    an attempted send). A stale PENDING row usually means the process died
+    the attempted send). A stale PENDING row usually means the process died
     between logging and sending. Both need a human decision before any retry.
     """
     rows = fetch_attention_rows()
@@ -386,12 +421,10 @@ def report_needs_attention() -> None:
 
 
 def candidate_attempt_key(candidate: dict[str, Any]) -> tuple[Any, ...]:
-    """Stable identity of one send attempt: schedule + group + member + time.
+    """Stable identity of one send attempt: schedule + group + member + UTC time.
 
-    Matches the message_logs dedup quadruple used by create_pending_log, so an
-    occurrence already processed in this process run is skipped without
-    another database round-trip. Restarts stay safe: the database check in
-    create_pending_log remains the authoritative guard.
+    Matches the message_logs dedup quadruple used by create_pending_log.
+    Restarts stay safe: the database check remains the authoritative guard.
     """
     return (
         candidate["schedule"]["schedule_id"],
@@ -413,11 +446,10 @@ def run_one_cycle(
 ) -> int:
     global _catchup_pending
     schedules, members, destinations = load_configuration()
-    now = datetime.now(ZoneInfo(os.getenv("APP_TIMEZONE", "Asia/Kolkata")))
-    now_local = now.replace(tzinfo=None, second=0, microsecond=0)
+    now_utc = datetime.now(timezone.utc).replace(second=0, microsecond=0)
     effective_catchup = catchup_minutes if _catchup_pending else 0
     candidates = build_candidates(
-        schedules, members, destinations, now_local, grace_minutes,
+        schedules, members, destinations, now_utc, grace_minutes,
         force_due_for_preview, effective_catchup,
     )
     if schedule_id_filter is not None:
@@ -435,7 +467,7 @@ def run_one_cycle(
     candidates = [c for c in candidates if candidate_attempt_key(c) not in _attempted_candidates]
 
     logger.info(
-        f"\nCycle at {now.isoformat(timespec='seconds')}: "
+        f"\nCycle at {now_utc.isoformat(timespec='seconds')} UTC: "
         f"{len(schedules)} active schedules, {len(members)} active tier-assigned members, "
         f"{len(candidates)} candidate(s)"
         + (" [catch-up pass]" if effective_catchup > 0 else "")
@@ -473,11 +505,8 @@ def run_one_cycle(
         report_needs_attention()
     if not halted and not cap_deferred:
         # The catch-up pass stays armed until a cycle completes without the
-        # kill switch or the send cap deferring work, so recovery is never
-        # dropped by a partial cycle.
+        # kill switch or the send cap deferring work, so recovery is never dropped.
         _catchup_pending = False
-    # A completed cycle (even one that deferred or halted sends) means the
-    # process and database are both alive: ping the dead-man-switch.
     report_heartbeat()
     return len(candidates)
 
@@ -493,8 +522,8 @@ def main() -> int:
     log_dir.mkdir(parents=True, exist_ok=True)
     log_path = (log_dir / "scheduler.log").resolve()
     formatter = logging.Formatter(
-    "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
+        "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
     )
 
     root_logger = logging.getLogger()
@@ -553,8 +582,10 @@ def main() -> int:
         client = None if dry_run else build_client()
         logger.info(f"Zyvefit scheduler starting | mode={'DRY RUN' if dry_run else 'LIVE SEND'}")
         logger.info(
-            f"Timezone={os.getenv('APP_TIMEZONE', 'Asia/Kolkata')} | poll={poll_seconds}s | "
-            f"grace={grace_minutes}m | catchup={catchup_minutes}m | max_live_sends_per_cycle={send_cap}"
+            f"Member scheduling timezone=members.timezone | DB session timezone="
+            f"{os.getenv('APP_TIMEZONE', 'Asia/Kolkata')} | poll={poll_seconds}s | "
+            f"grace={grace_minutes}m | catchup={catchup_minutes}m | "
+            f"max_live_sends_per_cycle={send_cap}"
         )
         if not dry_run:
             logger.info(
@@ -574,8 +605,7 @@ def main() -> int:
             except Exception as exc:
                 cycle_failures += 1
                 # Log the first failure and then every 10th, so a database
-                # outage cannot spam the log once per poll; the heartbeat
-                # dead-man-switch is what alerts during a long outage.
+                # outage cannot spam the log once per poll; heartbeat alerts during outages.
                 if cycle_failures == 1 or cycle_failures % 10 == 0:
                     logger.error(
                         f"[CYCLE ERROR] {type(exc).__name__}: {exc} "
