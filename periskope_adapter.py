@@ -7,6 +7,8 @@ from __future__ import annotations
 import os
 from typing import Any
 
+from media_payload import local_media_payload
+
 ALLOWED_LOG_STATUSES = {"QUEUED", "SENT", "DELIVERED", "READ", "FAILED"}
 
 
@@ -36,7 +38,13 @@ def send_message(
     elif kind in {"IMAGE", "VIDEO", "AUDIO", "DOCUMENT"}:
         if not media_url:
             raise ValueError(f"Template is {kind}, but templates.media_url is empty.")
-        raw = client.send_media(chat_id, media_url, kind.lower(), caption=content or None)
+        if media_url.startswith("/uploads/"):
+            media = local_media_payload(media_url, kind)
+            raw = client.send_media(chat_id, None, kind.lower(), caption=content or None, media_payload=media)
+        elif media_url.startswith("https://"):
+            raw = client.send_media(chat_id, media_url, kind.lower(), caption=content or None)
+        else:
+            raise ValueError("Media must be a registered upload or an HTTPS URL.")
     elif kind == "LOCATION":
         raise NotImplementedError("LOCATION sending is not implemented in this scheduler slice.")
     else:
@@ -70,7 +78,7 @@ def _normalize_response(raw_response: Any) -> dict[str, Any]:
             body = {"body": body}
         body.setdefault("http_status", status_code)
         if status_code >= 400:
-            raise RuntimeError(f"Periskope HTTP {status_code}: {body}")
+            raise RuntimeError(f"Periskope HTTP {status_code}")
         return body
     if raw_response is None:
         return {}

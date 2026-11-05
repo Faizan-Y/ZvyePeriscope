@@ -78,4 +78,30 @@ CREATE UNIQUE INDEX IF NOT EXISTS uq_templates_one_media_template
     ON public.templates (media_asset_id)
     WHERE is_media_template = TRUE AND media_asset_id IS NOT NULL;
 
+-- Latest dashboard scheduling and request-id changes (ONLINE_ONCE).
+-- Reuses the existing message_schedules and message_logs tables; apply only after
+-- the base schema and its scheduler deduplication index are in place. The five-minute
+-- schedule removal rule is enforced by the API and requires no additional SQL.
+-- Existing recurrence types retain their rules; review constraints against the
+-- actual target schema and back up before applying this migration.
+ALTER TABLE public.message_schedules ADD COLUMN IF NOT EXISTS online_date DATE;
+ALTER TABLE public.message_schedules ADD COLUMN IF NOT EXISTS online_promotion BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE public.message_schedules ADD COLUMN IF NOT EXISTS online_request_id UUID;
+ALTER TABLE public.message_schedules ADD COLUMN IF NOT EXISTS online_request_fingerprint TEXT;
+ALTER TABLE public.message_schedules ADD COLUMN IF NOT EXISTS online_completed_at TIMESTAMPTZ;
+ALTER TABLE public.message_schedules ADD COLUMN IF NOT EXISTS online_started_at TIMESTAMPTZ;
+ALTER TABLE public.message_schedules ADD COLUMN IF NOT EXISTS online_status TEXT;
+ALTER TABLE public.message_schedules ALTER COLUMN phase_id DROP NOT NULL;
+ALTER TABLE public.message_schedules DROP CONSTRAINT IF EXISTS chk_schedule_type;
+ALTER TABLE public.message_schedules ADD CONSTRAINT chk_schedule_type
+    CHECK (schedule_type IN ('ONCE', 'DAILY', 'WEEKLY', 'FORTNIGHTLY', 'HOURLY', 'ONLINE_ONCE'));
+-- On the first run PostgreSQL may report that this constraint does not exist;
+-- this NOTICE is expected. The next statement creates it before COMMIT.
+ALTER TABLE public.message_schedules DROP CONSTRAINT IF EXISTS chk_online_schedule_fields;
+ALTER TABLE public.message_schedules ADD CONSTRAINT chk_online_schedule_fields CHECK (
+    (schedule_type = 'ONLINE_ONCE' AND online_date IS NOT NULL AND send_time IS NOT NULL AND online_request_id IS NOT NULL)
+    OR (schedule_type <> 'ONLINE_ONCE' AND phase_id IS NOT NULL)
+);
+CREATE UNIQUE INDEX IF NOT EXISTS uq_online_schedule_request ON public.message_schedules (online_request_id) WHERE online_request_id IS NOT NULL;
+
 COMMIT;

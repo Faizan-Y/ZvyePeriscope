@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import logging
+import hashlib
+import json
 import importlib.util
 import mimetypes
 import os
@@ -8,6 +10,8 @@ import re
 import shutil
 import uuid
 from contextlib import contextmanager
+from datetime import date, datetime, time, timezone
+from zoneinfo import ZoneInfo
 from pathlib import Path
 from typing import Any, Iterator, Literal
 from urllib.parse import urlparse
@@ -44,9 +48,8 @@ DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
 DATABASE_SCHEMA = os.getenv("DATABASE_SCHEMA", "public").strip() or "public"
 ALLOW_DB_WRITES = os.getenv("ALLOW_DB_WRITES", "false").strip().lower() in {"1", "true", "yes", "on"}
 ENABLE_LIVE_WHATSAPP_SENDS = os.getenv("ENABLE_LIVE_WHATSAPP_SENDS", "false").strip().lower() in {"1", "true", "yes", "on"}
-WHATSAPP_ALLOWED_CHAT_IDS_RAW = os.getenv("WHATSAPP_ALLOWED_CHAT_IDS", "").strip()
 LIVE_SENDS_REQUIRED_DATABASE = os.getenv("LIVE_SENDS_REQUIRED_DATABASE", "zyvefit_portal_test").strip()
-MAX_UPLOAD_MB = max(1, min(int(os.getenv("MAX_UPLOAD_MB", "25")), 100))
+MAX_UPLOAD_MB = max(1, min(int(os.getenv("MAX_UPLOAD_MB", "100")), 100))
 MAX_UPLOAD_BYTES = MAX_UPLOAD_MB * 1024 * 1024
 
 if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", DATABASE_SCHEMA):
@@ -156,22 +159,6 @@ def normalize_live_chat_id(value: str, audience_mode: Literal["member", "group"]
     return f"{digits}@c.us"
 
 
-def allowed_live_chat_ids() -> set[str]:
-    """Normalize entries in WHATSAPP_ALLOWED_CHAT_IDS using the same rules as DB recipients."""
-    allowed: set[str] = set()
-    for raw in WHATSAPP_ALLOWED_CHAT_IDS_RAW.split(","):
-        value = raw.strip()
-        if not value:
-            continue
-        try:
-            mode: Literal["member", "group"] = "group" if value.endswith("@g.us") else "member"
-            allowed.add(normalize_live_chat_id(value, mode))
-        except HTTPException:
-            # Invalid allowlist entries are ignored; they never widen access.
-            continue
-    return allowed
-
-
 def live_send_configuration_issues() -> list[str]:
     """Return human-readable blockers without exposing credentials."""
     issues: list[str] = []
@@ -182,8 +169,6 @@ def live_send_configuration_issues() -> list[str]:
     phone = re.sub(r"\D", "", os.getenv("PERISKOPE_PHONE", ""))
     if not 11 <= len(phone) <= 15:
         issues.append("PERISKOPE_PHONE is missing or is not an international phone number.")
-    if not allowed_live_chat_ids():
-        issues.append("WHATSAPP_ALLOWED_CHAT_IDS is empty or contains no valid recipient IDs.")
     if os.getenv("SENDS_ENABLED", "true").strip().lower() in {"false", "0", "no", "off"}:
         issues.append("SENDS_ENABLED is false (the shared scheduler/API kill switch is active).")
     if (ROOT / "STOP_SENDS").exists():
@@ -756,6 +741,10 @@ def update_template(template_id: int, payload: TemplatePayload) -> dict[str, Any
     try:
         with db() as conn:
             cur = conn.cursor()
+            if "online_date" in get_columns(cur, "message_schedules"):
+                cur.execute(sql.SQL("SELECT 1 FROM {} WHERE template_id=%s AND schedule_type='ONLINE_ONCE' LIMIT 1").format(qtable("message_schedules")), (template_id,))
+                if cur.fetchone():
+                    raise HTTPException(status_code=409, detail="Scheduled message snapshots cannot be edited.")
             cur.execute(sql.SQL("SELECT is_media_template, media_asset_id FROM {} WHERE template_id=%s").format(qtable("templates")), (template_id,))
             current = cur.fetchone()
             if not current:
@@ -1110,11 +1099,11 @@ def _registered_media_for_send(cur: psycopg.Cursor, payload: LiveSendPayload,
         supplied_url = stored_url
 
     validated = validate_media_url(supplied_url)
-    if not validated or not validated.lower().startswith("https://"):
+    if not validated:
         raise HTTPException(status_code=422, detail="Live media needs a publicly reachable HTTPS URL. Files stored on your Mac at /uploads/... cannot be fetched by Periskope.")
     parsed = urlparse(validated)
     host = (parsed.hostname or "").lower()
-    if host in {"localhost", "127.0.0.1", "::1"} or host.endswith(".local"):
+    if validated.startswith("https://") and (host in {"localhost", "127.0.0.1", "::1"} or host.endswith(".local")):
         raise HTTPException(status_code=422, detail="Live media needs a public HTTPS URL; local hosts cannot be fetched by Periskope.")
 
     if asset_row is None:
@@ -1203,7 +1192,7 @@ def _finish_manual_send_log(message_log_id: int, status: str, error_message: str
 
 @app.post("/api/send", status_code=202)
 def send_live_message(payload: LiveSendPayload) -> dict[str, Any]:
-    """Manually send one allowlisted member/group message using the existing scheduler adapter."""
+    """Manually send one member/group message using the existing scheduler adapter."""
     config_issues = live_send_configuration_issues()
     if config_issues:
         raise HTTPException(status_code=403, detail="Live sends are not enabled: " + " ".join(config_issues))
@@ -1308,9 +1297,6 @@ def send_live_message(payload: LiveSendPayload) -> dict[str, Any]:
                 target_chat_id = normalize_live_chat_id(str(group_row.get("periskope_chat_id") or ""), "group")
                 variables = {"group_name": recipient_name}
 
-            if target_chat_id not in allowed_live_chat_ids():
-                raise HTTPException(status_code=403, detail=f"'{recipient_name}' is not in WHATSAPP_ALLOWED_CHAT_IDS. No message was sent.")
-
             if template_row:
                 _enforce_manual_scope(template_row.get("audience_scope"), template_row.get("tier_id"), template_row.get("member_id"),
                                       payload.audience_mode, member_db_id, member_tier_id, "The selected template")
@@ -1398,15 +1384,202 @@ def send_live_message(payload: LiveSendPayload) -> dict[str, Any]:
     }
 
 
+class OnlineSchedulePayload(BaseModel):
+    tier: str
+    phase: str = "all"
+    scheduled_date: date | None = None
+    scheduled_time: time | None = None
+    message: str = Field(default="", max_length=4096)
+    title: str = Field(default="Dashboard message", max_length=120)
+    media_asset_id: str | None = None
+    promotion: bool = False
+    request_id: uuid.UUID
+    send_now: bool = False
+
+
+def online_request_fingerprint(payload: OnlineSchedulePayload) -> str:
+    """Bind a request ID to user-supplied intent, not the assigned send-now time."""
+    fields = {
+        "tier": payload.tier,
+        "phase": payload.phase,
+        "message": payload.message.strip(),
+        "title": payload.title.strip() or "Dashboard message",
+        "media_asset_id": payload.media_asset_id or None,
+        "promotion": payload.promotion,
+        "send_now": payload.send_now,
+        "scheduled_date": None if payload.send_now else (payload.scheduled_date.isoformat() if payload.scheduled_date else None),
+        "scheduled_time": None if payload.send_now else (payload.scheduled_time.isoformat() if payload.scheduled_time else None),
+    }
+    canonical = json.dumps(fields, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def online_preview(cur: psycopg.Cursor, tier: str, phase: str, promotion: bool) -> dict[str, Any]:
+    cur.execute(sql.SQL("SELECT tier_id FROM {} WHERE tier_name=%s").format(qtable("tiers")), (tier,))
+    tier_row = cur.fetchone()
+    if not tier_row:
+        raise HTTPException(status_code=422, detail="Selected tier was not found.")
+    phase_id = None
+    if phase != "all":
+        cur.execute(sql.SQL("SELECT phase_id FROM {} WHERE phase_name=%s").format(qtable("phases")), (phase,))
+        row = cur.fetchone()
+        if not row:
+            raise HTTPException(status_code=422, detail="Selected phase was not found.")
+        phase_id = row["phase_id"]
+    cur.execute(sql.SQL("""
+        SELECT m.member_id, m.member_name, g.group_id, g.group_name
+        FROM {} m LEFT JOIN {} gm ON gm.member_id=m.member_id AND gm.left_at IS NULL
+        LEFT JOIN {} g ON g.group_id=gm.group_id
+        WHERE m.is_active=TRUE AND m.tier_id=%s AND (%s::integer IS NULL OR m.phase_id=%s)
+        ORDER BY m.member_id, g.group_id
+    """).format(qtable("members"), qtable("group_members"), qtable("whatsapp_groups")), (tier_row["tier_id"], phase_id, phase_id))
+    rows = cur.fetchall()
+    pairs = [row for row in rows if row["group_id"] is not None]
+    return {"tier_id": tier_row["tier_id"], "phase_id": phase_id, "members": len({r["member_id"] for r in rows}),
+            "groups": len({r["group_id"] for r in pairs}), "messages": len({r["group_id"] for r in pairs}) if promotion else len(pairs),
+            "without_group": len({r["member_id"] for r in rows if r["group_id"] is None})}
+
+
+def validate_online_content(cur: psycopg.Cursor, payload: OnlineSchedulePayload, audience: dict[str, Any]) -> tuple[str, str | None]:
+    if payload.promotion and re.search(r"\{\{\s*(?:member_name|member_names|first_name|member_code|phase_name)\s*\}\}", payload.message, re.I):
+        raise HTTPException(status_code=422, detail="Promotion messages cannot contain member-specific placeholders.")
+    allowed = {"group_name", "tier_name"} if payload.promotion else {"group_name", "tier_name", "phase_name", "member_name", "member_names", "first_name", "member_code"}
+    stripped = re.sub(r"\{\{\s*[^{}]+\s*\}\}", "", payload.message)
+    if "{{" in stripped or "}}" in stripped:
+        raise HTTPException(status_code=422, detail="Malformed message placeholder.")
+    for token in re.findall(r"\{\{\s*([^{}]+)\s*\}\}", payload.message):
+        if token.strip().lower() not in allowed:
+            raise HTTPException(status_code=422, detail="The message contains an unsupported placeholder.")
+    media_url = None
+    kind = "TEXT"
+    if payload.media_asset_id:
+        try:
+            asset_id = int(payload.media_asset_id)
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail="Invalid media asset.") from exc
+        cur.execute(sql.SQL("SELECT media_url, message_type, audience_scope, tier_id FROM {} WHERE media_asset_id=%s").format(qtable("media_assets")), (asset_id,))
+        asset = cur.fetchone()
+        if not asset or asset["audience_scope"] == "MEMBER" or (asset["audience_scope"] == "TIER" and asset["tier_id"] != audience["tier_id"]):
+            raise HTTPException(status_code=422, detail="The media is unavailable or not permitted for this audience.")
+        media_url, kind = asset["media_url"], asset["message_type"]
+        if media_url.startswith("/uploads/"):
+            from media_payload import local_media_payload
+            try:
+                local_media_payload(media_url, kind, UPLOAD_DIR)
+            except ValueError as exc:
+                raise HTTPException(status_code=422, detail=str(exc)) from exc
+        elif not media_url.startswith("https://"):
+            raise HTTPException(status_code=422, detail="Media must be an uploaded file or HTTPS URL.")
+    if not payload.message.strip() and not media_url:
+        raise HTTPException(status_code=422, detail="Write a message or attach media.")
+    return kind, media_url
+
+
+@app.post("/api/online/preview")
+def preview_online(payload: OnlineSchedulePayload) -> dict[str, Any]:
+    require_write_ready()
+    with db() as conn:
+        cur = conn.cursor()
+        audience = online_preview(cur, payload.tier, payload.phase, payload.promotion)
+        validate_online_content(cur, payload, audience)
+        return audience
+
+
+@app.post("/api/online/schedules", status_code=201)
+def create_online_schedule(payload: OnlineSchedulePayload) -> dict[str, Any]:
+    require_write_ready()
+    issues = live_send_configuration_issues()
+    if issues:
+        raise HTTPException(status_code=403, detail="Live sending is not configured; no schedule was created.")
+    with db() as ready_conn:
+        if not inspect_schema(ready_conn.cursor())["whatsapp_sending_enabled"]:
+            raise HTTPException(status_code=403, detail="Live sending is not ready for this database.")
+    fingerprint = online_request_fingerprint(payload)
+    with db() as conn:
+        cur = conn.cursor()
+        cur.execute("SELECT pg_advisory_xact_lock(hashtext(%s))", (str(payload.request_id),))
+        cur.execute(sql.SQL("SELECT schedule_id, online_request_fingerprint FROM {} WHERE online_request_id=%s").format(qtable("message_schedules")), (payload.request_id,))
+        existing = cur.fetchone()
+        if existing:
+            if existing["online_request_fingerprint"] != fingerprint:
+                raise HTTPException(status_code=409, detail="This request ID was already used for different content. Check the outbox before starting a new message.")
+            return {"schedule_id": existing["schedule_id"], "existing": True}
+        if payload.send_now:
+            scheduled = datetime.now(ZoneInfo("Asia/Kolkata"))
+            scheduled_date = scheduled.date()
+            scheduled_time = scheduled.time().replace(second=0, microsecond=0, tzinfo=None)
+        else:
+            if payload.scheduled_date is None or payload.scheduled_time is None or payload.scheduled_time.tzinfo is not None:
+                raise HTTPException(status_code=422, detail="Choose a date and time in IST.")
+            scheduled_date, scheduled_time = payload.scheduled_date, payload.scheduled_time
+            scheduled = datetime.combine(scheduled_date, scheduled_time, tzinfo=ZoneInfo("Asia/Kolkata"))
+            if scheduled <= datetime.now(timezone.utc):
+                raise HTTPException(status_code=422, detail="Choose a future time in IST.")
+        audience = online_preview(cur, payload.tier, payload.phase, payload.promotion)
+        if not audience["messages"]:
+            raise HTTPException(status_code=422, detail="No eligible members with linked groups were found.")
+        kind, media_url = validate_online_content(cur, payload, audience)
+        code = f"ONLINE_{payload.request_id.hex.upper()}"
+        cur.execute(sql.SQL("""INSERT INTO {} (template_code, template_name, message_type, message_content, media_url, language, audience_scope, tier_id, member_id, media_asset_id, is_media_template)
+            VALUES (%s,%s,%s,%s,%s,'en','TIER',%s,NULL,%s,FALSE) RETURNING template_id""").format(qtable("templates")),
+            (code, payload.title.strip() or "Dashboard message", kind, payload.message.strip(), media_url, audience["tier_id"], int(payload.media_asset_id) if payload.media_asset_id else None))
+        template_id = cur.fetchone()["template_id"]
+        cur.execute(sql.SQL("""INSERT INTO {} (tier_id, phase_id, task_type, template_id, schedule_type, send_time, online_date, online_promotion, online_request_id, online_request_fingerprint)
+            VALUES (%s,%s,%s,%s,'ONLINE_ONCE',%s,%s,%s,%s,%s) RETURNING schedule_id""").format(qtable("message_schedules")),
+            (audience["tier_id"], audience["phase_id"], "Dashboard message", template_id, scheduled_time, scheduled_date, payload.promotion, payload.request_id, fingerprint))
+        return {"schedule_id": cur.fetchone()["schedule_id"], "template_id": template_id}
+
+
+@app.get("/api/online/requests/{request_id}")
+def lookup_online_request(request_id: uuid.UUID) -> dict[str, Any]:
+    """Resolve an uncertain submission while holding its creation lock."""
+    with db() as conn:
+        cur = conn.cursor()
+        cur.execute("SELECT pg_advisory_xact_lock(hashtext(%s))", (str(request_id),))
+        cur.execute(sql.SQL("SELECT schedule_id FROM {} WHERE online_request_id=%s").format(qtable("message_schedules")), (request_id,))
+        row = cur.fetchone()
+        return {"found": bool(row), "schedule_id": row["schedule_id"] if row else None}
+
+
+@app.get("/api/online/schedules")
+def list_online_schedules() -> list[dict[str, Any]]:
+    with db() as conn:
+        cur = conn.cursor()
+        cur.execute(sql.SQL("""SELECT s.schedule_id, s.online_date, s.send_time, s.online_promotion, s.is_active, s.online_completed_at,
+            s.online_status, t.template_name, t.message_content, tr.tier_name, p.phase_name,
+            COUNT(l.message_log_id) AS attempted, COUNT(l.message_log_id) FILTER (WHERE l.status='FAILED') AS failed,
+            COUNT(l.message_log_id) FILTER (WHERE l.status='PENDING') AS pending
+            FROM {} s JOIN {} t ON t.template_id=s.template_id JOIN {} tr ON tr.tier_id=s.tier_id
+            LEFT JOIN {} p ON p.phase_id=s.phase_id LEFT JOIN {} l ON l.schedule_id=s.schedule_id
+            WHERE s.schedule_type='ONLINE_ONCE' GROUP BY s.schedule_id,t.template_id,tr.tier_id,p.phase_id ORDER BY s.schedule_id DESC LIMIT 200""").format(qtable("message_schedules"), qtable("templates"), qtable("tiers"), qtable("phases"), qtable("message_logs")))
+        return jsonable_encoder(cur.fetchall())
+
+
+@app.post("/api/online/schedules/{schedule_id}/cancel")
+def cancel_online_schedule(schedule_id: int) -> dict[str, Any]:
+    with db() as conn:
+        cur = conn.cursor()
+        cur.execute(sql.SQL("""
+            UPDATE {} SET is_active=FALSE
+            WHERE schedule_id=%s AND schedule_type='ONLINE_ONCE' AND is_active=TRUE
+              AND online_started_at IS NULL AND online_completed_at IS NULL
+              AND (online_date + send_time) AT TIME ZONE 'Asia/Kolkata' >= clock_timestamp() + INTERVAL '5 minutes'
+            RETURNING schedule_id
+        """).format(qtable("message_schedules")), (schedule_id,))
+        if not cur.fetchone():
+            raise HTTPException(status_code=409, detail="Schedule cannot be removed: it has started, is inactive, or is less than five minutes away.")
+    return {"cancelled": True}
+
+
 @app.get("/api/no-send")
 def no_send() -> dict[str, Any]:
-    """Legacy status route; it now reports the guarded manual-send readiness state."""
+    """Report guarded manual-send readiness."""
     with db() as conn:
         status = inspect_schema(conn.cursor())
     return {
         "whatsapp_sending_enabled": bool(status["whatsapp_sending_enabled"]),
         "live_send_blockers": status.get("live_send_blockers", []),
-        "message": "Manual sends are limited to one allowlisted member or group. Scheduler behaviour is unchanged; this endpoint does not run schedules or tier/phase bulk sends.",
+        "message": "Manual sends require confirmation. Tier sends are processed by the scheduler.",
     }
 
 

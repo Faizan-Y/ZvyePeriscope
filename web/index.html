@@ -105,7 +105,7 @@
             <article class="stat-card"><div class="stat-label-row"><span class="stat-icon icon-sage"><svg class="icon"><use href="#i-library"/></svg></span><span class="stat-context">Library</span></div><div class="stat-number" id="statAssets">0</div><div class="stat-name">Media assets</div><div class="stat-foot">Files and hosted links</div></article>
             <article class="stat-card"><div class="stat-label-row"><span class="stat-icon icon-lilac"><svg class="icon"><use href="#i-template"/></svg></span><span class="stat-context">Reusable</span></div><div class="stat-number" id="statTemplates">0</div><div class="stat-name">Message templates</div><div class="stat-foot">Ready to personalise</div></article>
             <article class="stat-card"><div class="stat-label-row"><span class="stat-icon icon-peach"><svg class="icon"><use href="#i-calendar"/></svg></span><span class="stat-context">Planning</span></div><div class="stat-number" id="statScheduled">0</div><div class="stat-name">Planned messages</div><div class="stat-foot">Drafts and schedule previews</div></article>
-            <article class="stat-card"><div class="stat-label-row"><span class="stat-icon icon-blue"><svg class="icon"><use href="#i-check"/></svg></span><span class="stat-context">Connection</span></div><div class="stat-number stat-word" id="statWhatsapp">Checking…</div><div class="stat-name">WhatsApp delivery</div><div class="stat-foot">Allowlisted manual sends</div></article>
+            <article class="stat-card"><div class="stat-label-row"><span class="stat-icon icon-blue"><svg class="icon"><use href="#i-check"/></svg></span><span class="stat-context">Connection</span></div><div class="stat-number stat-word" id="statWhatsapp">Checking…</div><div class="stat-name">WhatsApp delivery</div><div class="stat-foot">Confirmed manual sends</div></article>
           </div>
 
           <div class="overview-grid">
@@ -151,14 +151,14 @@
             <div><div class="eyebrow">CONTENT LIBRARY</div><h1 id="mediaTitle">Media library</h1><p class="page-subtitle">Keep approved PDFs, images, audio, and videos in one place.</p></div>
             <div class="heading-actions"><button class="button button-secondary" id="addHostedUrl"><svg class="icon"><use href="#i-link"/></svg> Add a hosted URL</button><button class="button button-primary" id="uploadTopBtn"><svg class="icon"><use href="#i-upload"/></svg> Upload files</button></div>
           </div>
-          <div class="subtle-note"><svg class="icon"><use href="#i-info"/></svg><span><strong>Storage:</strong> uploaded files are saved on this machine and registered in PostgreSQL with a template. Live WhatsApp sends use allowlisted recipients only.</span></div>
+          <div class="subtle-note"><svg class="icon"><use href="#i-info"/></svg><span><strong>Storage:</strong> uploaded files are saved on this machine and registered in PostgreSQL with a template. Live WhatsApp sends require confirmation.</span></div>
           <div class="media-toolbar surface">
             <div class="search-field"><svg class="icon"><use href="#i-search"/></svg><input id="mediaSearch" type="search" placeholder="Search by name or filename" aria-label="Search media"></div>
             <div class="toolbar-selects"><label class="sr-only" for="mediaTypeFilter">Type</label><select id="mediaTypeFilter"><option value="all">All file types</option><option>Image</option><option>Audio</option><option>Video</option><option>PDF</option><option>Document</option><option>Location</option></select><label class="sr-only" for="mediaScopeFilter">Audience scope</label><select id="mediaScopeFilter"><option value="all">All audiences</option><option>Shared</option><option>Foundation</option><option>Pro</option><option>Max</option><option>Ultra</option><option>Member-specific</option></select><button class="button button-quiet button-small" id="clearMediaFilters">Clear filters</button></div>
           </div>
           <div class="dropzone" id="dropzone" role="group" aria-label="File upload area">
             <input id="fileInput" type="file" multiple accept=".png,.jpg,.jpeg,.webp,.gif,.mp3,.wav,.m4a,.aac,.ogg,.opus,.mp4,.mov,.webm,.m4v,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv" hidden>
-            <span class="dropzone-icon"><svg class="icon"><use href="#i-upload"/></svg></span><div><strong>Drop files here, or <span>browse your device</span></strong><p>Images, PDFs, documents, audio and video · 25 MB per file</p></div><button type="button" class="button button-secondary button-small" id="chooseFilesBtn">Choose files</button>
+            <span class="dropzone-icon"><svg class="icon"><use href="#i-upload"/></svg></span><div><strong>Drop files here, or <span>browse your device</span></strong><p>Images, PDFs, documents, audio and video · Up to 100 MB per document; 16 MB for media</p></div><button type="button" class="button button-secondary button-small" id="chooseFilesBtn">Choose files</button>
           </div>
           <div class="library-heading"><div><h2>All media <span class="count-pill" id="mediaResultCount">0</span></h2><p>Use audience scope to keep member-specific material from being reused accidentally.</p></div><div class="view-label"><span class="view-dot"></span> Browser preview</div></div>
           <div class="media-grid" id="mediaGrid"></div>
@@ -198,6 +198,10 @@
                   <div class="field"><label for="audienceTier">Tier <span class="required-mark">*</span></label><select id="audienceTier" required><option>Foundation</option><option>Pro</option><option>Max</option><option>Ultra</option></select><small>Loaded from the tiers table.</small></div>
                   <div class="field"><label for="audiencePhase">Phase <span class="optional-label">Optional</span></label><select id="audiencePhase"><option value="all">All phases</option><option value="P1">P1</option><option value="P2">P2</option><option value="P3">P3</option></select><small>Can map to <code>members.phase_id</code>.</small></div>
                 </div>
+                <label class="promotion-option" id="promotionOption">
+                  <input type="checkbox" id="promotionMode">
+                  <span class="promotion-copy"><strong>Offers / Promotion</strong><small>Send one message per eligible group</small></span>
+                </label>
                 <div class="field audience-fields" id="memberFields" hidden><label for="audienceMember">Member <span class="required-mark">*</span></label><select id="audienceMember"><option value="">Choose a member</option></select><small>Loaded from the members table.</small></div>
                 <div class="field audience-fields" id="groupFields" hidden><label for="audienceGroup">WhatsApp group <span class="required-mark">*</span></label><select id="audienceGroup"><option value="">Choose a group</option></select><small>Uses <code>whatsapp_groups</code> in the connected backend.</small></div>
                 <div class="audience-reassurance"><svg class="icon"><use href="#i-info"/></svg><span id="audienceHint">Tier messages may reach every eligible member in the selected tier. Review content before continuing.</span></div>
@@ -215,7 +219,7 @@
               </section>
 
               <section class="surface compose-section">
-                <div class="compose-section-heading"><span class="step-bubble">3</span><div><h2>Choose delivery</h2><p>Confirmed sends go to one allowlisted member or group via Periskope. Drafts and previews stay in this browser.</p></div></div>
+                <div class="compose-section-heading"><span class="step-bubble">3</span><div><h2>Choose delivery</h2><p>Tier messages are personalised per member, or sent once per group for promotions.</p></div></div>
                 <div class="delivery-options" id="deliveryOptions">
                   <label class="delivery-card selected"><input type="radio" name="delivery" value="now" checked><span class="delivery-radio"></span><span class="delivery-icon"><svg class="icon"><use href="#i-send"/></svg></span><span class="delivery-copy"><strong>Send now</strong><small>Confirmed send to the selected recipient</small></span></label>
                   <label class="delivery-card"><input type="radio" name="delivery" value="schedule"><span class="delivery-radio"></span><span class="delivery-icon"><svg class="icon"><use href="#i-clock"/></svg></span><span class="delivery-copy"><strong>Schedule</strong><small>Choose a future date and time</small></span></label>

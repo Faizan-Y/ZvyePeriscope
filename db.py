@@ -151,14 +151,22 @@ def create_pending_log(candidate: dict[str, Any], content: str) -> int | None:
     group_id = candidate["group_id"]
     member_id = candidate.get("log_member_id")
     scheduled_at_utc = _scheduled_at_utc_naive(candidate["scheduled_at"])
+    lock_member = "promotion" if candidate["schedule"].get("online_promotion") else member_id
     lock_key = (
-        f"zyvefit-send:{schedule_id}:{group_id}:{member_id}:"
+        f"zyvefit-send:{schedule_id}:{group_id}:{lock_member}:"
         f"{scheduled_at_utc.isoformat(timespec='minutes')}Z"
     )
 
     def operation(conn):
         # Transaction-level lock releases automatically when this transaction ends.
         conn.execute("SELECT pg_advisory_xact_lock(hashtext(%s))", (lock_key,))
+        if candidate["schedule"].get("online_promotion"):
+            existing_group = conn.execute(
+                "SELECT message_log_id FROM message_logs WHERE schedule_id=%s AND group_id=%s AND scheduled_at=%s LIMIT 1",
+                (schedule_id, group_id, scheduled_at_utc),
+            ).fetchone()
+            if existing_group:
+                return None
         existing = conn.execute(
             """
             SELECT message_log_id

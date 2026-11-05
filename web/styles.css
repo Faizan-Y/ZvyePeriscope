@@ -63,3 +63,11 @@
     height: 100%;
     object-fit: contain;
   }
+/* Tier-only promotion control, aligned with the audience selection. */
+.promotion-option{display:flex;align-items:center;gap:10px;margin:13px 0 0;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fbfcfa;cursor:pointer}
+.promotion-option[hidden]{display:none}
+.promotion-option:hover{border-color:#c8d9cb}
+.promotion-option input{width:16px;height:16px;margin:0;flex:0 0 auto;accent-color:var(--sage);cursor:pointer}
+.promotion-copy{display:flex;flex-direction:column;gap:4px;min-width:0}
+.promotion-copy strong{font-size:10.5px;font-weight:700;color:var(--ink-soft)}
+.promotion-copy small{font-size:9px;line-height:1.4;color:var(--muted)}

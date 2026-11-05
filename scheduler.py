@@ -18,7 +18,7 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 import requests
 from dotenv import load_dotenv
 
-from db import create_pending_log, fetch_all, fetch_attention_rows, get_database_url, update_log_after_send
+from db import create_pending_log, fetch_all, fetch_attention_rows, get_database_url, update_log_after_send, run_with_retry
 from periskope_adapter import build_client, send_message
 from schedule_engine import due_occurrences, schedule_matches_member
 from pathlib import Path
@@ -52,7 +52,7 @@ SCHEDULES_SQL = """
     FROM message_schedules ms
     JOIN tiers t ON t.tier_id = ms.tier_id
     JOIN templates tp ON tp.template_id = ms.template_id
-    WHERE ms.is_active = TRUE
+    WHERE ms.is_active = TRUE AND ms.schedule_type <> 'ONLINE_ONCE'
     ORDER BY ms.schedule_id
 """
 
@@ -205,6 +205,7 @@ def render_template(candidate: dict[str, Any]) -> str:
     variables = {
         "member_name": display_name,
         "member_names": display_name,
+        "member_code": str(first_member.get("member_code") or ""),
         "first_name": names[0].split()[0] if names else "there",
         "tier_name": schedule.get("tier_name") or "",
         "phase_name": first_member.get("phase_name") or "",
@@ -258,7 +259,8 @@ def process_candidate(candidate: dict[str, Any], dry_run: bool, client: Any | No
 
     # The @mention footer pings the intended members even when the group is
     # muted; members without a phone_number get no footer.
-    content += mention_footer(candidate["members"])
+    if not schedule.get("online_promotion"):
+        content += mention_footer(candidate["members"])
 
     message_type = str(schedule.get("message_type", "TEXT")).upper()
     media_url = schedule.get("media_url")
@@ -434,6 +436,79 @@ def candidate_attempt_key(candidate: dict[str, Any]) -> tuple[Any, ...]:
     )
 
 
+def run_online_schedules(dry_run: bool, client: Any | None, send_cap: int | None, now_utc: datetime) -> int:
+    """Handle dashboard schedules independently while sharing the existing cycle cap."""
+    # The migration must be applied before dashboard schedules are enabled.
+    def load(conn):
+        if not conn.execute("SELECT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema=current_schema() AND table_name='message_schedules' AND column_name='online_date') AS ok").fetchone()["ok"]:
+            return []
+        return list(conn.execute("""SELECT s.*, t.tier_name, p.phase_name, tp.template_code, tp.message_content, tp.message_type, tp.media_url
+            FROM message_schedules s JOIN tiers t ON t.tier_id=s.tier_id LEFT JOIN phases p ON p.phase_id=s.phase_id
+            JOIN templates tp ON tp.template_id=s.template_id
+            WHERE s.schedule_type='ONLINE_ONCE' AND s.is_active=TRUE AND s.online_completed_at IS NULL AND COALESCE(s.online_status,'') <> 'REVIEW'
+            AND (s.online_date + s.send_time) AT TIME ZONE 'Asia/Kolkata' <= CURRENT_TIMESTAMP
+            ORDER BY s.online_date, s.send_time, s.schedule_id""").fetchall())
+    schedules = run_with_retry(load)
+    attempted = 0
+    cutoff = max(0, int(os.getenv("CATCHUP_MINUTES", "1440")))
+    for schedule in schedules:
+        if not dry_run and kill_switch_tripped():
+            break
+        due = datetime.combine(schedule["online_date"], schedule["send_time"], tzinfo=ZoneInfo("Asia/Kolkata")).astimezone(timezone.utc)
+        if schedule.get("online_started_at") is None and (now_utc - due).total_seconds() > cutoff * 60:
+            logger.warning("[ONLINE MISSED] schedule=%s exceeded catch-up window; manual review required", schedule["schedule_id"])
+            if not dry_run:
+                run_with_retry(lambda conn: conn.execute("UPDATE message_schedules SET online_status='EXPIRED', is_active=FALSE WHERE schedule_id=%s AND online_started_at IS NULL AND online_completed_at IS NULL", (schedule["schedule_id"],)))
+            continue
+        def recipients(conn):
+            return list(conn.execute("""SELECT m.*, p.phase_name, g.group_id, g.group_name, g.periskope_chat_id
+                FROM members m JOIN group_members gm ON gm.member_id=m.member_id AND gm.left_at IS NULL
+                JOIN whatsapp_groups g ON g.group_id=gm.group_id LEFT JOIN phases p ON p.phase_id=m.phase_id
+                WHERE m.is_active=TRUE AND m.tier_id=%s AND (%s::integer IS NULL OR m.phase_id=%s)
+                ORDER BY g.group_id, m.member_id""", (schedule["tier_id"], schedule["phase_id"], schedule["phase_id"])).fetchall())
+        rows = run_with_retry(recipients)
+        if schedule["online_promotion"]:
+            grouped = {}
+            for row in rows:
+                grouped.setdefault(row["group_id"], row)
+            rows = list(grouped.values())
+        exhausted = False
+        for row in rows:
+            if not dry_run and (kill_switch_tripped() or (send_cap is not None and attempted >= send_cap)):
+                exhausted = True
+                break
+            candidate = {"schedule": schedule, "scheduled_at": due.replace(second=0, microsecond=0), "group_id": row["group_id"], "group_name": row["group_name"],
+                         "chat_id": row["periskope_chat_id"], "members": [] if schedule["online_promotion"] else [row],
+                         "log_member_id": row["member_id"]}
+            if dry_run:
+                logger.info("[ONLINE PREVIEW] schedule=%s group=%s member=%s", schedule["schedule_id"], row["group_id"], candidate["log_member_id"])
+                continue
+            def claim(conn):
+                locked = conn.execute("SELECT is_active, online_completed_at FROM message_schedules WHERE schedule_id=%s FOR UPDATE", (schedule["schedule_id"],)).fetchone()
+                if not locked or not locked["is_active"] or locked["online_completed_at"] is not None:
+                    return False
+                conn.execute("UPDATE message_schedules SET online_started_at=COALESCE(online_started_at,CURRENT_TIMESTAMP) WHERE schedule_id=%s", (schedule["schedule_id"],))
+                return True
+            if not run_with_retry(claim):
+                break
+            if process_candidate(candidate, False, client):
+                attempted += 1
+            else:
+                def logged(conn):
+                    return conn.execute("SELECT 1 FROM message_logs WHERE schedule_id=%s AND group_id=%s AND scheduled_at=%s AND (%s OR member_id=%s) LIMIT 1", (schedule["schedule_id"], row["group_id"], due.astimezone(timezone.utc).replace(second=0, microsecond=0, tzinfo=None), schedule["online_promotion"], row["member_id"])).fetchone()
+                if not run_with_retry(logged):
+                    logger.warning("[ONLINE NEEDS REVIEW] schedule=%s group=%s was not processed", schedule["schedule_id"], row["group_id"])
+                    run_with_retry(lambda conn: conn.execute("UPDATE message_schedules SET online_status='REVIEW' WHERE schedule_id=%s", (schedule["schedule_id"],)))
+                    return attempted
+        if exhausted:
+            return attempted
+        if not dry_run:
+            def complete(conn):
+                conn.execute("UPDATE message_schedules SET online_completed_at=CURRENT_TIMESTAMP, online_status='COMPLETE' WHERE schedule_id=%s AND is_active=TRUE AND COALESCE(online_status,'') <> 'REVIEW'", (schedule["schedule_id"],))
+            run_with_retry(complete)
+    return attempted
+
+
 def run_one_cycle(
     dry_run: bool,
     client: Any | None,
@@ -501,6 +576,10 @@ def run_one_cycle(
         if process_candidate(candidate, dry_run, client):
             if sends_left is not None:
                 sends_left -= 1
+    remaining = None if send_cap is None else max(0, sends_left or 0)
+    # Filtered/one-shot runs must never process unrelated dashboard schedules.
+    if schedule_id_filter is None and member_code_filter is None and not force_due_for_preview and not halted:
+        run_online_schedules(dry_run, client, remaining, now_utc)
     if not dry_run:
         report_needs_attention()
     if not halted and not cap_deferred:

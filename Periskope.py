@@ -1,5 +1,6 @@
 import logging
 import os
+import re
 
 import requests
 from dotenv import load_dotenv
@@ -13,7 +14,7 @@ class Periskope:
 
     def __init__(self):
         self.api_key = os.getenv("PERISKOPE_API_KEY")
-        self.phone = os.getenv("PERISKOPE_PHONE")
+        self.phone = re.sub(r"\D", "", os.getenv("PERISKOPE_PHONE", ""))
 
         # A request without a timeout can hang the whole single-threaded
         # scheduler, so every call is bounded. Invalid values fall back to 30s.
@@ -53,24 +54,18 @@ class Periskope:
         )
 
         logger.debug("Status: %s", response.status_code)
-        logger.debug("Response: %s", response.text)
 
         return response
 
-    def send_media(self, chat_id, media_url, media_type, caption=None, filename=None):
+    def send_media(self, chat_id, media_url, media_type, caption=None, filename=None, media_payload=None):
         logger.debug("Sending media...")
         logger.debug("Chat ID: %s", chat_id)
-        logger.debug("Media URL: %s", media_url)
         logger.debug("Media Type: %s", media_type)
-        logger.debug("Caption: %s", caption)
 
         data = {
             "chat_id": chat_id,
             "message": caption or "",
-            "media": {
-                "url": media_url,
-                "type": media_type,
-            }
+            "media": media_payload if media_payload is not None else {"url": media_url, "type": media_type}
         }
 
         if filename:
@@ -84,6 +79,5 @@ class Periskope:
         )
 
         logger.debug("Status: %s", response.status_code)
-        logger.debug("Response: %s", response.text)
 
         return response

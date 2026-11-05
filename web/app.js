@@ -4,7 +4,7 @@
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
   const STORE_KEY = 'zyvefit-nutrition-console-v2';
-  const MAX_FILE_BYTES = 25 * 1024 * 1024;
+  const MAX_FILE_BYTES = 100 * 1024 * 1024;
   const TYPES = ['Text', 'Image', 'Audio', 'Video', 'Document', 'Location'];
   const TIERS = ['Foundation', 'Pro', 'Max', 'Ultra'];
   const SCOPES = ['Shared', ...TIERS, 'Member-specific'];
@@ -17,6 +17,10 @@
   let dbRecordsData = null;
   let dbRecordsError = '';
   let activeDbTable = 'tiers';
+  let onlineSchedules = [];
+  let onlineRequestId = null;
+  let pendingOnlinePayload = null;
+  let onlineSubmitting = false;
 
   // Recipients and groups are loaded from PostgreSQL via /api/bootstrap.
   let demoMembers = [];
@@ -313,10 +317,10 @@
       const dbPhases = (data.phases || []).map(p => ({ id: p.id, name: p.name })).filter(p => p.name);
       if (dbPhases.length) $('#audiencePhase').innerHTML = `<option value="all">All phases</option>` + dbPhases.map(p => `<option value="${esc(p.name)}">${esc(p.name)}</option>`).join('');
       if (backendLiveSendingEnabled) {
-        setConnectionStatus('writing', 'LIVE SENDS ARMED', 'Manual WhatsApp sends are enabled only for allowlisted single recipients and always require confirmation. Scheduler behaviour is unchanged.');
-        setConnectionCopy('Connected to the configured database', 'Manual sends are available only to allowlisted members/groups. Drafts and future schedules remain local previews; do not expose this app beyond localhost.', 'Local console · allowlisted manual sends enabled');
+        setConnectionStatus('writing', 'LIVE SENDS ARMED', 'Manual WhatsApp sends are enabled only for single recipients and always require confirmation. Scheduler behaviour is unchanged.');
+        setConnectionCopy('Connected to the configured database', 'Manual sends are available to members/groups. Drafts and future schedules remain local previews; do not expose this app beyond localhost.', 'Local console · manual sends enabled');
       } else if (backendWritesEnabled) {
-        setConnectionStatus('writing', 'DATABASE · WRITES ON', 'Database writes are enabled. Live sending remains disabled until the explicit flag, adapter, allowlist, database check, and log schema are ready.');
+        setConnectionStatus('writing', 'DATABASE · WRITES ON', 'Database writes are enabled. Live sending remains disabled until the explicit flag, adapter, database check, and log schema are ready.');
         setConnectionCopy('Connected to the configured database', 'Media uploads and templates are saved to PostgreSQL. Drafts/schedules are still browser previews unless manual live-send readiness is enabled.', 'Local console · live-send gate is currently off');
       } else if (backendMigrationReady) {
         setConnectionStatus('readonly', 'POSTGRESQL · READ ONLY', 'Database connected, but database writes are disabled in .env.');
@@ -326,6 +330,7 @@
         setConnectionCopy('Database connected — read-only check first', 'Your existing templates and audience lists are being read. Media uploads/template saves are blocked until the reviewed migration is applied to a test copy.', 'Local-only · migration needed before writes');
       }
       await refreshDatabaseRecords(false);
+      try { onlineSchedules = await apiRequest('/api/online/schedules'); } catch { onlineSchedules = []; }
       renderAll();
       renderDatabaseExplorer();
     } catch (error) {
@@ -427,6 +432,7 @@
     else if (action === 'template-edit') openTemplateEditor(id);
     else if (action === 'template-use') useTemplate(id);
     else if (action === 'template-delete') deleteTemplate(id);
+    else if (action === 'online-cancel') cancelOnlineSchedule(id);
     else if (action === 'outbox-edit') editOutboxItem(id);
     else if (action === 'outbox-duplicate') duplicateOutboxItem(id);
     else if (action === 'outbox-cancel') cancelOutboxItem(id);
@@ -458,7 +464,7 @@
     let addedAssets = [];
     const rejected = [];
     for (const file of files) {
-      if (file.size > MAX_FILE_BYTES) { rejected.push(`${file.name} is larger than 25 MB`); continue; }
+      if (file.size > MAX_FILE_BYTES) { rejected.push(`${file.name} is larger than 100 MB`); continue; }
       if (backendConnected) {
         if (!backendWritesEnabled) { rejected.push(`${file.name} not uploaded: database writes are disabled until the test database is prepared.`); continue; }
         const form = new FormData();
@@ -728,7 +734,7 @@
         const input = $('#templateUploadFile');
         const file = input.files?.[0];
         if (!file) { notify('Choose an image, audio, video, or document first.', 'error'); input.focus(); return; }
-        if (file.size > MAX_FILE_BYTES) { notify('This file is larger than the 25 MB upload limit.', 'error'); return; }
+        if (file.size > MAX_FILE_BYTES) { notify('This file is larger than the 100 MB upload limit.', 'error'); return; }
         const scope = $('#templateScope').value;
         const selectedMemberId = scope === 'Member-specific' ? $('#templateMember').value : '';
         if (scope === 'Member-specific' && !selectedMemberId) { notify('Choose the assigned member before uploading member-specific media.', 'error'); return; }
@@ -920,6 +926,7 @@
   $$('#audienceTabs [data-audience]').forEach(button => button.addEventListener('click', () => setAudienceMode(button.dataset.audience)));
   $('#audienceTier').addEventListener('change', updateComposer);
   $('#audiencePhase').addEventListener('change', updateComposer);
+  $('#promotionMode').addEventListener('change', updateComposer);
   $('#audienceMember').addEventListener('change', updateComposer);
   $('#audienceGroup').addEventListener('change', updateComposer);
   $('#messageTitle').addEventListener('input', updateComposer);
@@ -1019,13 +1026,14 @@
     };
     setCheck('#checkAudience', '#checkAudienceText', audienceOK, 'Audience selected', 'Choose the intended audience');
     setCheck('#checkContent', '#checkContentText', contentOK, 'Message text or media attached', 'Add text or attach media');
-    setCheck('#checkDelivery', '#checkDeliveryText', deliveryOK, delivery === 'schedule' ? 'Future delivery time selected' : delivery === 'draft' ? 'Ready to save as draft' : (backendLiveSendingEnabled ? (audience.mode === 'tier' ? 'Select one member or group' : 'Ready for allowlisted live send') : 'Ready for queue preview'), delivery === 'schedule' ? 'Select a future date and time' : 'Choose a delivery plan');
+    setCheck('#checkDelivery', '#checkDeliveryText', deliveryOK, delivery === 'schedule' ? 'Future delivery time selected' : delivery === 'draft' ? 'Ready to save as draft' : (backendLiveSendingEnabled ? (audience.mode === 'tier' ? 'Select one member or group' : 'Ready for live send') : 'Ready for queue preview'), delivery === 'schedule' ? 'Select a future date and time' : 'Choose a delivery plan');
   }
   function updateComposer() {
     const audience = getAudience();
     const text = $('#messageBody').value;
     const asset = selectedAsset();
     const delivery = getSelectedDelivery();
+    $('#promotionOption').hidden = audience.mode !== 'tier';
     $('#charCount').textContent = `${text.length} / 4096`;
     $('#previewText').textContent = text.trim() || (asset ? 'Media preview. Add an optional caption above.' : 'Your message preview will appear here as you type.');
     $('#previewGroupName').textContent = audience.id ? audience.label : (state.audienceMode === 'tier' ? $('#audienceTier').value : 'Choose an audience');
@@ -1042,7 +1050,7 @@
     if (delivery === 'draft') { submit.innerHTML = `${icon('file')}<span>Save draft</span>`; }
     else if (delivery === 'schedule') { submit.innerHTML = `${icon('calendar')}<span>Schedule preview</span>`; }
     else if (backendLiveSendingEnabled && audience.mode !== 'tier') { submit.innerHTML = `${icon('send')}<span>Send live message</span>`; }
-    else if (backendLiveSendingEnabled) { submit.innerHTML = `${icon('send')}<span>Select one recipient</span>`; }
+    else if (backendLiveSendingEnabled) { submit.innerHTML = `${icon('send')}<span>Review tier message</span>`; }
     else { submit.innerHTML = `${icon('send')}<span>Add to preview queue</span>`; }
     const audienceHint = state.audienceMode === 'tier'
       ? 'A tier may include many eligible members. Check that the content is suitable for everyone in the selected tier and phase. Direct sends require one member or group.'
@@ -1092,6 +1100,7 @@
     event.preventDefault();
     const delivery = getSelectedDelivery();
     const audience = getAudience();
+    if (pendingOnlinePayload && (audience.mode !== 'tier' || delivery === 'draft')) { notify('Resolve the previous tier submission before starting another message.', 'error'); return; }
     const title = $('#messageTitle').value.trim();
     const text = $('#messageBody').value.trim();
     const asset = selectedAsset();
@@ -1110,6 +1119,55 @@
       if (!date || date.getTime() <= Date.now()) { notify('Choose a date and time in the future (Asia/Kolkata).', 'error'); $('#scheduleTime').focus(); return; }
       scheduledAt = date.toISOString();
     }
+    if (audience.mode === 'tier' && delivery !== 'draft') {
+      if (!backendConnected || !backendLiveSendingEnabled) { notify('Live sending is not enabled; no schedule was created.', 'error'); return; }
+      if (onlineSubmitting) return;
+      const intent = {
+        tier: audience.tier, phase: audience.phase, message: text,
+        title: title || 'Dashboard message', media_asset_id: asset?.serverAssetId || null,
+        promotion: $('#promotionMode').checked, send_now: delivery === 'now',
+        scheduled_date: delivery === 'schedule' ? scheduledDate : null,
+        scheduled_time: delivery === 'schedule' ? scheduledTime : null
+      };
+      if (asset && !intent.media_asset_id) { notify('Select a media item saved in the database.', 'error'); return; }
+      if (pendingOnlinePayload && JSON.stringify(intent) !== JSON.stringify(pendingOnlinePayload.intent)) {
+        notify('The previous submission is unresolved. Restore its original content and retry to check its status before creating a different message.', 'error');
+        return;
+      }
+      onlineSubmitting = true;
+      const submitButton = $('#submitComposer');
+      submitButton.disabled = true;
+      try {
+        if (pendingOnlinePayload) {
+          const status = await apiRequest(`/api/online/requests/${encodeURIComponent(pendingOnlinePayload.requestId)}`);
+          if (status.found) {
+            onlineRequestId = null; pendingOnlinePayload = null;
+            try { onlineSchedules = await apiRequest('/api/online/schedules'); } catch { /* Saved; outbox can be refreshed later. */ }
+            resetComposer(); renderAll(); go('outbox');
+            notify('The previous message was saved. Check the outbox for its status.');
+            return;
+          }
+        }
+        if (!onlineRequestId) onlineRequestId = crypto.randomUUID();
+        const payload = { ...intent, request_id: onlineRequestId };
+        const preview = await apiRequest('/api/online/preview', { method: 'POST', body: JSON.stringify(payload) });
+        if (!preview.messages) { notify('No eligible members with linked groups were found.', 'error'); return; }
+        const when = delivery === 'schedule' ? `${scheduledDate} ${scheduledTime} IST` : 'as soon as the scheduler processes it';
+        if (!window.confirm(`REAL WHATSAPP SEND\n\n${preview.members} eligible members, ${preview.groups} groups, ${preview.messages} messages.\n${preview.without_group} members have no group.\nRecipients may change before delivery.\n\nDelivery: ${when}\n\nContinue?`)) return;
+        // Persist only in this tab; if the response is uncertain, do not replace the ID.
+        pendingOnlinePayload = { requestId: onlineRequestId, intent };
+        await apiRequest('/api/online/schedules', {method:'POST', body:JSON.stringify(payload)});
+        onlineRequestId = null; pendingOnlinePayload = null;
+        try { onlineSchedules = await apiRequest('/api/online/schedules'); } catch { /* Saved; outbox can be refreshed later. */ }
+        resetComposer(); renderAll(); go('outbox');
+        notify('Message saved for the scheduler. Provider delivery is not yet confirmed.');
+      } catch (error) {
+        notify(pendingOnlinePayload ? `Submission outcome may be uncertain: ${error.message}. Retry unchanged to check its status.` : `Could not prepare schedule: ${error.message}`, 'error');
+      } finally {
+        onlineSubmitting = false; submitButton.disabled = false; updateComposer();
+      }
+      return;
+    }
     if (delivery === 'now' && backendLiveSendingEnabled) {
       if (!backendConnected) { notify('The backend is not connected. No message was sent.', 'error'); return; }
       if (audience.mode !== 'member' && audience.mode !== 'group') {
@@ -1119,7 +1177,7 @@
       let liveMediaUrl = '';
       if (asset) {
         liveMediaUrl = String(asset.url || '').trim();
-        if (!/^https:\/\//i.test(liveMediaUrl)) {
+        if (!/^https:\/\//i.test(liveMediaUrl) && !(asset.serverAssetId && liveMediaUrl.startsWith('/uploads/'))) {
           notify('This file is stored on your local Mac. Periskope cannot fetch a local /uploads URL. Use a registered, publicly reachable HTTPS media URL for live media; text sends are available now.', 'error');
           return;
         }
@@ -1127,7 +1185,7 @@
       const approvedRecipient = audience.label;
       const textPreview = text || '(no caption; media only)';
       const mediaPreview = asset ? `\nMedia: ${asset.name} (${asset.type})` : '';
-      const confirmation = `REAL WHATSAPP SEND\n\nTo: ${approvedRecipient}${mediaPreview}\n\nMessage:\n${textPreview}\n\nThis sends immediately to one allowlisted recipient and cannot be undone. Continue?`;
+      const confirmation = `REAL WHATSAPP SEND\n\nTo: ${approvedRecipient}${mediaPreview}\n\nMessage:\n${textPreview}\n\nThis sends immediately to one recipient and cannot be undone. Continue?`;
       if (!window.confirm(confirmation)) return;
       const submitButton = $('#submitComposer');
       const submitHtml = submitButton.innerHTML;
@@ -1199,7 +1257,7 @@
   });
   function resetComposer() {
     $('#composerForm').reset();
-    $('#messageTitle').value = ''; $('#messageBody').value = '';
+    $('#messageTitle').value = ''; $('#messageBody').value = ''; $('#promotionMode').checked = false;
     $('#templateSelect').value = '';
     state.attachedMediaId = ''; state.editingOutboxId = '';
     $('#audienceTier').value = 'Foundation'; $('#audiencePhase').value = 'all';
@@ -1259,6 +1317,15 @@
     persist(); renderAll(); notify('Outbox item removed from the local preview.');
   }
 
+  async function cancelOnlineSchedule(id) {
+    if (!window.confirm('Remove this schedule? It must be at least five minutes before its scheduled time.')) return;
+    try {
+      await apiRequest(`/api/online/schedules/${encodeURIComponent(id)}/cancel`, { method: 'POST' });
+      onlineSchedules = await apiRequest('/api/online/schedules');
+      renderAll(); notify('Schedule removed; it will not be sent.');
+    } catch (error) { notify(error.message, 'error'); }
+  }
+
   // Outbox rendering and filters.
   $('#outboxSearch').addEventListener('input', renderOutbox);
   $('#outboxStatusFilter').addEventListener('change', renderOutbox);
@@ -1283,7 +1350,12 @@
     const query = $('#outboxSearch').value.trim().toLowerCase();
     const filter = $('#outboxStatusFilter').value;
     const visible = state.outbox.filter(item => `${item.title} ${item.audienceLabel} ${item.message}`.toLowerCase().includes(query) && (filter === 'all' || item.status === filter));
-    $('#outboxList').innerHTML = visible.map(item => {
+    const serverItems = onlineSchedules.filter(item => `${item.template_name} ${item.tier_name} ${item.message_content}`.toLowerCase().includes(query));
+    const serverHtml = serverItems.map(item => {
+      const status = item.online_status === 'REVIEW' ? 'Needs review' : item.online_status === 'EXPIRED' ? 'Expired · review' : !item.is_active ? 'Cancelled' : item.online_completed_at ? (item.failed || item.pending ? 'Needs review' : 'Submitted') : 'Scheduled';
+      return `<article class="outbox-card"><div class="outbox-main"><div class="outbox-title-row"><strong>${esc(item.template_name)}</strong><span class="status-chip">${esc(status)}</span></div><p class="outbox-audience">${esc(item.tier_name)} · ${esc(item.phase_name || 'All phases')} · ${item.online_promotion ? 'Promotion' : 'Personalised'}</p><div class="outbox-meta-row">${esc(item.online_date)} ${esc(String(item.send_time).slice(0,5))} IST · ${esc(item.attempted)} attempted · ${esc(item.failed)} failed · ${esc(item.pending)} pending</div></div>${item.is_active && !item.online_completed_at ? `<button class="button button-quiet button-small" data-action="online-cancel" data-id="${esc(item.schedule_id)}">Cancel</button>` : ''}</article>`;
+    }).join('');
+    $('#outboxList').innerHTML = serverHtml + visible.map(item => {
       const mediaMissing = item.mediaId && !findAsset(item.mediaId);
       const media = item.mediaName || mediaNameFor(item.mediaId, 'Attachment');
       const actions = item.status === 'Draft'
@@ -1302,8 +1374,8 @@
         </div><div class="outbox-actions">${actions}</div>
       </article>`;
     }).join('');
-    $('#outboxEmpty').hidden = visible.length > 0;
-    $('#outboxList').hidden = visible.length === 0;
+    $('#outboxEmpty').hidden = visible.length > 0 || serverItems.length > 0;
+    $('#outboxList').hidden = visible.length === 0 && serverItems.length === 0;
     if (visible.length === 0 && state.outbox.length > 0) {
       $('#outboxEmpty').querySelector('h3').textContent = 'No matching messages';
       $('#outboxEmpty').querySelector('p').textContent = 'Try another search or clear the status filter.';
@@ -1315,7 +1387,7 @@
       const button = $('#outboxEmpty').querySelector('button');
       button.textContent = 'Create a message'; button.onclick = () => go('compose');
     }
-    $('#outboxAllCount').textContent = String(state.outbox.length);
+    $('#outboxAllCount').textContent = String(state.outbox.length + onlineSchedules.length);
     $('#outboxDraftCount').textContent = String(state.outbox.filter(item => item.status === 'Draft').length);
     $('#outboxScheduledCount').textContent = String(state.outbox.filter(item => item.status === 'Scheduled preview').length);
     $('#outboxQueueCount').textContent = String(state.outbox.filter(item => item.status === 'Queue preview').length);
