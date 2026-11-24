@@ -28,7 +28,7 @@ from openpyxl.utils.datetime import from_excel
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_IMPORT_DIR = PROJECT_ROOT / "imports"
 DEFAULT_AUDIT_DIR = PROJECT_ROOT / "logs" / "member_import"
-PHASE_DEFAULT_ID = 1
+PHASE_DEFAULT_ID = 16
 
 REQUIRED_HEADERS = {
     "membercode": "Member Code",
